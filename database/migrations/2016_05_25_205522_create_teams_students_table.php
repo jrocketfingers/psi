@@ -17,6 +17,7 @@ class CreateTeamsStudentsTable extends Migration
             $table->integer('team_id')->unsigned();
             $table->integer('students_id')->unsigned();
             $table->boolean('isLeader');
+            $table->timestamps();
 
             $table->foreign('team_id')->references('id')->on('teams')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('students_id')->references('id')->on('students')->onUpdate('cascade')->onDelete('cascade');

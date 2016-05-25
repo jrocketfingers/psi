@@ -15,6 +15,7 @@ class CreateAssistantsTable extends Migration
         Schema::create('assistants', function (Blueprint $table) {
             $table->integer('id')->unsigned();
             $table->primary('id');
+            $table->timestamps();
 
             $table->foreign('id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
