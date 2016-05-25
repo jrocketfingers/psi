@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Assistant;
+use App\Student;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -63,10 +65,28 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        /*return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);*/
+
+        $user =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        if($data['user_type'] === 'student') {
+            Student::create([
+                'id' => $user->id
+            ]);
+        } else {
+            Assistant::create([
+                'id' => $user->id
+            ]);
+        }
+
+        return $user;
     }
 }
