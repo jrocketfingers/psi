@@ -103,7 +103,23 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'description' => 'required|max:500',
+        ]);
+
+        if($validator->fails()) {
+            return redirect()->to('roles/'.$id.'/edit')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $role = Role::find($id);
+        $role->name = $request->input('name');
+        $role->description = $request->input('description');
+        $role->save();
+
+        return redirect()->action('RolesController@show', [$id]);
     }
 
     /**
