@@ -28,3 +28,5 @@ Route::post('/users/destroy/{id}', 'UsersController@destroy');
 Route::resource('roles', 'RolesController');
 //ROUTE FOR UPDATING ROLE INFO, SAME REASON AS BEFORE
 Route::post('/roles/{id}', 'RolesController@update');
+//ROUTE FOR DESTROYING ROLES, SAME REASON AS BEFORE
+Route::post('/roles/destroy/{id}', 'RolesController@destroy');
