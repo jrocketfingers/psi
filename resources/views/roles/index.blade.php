@@ -4,7 +4,14 @@
     <div>
         <a href="{{ action('RolesController@create') }}">Add new role</a>
     </div>
-    @foreach($roles as $role)
-        <div>{{ $role->name }}</div>
-    @endforeach
+    <div>
+        <table>
+            @foreach($roles as $role)
+                <tr>
+                    <td>{{ $role->name }}</td>
+                    <td><a href="{{ action('RolesController@show', [$role->id]) }}">Show details</a></td>
+                </tr>
+            @endforeach
+        </table>
+    </div>
 @endsection
