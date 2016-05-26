@@ -50,4 +50,12 @@ class StudentsRolesController extends Controller
 
         return redirect()->action('StudentsRolesController@index',[$student_id]);
     }
+    
+    public function destroy($role_id) {
+        $user_id = Auth::user()->id;
+
+        StudentRole::where('role_id', '=', $role_id)->where('student_id', '=', $user_id)->delete();
+        
+        return redirect()->action('StudentsRolesController@index',[$user_id]);
+    }
 }
