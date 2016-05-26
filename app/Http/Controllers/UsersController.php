@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\User;
+use App\Admin;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -22,7 +25,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $this->middleware('admin');
+        $users = User::where('name', '<>', 'admin')->get();
         return view('users.index')->with('users', $users);
     }
 
@@ -108,6 +112,12 @@ class UsersController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        return redirect()->action('HomeController@index');
+        $user = Admin::find(Auth::user()->id);
+        if($user) {
+            return redirect()->action('UsersController@index');
+        } else {
+            return redirect()->action('HomeController@index');
+        }
+
     }
 }
