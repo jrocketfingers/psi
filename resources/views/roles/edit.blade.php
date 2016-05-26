@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Register</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/roles') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ action('RolesController@update', [$role->id]) }}">
                             {!! csrf_field() !!}
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -28,7 +28,7 @@
                                 <label class="col-md-4 control-label">Description</label>
 
                                 <div class="col-md-6">
-                                    <textarea type="text" class="form-control" name="description" value="{{ $role->description }}"></textarea>
+                                    <textarea type="text" class="form-control" name="description" value="{{ old('description') }}">{{ $role->description }}</textarea>
 
                                     @if ($errors->has('description'))
                                         <span class="help-block">
