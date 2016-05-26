@@ -22,11 +22,15 @@ Route::get('/home', 'HomeController@index');
 Route::get('/tasks', 'HomeController@index');
 
 Route::resource('users', 'UsersController');
-//ROUTE FOR DELETING ACCOUNTS BECAUSE DELETE VERB DOESN'T WORK
+
 Route::post('/users/destroy/{id}', 'UsersController@destroy');
+
+//ROUTE FOR USERS PREVIEW AND DELETING ACCOUNTS FOR ADMINS
+Route::get('/users', 'UsersController@index')->middleware('admin');
 
 Route::resource('roles', 'RolesController');
 //ROUTE FOR UPDATING ROLE INFO, SAME REASON AS BEFORE
 Route::post('/roles/{id}', 'RolesController@update');
 //ROUTE FOR DESTROYING ROLES, SAME REASON AS BEFORE
 Route::post('/roles/destroy/{id}', 'RolesController@destroy');
+
