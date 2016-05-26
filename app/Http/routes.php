@@ -22,5 +22,7 @@ Route::get('/home', 'HomeController@index');
 Route::get('/tasks', 'HomeController@index');
 
 Route::resource('users', 'UsersController');
-
+//ROUTE FOR DELETING ACCOUNTS BECAUSE DELETE VERB DOESN'T WORK
 Route::post('/users/destroy/{id}', 'UsersController@destroy');
+
+Route::resource('roles', 'RolesController');
