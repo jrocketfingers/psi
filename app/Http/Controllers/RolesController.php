@@ -74,7 +74,10 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        //
+        $role = Role::find($id);
+        return view('roles.show', [
+            'role' => $role
+        ]);
     }
 
     /**
@@ -85,7 +88,10 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = Role::find($id);
+        return view('roles.edit', [
+            'role' => $role,
+        ]);
     }
 
     /**
