@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Validator;
 
 class RolesController extends Controller
 {
-    //MAYBE NEED TO ADD ADMIN VALIDATION
     public function __construct()
     {
         $this->middleware('auth');
