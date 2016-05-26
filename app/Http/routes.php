@@ -21,4 +21,4 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/tasks', 'HomeController@index');
 
-
+Route::resource('users', 'UsersController');
