@@ -9,6 +9,12 @@
 
                 <div class="panel-body">
                     You are logged in!
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/users/destroy/'.Auth::user()->id) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-btn fa-user"></i>Delete account
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
