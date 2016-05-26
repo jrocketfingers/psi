@@ -11,6 +11,12 @@
                     <td>{{ $role->name }}</td>
                     <td><a href="{{ action('RolesController@show', [$role->id]) }}">Show details</a></td>
                     <td><a href="{{ action('RolesController@edit', [$role->id]) }}">Edit</a></td>
+                    <td>
+                        <form class="form-control" role="form" method="POST" action="{{ url('roles/destroy/'.$role->id) }}" >
+                            {!! csrf_field() !!}
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </table>
