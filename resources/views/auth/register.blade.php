@@ -66,13 +66,9 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <table>
-                                <tr>
-                                   <td><input type="radio"  name="user_type" value="student" checked>Student</td>
-                                    <td><input type="radio"  name="user_type" value="assistent">Assistent</td>
-                                </tr>
-                            </table>
+                        <div class="row">
+                            <div class="col-sm-4"><input type="radio"  name="user_type" value="student" checked>Student</div>
+                            <div class="col-sm-4"><input type="radio"  name="user_type" value="assistent">Assistent</div>
                         </div>
 
                         <div class="form-group">
