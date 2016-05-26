@@ -36,4 +36,5 @@ Route::post('/roles/destroy/{id}', 'RolesController@destroy');
 
 Route::get('/students_roles/create', 'StudentsRolesController@create');
 Route::post('/students_roles/create', 'StudentsRolesController@store');
+Route::post('students_roles/destroy/{role_id}', 'StudentsRolesController@destroy');
 Route::get('/students_roles/{student_id}', 'StudentsRolesController@index');
