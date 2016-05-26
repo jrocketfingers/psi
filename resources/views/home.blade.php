@@ -15,6 +15,8 @@
                             <i class="fa fa-btn fa-user"></i>Delete account
                         </button>
                     </form>
+                    <br>
+                    <a href="{{ action('UsersController@show', [Auth::user()->id]) }}" >Details</a>
                 </div>
             </div>
         </div>
