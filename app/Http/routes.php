@@ -29,8 +29,11 @@ Route::post('/users/destroy/{id}', 'UsersController@destroy');
 Route::get('/users', 'UsersController@index')->middleware('admin');
 
 Route::resource('roles', 'RolesController');
-//ROUTE FOR UPDATING ROLE INFO, SAME REASON AS BEFORE
+//ROUTE FOR UPDATING ROLE INFO, CANT USE PUT VERB
 Route::post('/roles/{id}', 'RolesController@update');
-//ROUTE FOR DESTROYING ROLES, SAME REASON AS BEFORE
+//ROUTE FOR DESTROYING ROLES, CANT USE DELETE VERB
 Route::post('/roles/destroy/{id}', 'RolesController@destroy');
 
+Route::get('/students_roles/create', 'StudentsRolesController@create');
+Route::post('/students_roles/create', 'StudentsRolesController@store');
+Route::get('/students_roles/{student_id}', 'StudentsRolesController@index');
