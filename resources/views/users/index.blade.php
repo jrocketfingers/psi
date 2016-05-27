@@ -2,16 +2,19 @@
 
 @section('content')
     <table>
-        @foreach($users as $user)
-            <tr>
-                <td>{{ $user->name }}</td>
-                <td>
-                    <form class="form-control" role="form" method="POST" action="{{ url('users/destroy/'.$user->id) }}" >
-                        {!! csrf_field() !!}
-                        <input type="submit" value="Delete">
-                    </form>
-                </td>
-            </tr>
-        @endforeach
+        <div class="container">
+            @foreach($users as $user)
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{ $user->name }}
+                    </div>
+                    <div class="col-sm-4">
+                        <form class="form-group" role="form" method="POST" action="{{ url('/users/destroy/'.$user->id) }}">
+                            <input class="form-group" type="submit" value="Delete">
+                        </form>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </table>
 @endsection

@@ -38,3 +38,6 @@ Route::get('/students_roles/create', 'StudentsRolesController@create');
 Route::post('/students_roles/create', 'StudentsRolesController@store');
 Route::post('students_roles/destroy/{role_id}', 'StudentsRolesController@destroy');
 Route::get('/students_roles/{student_id}', 'StudentsRolesController@index');
+
+Route::get('/students', 'StudentsController@getAll');
+Route::get('/students/{role_id}', 'StudentsController@getByRole');
