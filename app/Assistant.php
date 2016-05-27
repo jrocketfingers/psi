@@ -18,4 +18,8 @@ class Assistant extends Model
             return false;
         }
     }
+
+    public function user() {
+        return $this->morphOne('App\User', 'userable');
+    }
 }
