@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Assistant;
 use App\Http\Requests;
+use App\Student;
+use App\StudentRole;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,6 +28,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $path = 'home';
+        if(Assistant::isAssistant(Auth::user()->id)) {
+            $path = 'assistants.'.$path;
+        } else if(Student::isStudent(Auth::user()->id)) {
+            $path = 'students.'.$path;
+        } else {
+            $path = 'admins.'.$path;
+        }
+
+        return view($path);
     }
 }
