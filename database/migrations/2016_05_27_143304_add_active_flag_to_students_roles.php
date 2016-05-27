@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddMorphFieldsToUsers extends Migration
+class AddActiveFlagToStudentsRoles extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,8 @@ class AddMorphFieldsToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-           $table->morphs('userable');
+        Schema::table('students_roles', function (Blueprint $table) {
+            $table->boolean('isActive');
         });
     }
 
@@ -24,9 +24,8 @@ class AddMorphFieldsToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('userable_id');
-            $table->dropColumn('userable_type');
+        Schema::table('students_roles', function (Blueprint $table) {
+            $table->dropColumn('isActive');
         });
     }
 }
