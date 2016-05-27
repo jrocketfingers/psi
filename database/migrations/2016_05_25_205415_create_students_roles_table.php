@@ -16,7 +16,7 @@ class CreateStudentsRolesTable extends Migration
             $table->increments('id');
             $table->integer('role_id')->unsigned();
             $table->integer('students_id')->unsigned();
-            $table->boolean('isLeader');
+            $table->boolean('active');
             $table->timestamps();
 
             $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
