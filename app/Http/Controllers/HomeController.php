@@ -24,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $teams = Team::all();
+        return view('home', [
+            'teams' => $teams
+        ]);
     }
 }
