@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddMorphFieldsToUsers extends Migration
+class RemoveLeaderIdFromTeams extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,9 @@ class AddMorphFieldsToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-           $table->morphs('userable');
+        Schema::table('teams', function (Blueprint $table) {
+            $table->dropForeign('teams_leader_id_foreign');
+            $table->dropColumn('leader_id');
         });
     }
 
@@ -24,9 +25,6 @@ class AddMorphFieldsToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('userable_id');
-            $table->dropColumn('userable_type');
-        });
+        //
     }
 }
