@@ -9,4 +9,8 @@ class Student extends Model
     protected $fillable = [
         'id',
     ];
+
+    public function roles() {
+    	return $this->hasMany('App\Role');
+    }
 }
