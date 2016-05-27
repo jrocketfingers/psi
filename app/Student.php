@@ -33,4 +33,8 @@ class Student extends Model
             ->get();
         return $students;
     }
+    
+    public function user() {
+        return $this->morphOne('App\User', 'userable');
+    }
 }
