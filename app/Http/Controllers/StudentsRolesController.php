@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\RolesRepository;
 use App\Role;
 use App\StudentRole;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class StudentsRolesController extends Controller
 {
@@ -17,10 +17,7 @@ class StudentsRolesController extends Controller
     }
 
     public function index($student_id) {
-        $roles = DB::table('students_roles')
-                    ->where('students_roles.student_id', '=', $student_id)
-                    ->join('roles','students_roles.role_id', '=', 'roles.id')
-                    ->get();
+        $roles = RolesRepository::geByStudentId($student_id);
 
         return view('students_roles.index', [
             'roles' => $roles,
@@ -37,25 +34,25 @@ class StudentsRolesController extends Controller
     
     public function store(Request $request) {
         $student_id = Auth::user()->id;
-        $role = Role::where('name','=',$request->input('sel'))->first();
+        $role_id = $request->input('sel');
 
-        if(StudentRole::where('role_id', '=', $role->id)->where('student_id', '=', $student_id)->first()) {
+        if(StudentRole::doesExist($student_id, $role_id)) {
             return redirect()->action('StudentsRolesController@create');
         }
 
         StudentRole::create([
             'student_id' => $student_id,
-            'role_id' => $role->id,
+            'role_id' => $role_id,
         ]);
 
         return redirect()->action('StudentsRolesController@index',[$student_id]);
     }
     
     public function destroy($role_id) {
-        $user_id = Auth::user()->id;
+        $student_id = Auth::user()->id;
 
-        StudentRole::where('role_id', '=', $role_id)->where('student_id', '=', $user_id)->delete();
+        StudentRole::removeRole($student_id, $role_id);
         
-        return redirect()->action('StudentsRolesController@index',[$user_id]);
+        return redirect()->action('StudentsRolesController@index',[$student_id]);
     }
 }

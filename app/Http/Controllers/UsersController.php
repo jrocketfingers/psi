@@ -111,9 +111,9 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
+        $isAdmin = Admin::isAdmin(Auth::user()->id);
         User::destroy($id);
-        $user = Admin::find(Auth::user()->id);
-        if($user) {
+        if($isAdmin) {
             return redirect()->action('UsersController@index');
         } else {
             return redirect()->action('HomeController@index');
