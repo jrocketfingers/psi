@@ -40,4 +40,5 @@ Route::post('students_roles/destroy/{role_id}', 'StudentsRolesController@destroy
 Route::get('/students_roles/{student_id}', 'StudentsRolesController@index');
 
 Route::get('/students', 'StudentsController@getAll');
+Route::get('/students/show/{student_id}', 'StudentsController@show');
 Route::get('/students/{role_id}', 'StudentsController@getByRole');
