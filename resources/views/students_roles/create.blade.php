@@ -7,7 +7,7 @@
             <label for="sel">Chose role:</label>
             <select class="form-group" id="sel" name="sel">
                 @foreach($roles as $role)
-                    <option value="{{ $role->name }}">{{ $role->name }}</option>
+                    <option value="{{ $role->id }}">{{ $role->name }}</option>
                 @endforeach
             </select>
         </div>
