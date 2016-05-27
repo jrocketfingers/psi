@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RenameColumnInStudentsRoles extends Migration
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,11 @@ class RenameColumnInStudentsRoles extends Migration
      */
     public function up()
     {
-        Schema::table('students_roles',function (Blueprint $table) {
-            $table->renameColumn('students_id', 'student_id');
-            $table->dropColumn('isLeader');
-            $table->integer('degree');
+        Schema::create('roles', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('description');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +27,6 @@ class RenameColumnInStudentsRoles extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('roles');
     }
 }

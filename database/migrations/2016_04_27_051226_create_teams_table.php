@@ -18,7 +18,10 @@ class CreateTeamsTable extends Migration
             $table->string('project_name');
             $table->string('description');
             $table->dateTime('creation_date');
+            $table->integer('leader_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('leader_id')->references('id')->on('students');
         });
     }
 
