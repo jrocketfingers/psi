@@ -21,5 +21,19 @@
             </div>
         </div>
     </div>
+    @foreach ($teams as $team)
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {{ $team->name }}
+                    </div>
+                    <div class="panel-body">
+                        This is a Random Description
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 </div>
 @endsection
