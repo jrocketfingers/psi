@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Request extends Model
 {
+    const string accepted = "accepted";
+    const string rejected = "rejected";
+    const string unresolved = "unresolved";
+
     public function object() {
         return $this->morphTo();
     }

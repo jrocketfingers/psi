@@ -156,6 +156,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Laravel Doctrine Service Providers
+         */
+        LaravelDoctrine\ORM\DoctrineServiceProvider::class,
+
     ],
 
     /*

@@ -15,11 +15,12 @@ class CreateStudentsRolesTable extends Migration
         Schema::create('students_roles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('role_id')->unsigned();
-            $table->integer('students_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->boolean('is_active');
             $table->timestamps();
 
             $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('students_id')->references('id')->on('students')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
