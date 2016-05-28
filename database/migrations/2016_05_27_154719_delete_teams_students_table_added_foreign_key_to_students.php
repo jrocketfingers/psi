@@ -12,7 +12,6 @@ class DeleteTeamsStudentsTableAddedForeignKeyToStudents extends Migration
      */
     public function up()
     {
-        Schema::drop('teams_students');
         Schema::table('students', function (Blueprint $table) {
             $table->integer('team_id')->unsigned()->nullable();
             $table->boolean('is_leader')->nullable();
