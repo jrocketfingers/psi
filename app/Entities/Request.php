@@ -2,25 +2,34 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
-class Request extends Model
+class Request
 {
-    const string accepted = "accepted";
-    const string rejected = "rejected";
-    const string unresolved = "unresolved";
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    protected $id;
 
-    public function object() {
-        return $this->morphTo();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity="User", cascade={"all"}, fetch="EAGER")
+     */
+    protected $requester;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $status;
 
     public function accept() {
         $this->status = 'accepted';
-        $this->save();
     }
 
     public function reject() {
         $this->status = 'rejected';
-        $this->save();
     }
 }
+

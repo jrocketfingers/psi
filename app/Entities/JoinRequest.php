@@ -2,9 +2,22 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
-class JoinRequest extends Model
+class JoinRequest extends Request
 {
-    //
+    /**
+     * @ORM\ManyToOne(targetEntity="User", cascade={"all"}, fetch="EAGER")
+     */
+    protected $target;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Team", cascade={"all"}, fetch="EAGER")
+     */
+    protected $team;
+
+    public function accept() {
+        $target->team = $this->team;
+    }
 }
