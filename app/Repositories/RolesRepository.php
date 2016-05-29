@@ -5,7 +5,7 @@ namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 
 class RolesRepository {
-    public static function geByStudentId($student_id)
+    public static function getByStudentId($student_id)
     {
         $roles = DB::table('students_roles')
             ->where('students_roles.student_id', '=', $student_id)
@@ -16,4 +16,3 @@ class RolesRepository {
     }
 }
 
-?>
