@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     protected $fillable = [
-        'id',
+        'name',
+        'email',
     ];
 
     public static function isStudent($id) {
