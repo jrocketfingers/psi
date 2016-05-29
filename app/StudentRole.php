@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class StudentRole extends Model
 {
-    protected $table = 'students_roles';
-
+    protected $table = 'student_role';
     protected $fillable = [
-        'student_id', 'role_id', 'isActive'
+        'student_id', 'role_id',
     ];
 
     public static function doesExist($student_id, $role_id) {

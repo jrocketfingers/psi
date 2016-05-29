@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
+    protected $primaryKey = 'user_id';
     protected $fillable = [
-        'name',
-        'email',
+        'user_id', 'team_id', 'is_leader'
     ];
 
     public static function isStudent($id) {
@@ -20,22 +20,14 @@ class Student extends Model
         }
     }
 
-    public static function getAll() {
-        $students = User::join('students', 'users.id', '=', 'students.id')
-                            ->get();
-        return $students;
+    public function user() {
+        return $this->belongsTo('App\User');
     }
 
-    public static function getByRole($role_id) {
-        $students = User::join('students', 'users.id', '=', 'students.id')
-            ->join('students_roles', 'students.id', '=', 'students_roles.student_id')
-            ->where('students_roles.role_id', '=', $role_id)
-            ->groupBy('students.id')
-            ->get();
-        return $students;
+    public function roles() {
+        return $this->belongsToMany('App\Role', 'student_role');
     }
-    
-    public function user() {
-        return $this->morphOne('App\User', 'userable');
+    public function team() {
+        return $this->belongsTo('App\Team');
     }
 }

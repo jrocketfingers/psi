@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAssistantsTable extends Migration
+class CreateTeamsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,13 @@ class CreateAssistantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('assistants', function (Blueprint $table) {
-            $table->integer('id')->unsigned();
-            $table->primary('id');
+        Schema::create('teams', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('project_name');
+            $table->string('description');
+            $table->dateTime('creation_date');
             $table->timestamps();
-
-            $table->foreign('id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -28,6 +29,6 @@ class CreateAssistantsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('assistants');
+        Schema::drop('teams');
     }
 }

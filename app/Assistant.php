@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Assistant extends Model
 {
+    protected $primaryKey = 'user_id';
     protected $fillable = [
-        'id',
+        'user_id',
     ];
 
     public static function isAssistant($id) {
@@ -20,6 +21,6 @@ class Assistant extends Model
     }
 
     public function user() {
-        return $this->morphOne('App\User', 'userable');
+        return $this->belongsTo('App\User');
     }
 }

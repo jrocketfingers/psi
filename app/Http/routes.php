@@ -34,11 +34,6 @@ Route::post('/roles/{id}', 'RolesController@update');
 //ROUTE FOR DESTROYING ROLES, CANT USE DELETE VERB
 Route::post('/roles/destroy/{id}', 'RolesController@destroy');
 
-Route::get('/students_roles/create', 'StudentsRolesController@create');
-Route::post('/students_roles/create', 'StudentsRolesController@store');
-Route::post('students_roles/destroy/{role_id}', 'StudentsRolesController@destroy');
-Route::get('/students_roles/{student_id}', 'StudentsRolesController@index');
-
 
 Route::resource('students', 'StudentsController');
 Route::get('/students', 'StudentsController@index');
@@ -47,3 +42,11 @@ Route::post('/students/edit', 'StudentsController@update');
 
 /*Route::get('/students', 'StudentsController@getAll');
 Route::get('/students/{role_id}', 'StudentsController@getByRole');*/
+//Assistants logic
+Route::get('/assistants/getAllStudents', 'AssistantsController@getAllStudents');
+Route::get('/assistants/getAllTeams', 'AssistantsController@getAllTeams');
+Route::get('/assistants/showStudentDetails/{id}', 'AssistantsController@showStudentDetails');
+Route::get('/assistants/showTeamDetails/{id}', 'AssistantsController@showTeamDetails');
+//Admin logic
+Route::get('/admins/showAllUsers', 'AdminsController@showAllUsers');
+Route::post('/admins/destroyUser/{id}', 'AdminsController@destroy');

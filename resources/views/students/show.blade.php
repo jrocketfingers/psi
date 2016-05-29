@@ -15,7 +15,7 @@
 							<h3 class="panel-title">Profile Info</h3>
 						</div>
 						<div class="col-lg-1">
-							<a href="{{ url('students/edit', [$student->id]) }}">Edit</a>
+							<a href="{{ url('students/edit', [$student->user_id]) }}">Edit</a>
 						</div>
 					</div>
 				</div>
@@ -27,7 +27,7 @@
 									<span>Username: </span>
 								</div>
 								<div class="col-lg-4 col-lg-offset-2"> 
-									<div> {{ $student->name }} </div>
+									<div> {{ $student->user->name }} </div>
 								</div>
 							</div>
 							<div class="row">
@@ -35,7 +35,7 @@
 									<span>Email: </span>
 								</div>
 								<div class="col-lg-4 col-lg-offset-2"> 
-									<div> {{ $student->email }} </div>
+									<div> {{ $student->user->email }} </div>
 								</div>
 							</div>
 							
@@ -48,7 +48,7 @@
 						            </div>
 						        @endforeach
 							</div>
-						</div>	
+						</div>
 					</div>
 				</div>
 			</div>

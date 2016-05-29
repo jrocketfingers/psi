@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use Illuminate\Http\Request;
-use App\Student;
 use App\Assistant;
+use App\Http\Requests;
+use App\Student;
+use App\StudentRole;
+use Illuminate\Http\Request;
 use App\Admin;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -25,9 +27,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $id = $request->user()->id;
+        $id = Auth::user()->id;
 
 
         if (Student::isStudent($id)){

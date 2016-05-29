@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\DB;
 class RolesRepository {
     public static function getByStudentId($student_id)
     {
-        $roles = DB::table('students_roles')
-            ->where('students_roles.student_id', '=', $student_id)
-            ->join('roles', 'students_roles.role_id', '=', 'roles.id')
+        $roles = DB::table('student_role')
+            ->where('student_role.student_id', '=', $student_id)
+            ->join('roles', 'student_role.role_id', '=', 'roles.id')
             ->get();
 
         return $roles;

@@ -18,6 +18,8 @@
                     </form>
                     <br>
                     <a href="{{ action('UsersController@show', [Auth::user()->id]) }}" >Details</a>
+                    <br>
+                    @yield('user_content')
                 </div>
             </div>
         </div>

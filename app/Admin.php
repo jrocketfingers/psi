@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Admin extends Model
 {
+    protected $primaryKey = 'user_id';
     protected $fillable = [
-        'id',
+        'user_id',
     ];
 
     public static function isAdmin($id) {
@@ -19,6 +20,6 @@ class Admin extends Model
     }
 
     public function user() {
-        return $this->morphOne('App\User', 'userable');
+        return $this->belongsTo('App\User');
     }
 }

@@ -65,28 +65,24 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        /*return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);*/
+        $user = new User();
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = bcrypt($data['password']);
+        $user->save();
 
-        $user =  User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-
-        if($data['user_type'] === 'student') {
-            Student::create([
-                'id' => $user->id
-            ]);
+        if($data['user_type'] == 'student') {
+            $student = new Student();
+            $student->user_id = $user->id;
+            $student->save();
         } else {
-            Assistant::create([
-                'id' => $user->id
-            ]);
+            $assistant = new Assistant();
+            $assistant->user_id = $user->id;
+            $assistant->save();
         }
 
-        return $user;
+
+
+        return redirect()->action('HomeController@index');
     }
 }
