@@ -2,48 +2,46 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Doctrine\ORM\Mapping as ORM;
 
-class User extends Authenticatable
-{
-    use SingleTableInheritanceTrait;
+/*
+ * class User
+ * @ORM\Entity
+ * @InheritanceType("JOINED")
+ * @DiscriminatorColumn(name="discr", type="string")
+ * @DiscriminatorMap({"user" = "User", "assistant" = "Assistant", "admin"
+ * = "Admin", "student" = "Student"})
+ * @table(name="users")
+ */
+class User implements Authenticatable {
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+   /*
+    * @ORM/Id
+    * @ORM/GeneratedValue
+    * @ORM/column(type="integer", name="id")
+    */
+    protected $id;
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+   /*
+    * @var string
+    * @ORM/column(type="string", unique=true)
+    */
+    protected $email;
 
-    protected $table = 'users';
+   /*
+    * @var string
+    * @ORM/column(type="string")
+    */
+    protected $password;
 
-    protected static $singleTableTypeField = 'type';
-
-    protected static $singleTableSubclasses = [
-        Student::class, Assistant::class, Admin::class
-    ];
-
-    public function isStudent() {
-        return $this->type == 'student';
+    public function getEmail() {
+        return $this->email;
     }
 
-    public function isAssistant() {
-        return $this->type == 'assistant';
+    public function getID() {
+        return $this->id;
     }
 
-    public function isAdmin() {
-        return $this->type == 'admin';
-    }
 }
+

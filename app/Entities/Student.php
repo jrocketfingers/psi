@@ -3,14 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Nanigans\SingleTableInheritance\SingletableInheritanceTrait;
+use Doctrine\ORM\Mapping as ORM;
 
+/*
+ * @ORM\Entity
+ * @ORM\table(name="students")
+ */
 class Student extends User
 {
-    /* define the inheritance type */
-    protected static $singleTableType = 'student';
-
-    protected $fillable = [
-        'id',
-    ];
+    /*
+     * @ORM\ManyToOne(targetEntity="Team")
+     * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
+     */
+    protected $team;
 }

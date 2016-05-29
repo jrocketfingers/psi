@@ -3,14 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Nanigans\SingleTableInheritance\SingletableInheritanceTrait;
+use Doctrine\ORM\Mapping as ORM;
 
-class Assistant extends Model
+/*
+ * @ORM\Entity
+ * @ORM\table(name="Assistant")
+ */
+class Assistant extends User
 {
-    /* define the inheritance type */
-    protected static $singleTableType = 'assistant';
-
-    protected $fillable = [
-        'id',
-    ];
 }
