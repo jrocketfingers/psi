@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="teams")
  */
-class Team extends Model
+class Team
 {
     /*
      * @ORM\Id

@@ -2,7 +2,6 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
 use Doctrine\ORM\Mapping as ORM;
 
 /*
