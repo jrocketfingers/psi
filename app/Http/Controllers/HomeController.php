@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use App\Team;
+use App\Student;
+use App\Assistant;
+use App\Admin;
 
 class HomeController extends Controller
 {
@@ -23,11 +25,23 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $teams = Team::all();
-        return view('home', [
-            'teams' => $teams
-        ]);
+        $id = $request->user()->id;
+
+
+        if (Student::isStudent($id)){
+            return redirect()->action('StudentsController@index', [$id]);
+        }
+
+        if (Admin::isAdmin($id)){
+            return redirect()->action('AdminsController@index', [$id]);
+        }
+
+        if (Assistant::isAssistant($id)){
+            return redirect()->action('AssistantsController@index', [$id]);
+        }
+
+        return back()->withInput();
     }
 }
