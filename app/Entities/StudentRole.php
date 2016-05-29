@@ -2,31 +2,65 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Doctrine\ORM\Mapping AS ORM;
 
-class StudentRole extends Model
+/*
+ * @ORM\Entity
+ * @ORM\Table(name = "studentrole")
+ */
+class StudentRole
 {
-    protected $table = 'students_roles';
+    /*
+     * @ORM\id
+     * @ORM\ManyToOne(targetEntity = "Role", inversedBy = "students")
+     * @ORM\JoinColumn(name = "role_id", referencedColumnName = "id")
+     */
+    private $role;
 
-    protected $fillable = [
-        'student_id', 'role_id', 'isActive'
-    ];
+    /*
+     * @ORM\id
+     * @ORM\ManyToOne(targetEntity = "Student", inversedBy = "roles")
+     * @ORM\JoinColumn(name = "role_id", referencedColumnName = "id")
+     */
+    private $student;
 
-    public static function doesExist($student_id, $role_id) {
-        $student_role = StudentRole::where('student_id', '=', $student_id)
-                                    ->where('role_id', '=', $role_id)
-                                    ->first();
-
-        if($student_role === null) {
-            return false;
-        } else {
-            return true;
-        }
+    public function __construct($role, $student, $degree) {
+        $this->role = $role;
+        $this->student = $student;
+        $this->degree;
     }
 
-    public static function removeRole($student_id, $role_id) {
-        StudentRole::where('student_id', '=', $student_id)
-                    ->where('role_id', '=', $role_id)
-                    ->delete();
+    /**
+     * @return mixed
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
+
+    /**
+     * @param mixed $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStudent()
+    {
+        return $this->student;
+    }
+
+    /**
+     * @param mixed $student
+     */
+    public function setStudent($student)
+    {
+        $this->student = $student;
+    }
+
+
 }
