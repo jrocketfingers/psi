@@ -18,7 +18,14 @@ class Role
     */
     private $id;
 
+    /*
+     * @ORM\Column(length=40)
+     */
     private $name;
+
+    /*
+     * @ORM\Column(length=250)
+     */
     private $descripton;
 
     /*
