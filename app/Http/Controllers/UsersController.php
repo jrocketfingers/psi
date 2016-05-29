@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Admin;
+use App\Student;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Repositories\RolesRepository;
 
 class UsersController extends Controller
 {
@@ -76,7 +78,12 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('users.show')->with('user', $user);
+        $roles = RolesRepository::getByStudentId($id);
+
+        return view('users.show', [
+            'user' => $user,
+            'roles' => $roles,
+        ]);
     }
 
     /**
