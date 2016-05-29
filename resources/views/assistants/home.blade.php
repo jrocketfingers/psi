@@ -1,6 +1,6 @@
 @extends('home')
 
 @section('user_content')
-    <a href="{{ url('/students') }}">See all students</a><br>
-    LINK FOR ALL TEAMS NEEDS TO BE ADDED!!!!
+    <a href="{{ url('assistants/getAllStudents') }}">See all students</a><br>
+    <a href="{{ url('assistants/getAllTeams') }}">See all teams</a>
 @endsection

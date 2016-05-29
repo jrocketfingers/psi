@@ -13,6 +13,6 @@
         </div>
     </div>
     <div>
-        <a href="{{ url('/students') }}">Back</a>
+        <a href="{{ url('/assistants/getAllStudents') }}">Back</a>
     </div>
 @endsection
