@@ -14,7 +14,7 @@ class TeamsTableSeeder extends Seeder
      */
     public function run()
     {
-    	factory(App\Team::class, 20)->create()->each(function($team){
+    	/*factory(App\Team::class, 20)->create()->each(function($team){
             
     		$students = factory(Student::class, 5)->create()->each(function($user){
 
@@ -23,6 +23,27 @@ class TeamsTableSeeder extends Seeder
     		});
 
 			$team->students()->save($students);
-    	});
+    	});*/
+
+
+        /*$table->string('name');
+            $table->string('project_name');
+            $table->string('description');*/
+
+        DB::table('teams')->insert([
+            [
+                'name' => 'Team 1',
+                'project_name' => 'Project 1',
+                'description' => 'Description 1',
+            ], [
+                'name' => 'Team 2',
+                'project_name' => 'Project 2',
+                'description' => 'Description 2',
+            ], [
+                'name' => 'Team 3',
+                'project_name' => 'Project 3',
+                'description' => 'Description 3',
+            ],
+        ]);
     }
 }
