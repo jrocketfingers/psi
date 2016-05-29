@@ -1,8 +1,7 @@
 <?php
 
-namespace App;
+namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -12,25 +11,32 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Team extends Model
 {
-    /*@ORM\Column(type="integer")
+    /*
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
-    protected $id;
+    private $id;
 
-    /*@ORM\Column(length=40)
+    /*
+     * @ORM\Column(length=40)
      */
-    protected $name;
+    private $name;
 
-    /*@ORM\Column(length=40)
+    /*
+     * @ORM\Column(length=40)
      */
-    protected $project_name;
+    private $project_name;
 
-    /*@ORM\Column(length=250)
+    /*
+     * @ORM\Column(length=250)
      */
-    protected $project_description;
+    private $project_description;
 
-    /*@ORM\Column(type="datetime", name="create_date")
+    /*
+     * @ORM\Column(type="datetime", name="date_create")
      */
-    protected $date_create;
+    private $date_create;
 
     /*
      * @ORM\OneToMany(targetEntity="TeamRole", mappedBy="teams")

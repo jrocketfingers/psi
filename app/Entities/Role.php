@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /*
  * @ORM\Entity
- * @ORM\Table(name = "role")
+ * @ORM\Table(name = "roles")
  */
 class Role
 {

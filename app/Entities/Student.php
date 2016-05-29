@@ -2,7 +2,6 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -16,10 +15,10 @@ class Student extends User
      * @ORM\ManyToOne(targetEntity="Team")
      * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
      */
-    protected $team;
+    private $team;
 
     /*
-     * @ORM\OneToMany(targetEntity="StudentRole", mappedBy="students"
+     * @ORM\OneToMany(targetEntity="StudentRole", mappedBy="student"
      */
     private $roles;
 

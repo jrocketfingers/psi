@@ -8,32 +8,34 @@ use Doctrine\ORM\Mapping as ORM;
 /*
  * class User
  * @ORM\Entity
- * @InheritanceType("JOINED")
- * @DiscriminatorColumn(name="discr", type="string")
- * @DiscriminatorMap({"user" = "User", "assistant" = "Assistant", "admin"
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"user" = "User", "assistant" = "Assistant", "admin"
  * = "Admin", "student" = "Student"})
- * @table(name="users")
+ * @ORM\Table(name="users")
  */
 class User implements Authenticatable {
 
    /*
-    * @ORM/Id
-    * @ORM/GeneratedValue
-    * @ORM/column(type="integer", name="id")
+    * @ORM\Id
+    * @ORM\GeneratedValue
+    * @ORM\column(type="integer", name="id")
     */
-    protected $id;
+    private $id;
 
+    //slippery var
    /*
     * @var string
-    * @ORM/column(type="string", unique=true)
+    * @ORM\column(type="string", unique=true)
     */
-    protected $email;
+    private $email;
 
+    //slippery var
    /*
     * @var string
-    * @ORM/column(type="string")
+    * @ORM\column(type="string")
     */
-    protected $password;
+    private $password;
 
     public function getEmail() {
         return $this->email;
