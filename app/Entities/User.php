@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Entities;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Doctrine\ORM\Mapping as ORM;
