@@ -17,7 +17,7 @@ class StudentsRolesController extends Controller
     }
 
     public function index($student_id) {
-        $roles = RolesRepository::geByStudentId($student_id);
+        $roles = RolesRepository::getByStudentId($student_id);
 
         return view('students_roles.index', [
             'roles' => $roles,
