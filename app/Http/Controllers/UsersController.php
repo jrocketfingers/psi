@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Assistant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -76,6 +77,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+
         return view('users.show')->with('user', $user);
     }
 

@@ -16,7 +16,7 @@ class StudentsController extends Controller
     }
 
     public function getAll() {
-        $students = StudentRepository::getAll();
+        $students = Student::all();
 
         return view('students.index', [
             'students' => $students,
@@ -32,15 +32,9 @@ class StudentsController extends Controller
     }
     
     public function show($student_id) {
-        $user = User::find($student_id);
         $student = Student::find($student_id);
-        $team = null;
-        if($student->team_id) {
-            $team = Team::find($student->team_id);
-        }
         return view('students.details', [
-            'user' => $user,
-            'team' => $team,
+            'student' => $student,
         ]);
     }
 }

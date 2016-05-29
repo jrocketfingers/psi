@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
+    protected $primaryKey = 'user_id';
     protected $fillable = [
-        'id', 'team_id', 'is_leader'
+        'user_id', 'team_id', 'is_leader'
     ];
 
     public static function isStudent($id) {
@@ -20,6 +21,13 @@ class Student extends Model
     }
 
     public function user() {
-        return $this->morphOne('App\User', 'userable');
+        return $this->belongsTo('App\User');
+    }
+
+    public function roles() {
+        return $this->belongsToMany('App\Role');
+    }
+    public function team() {
+        return $this->belongsTo('App\Team');
     }
 }

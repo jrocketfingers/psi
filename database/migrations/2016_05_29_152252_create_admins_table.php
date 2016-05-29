@@ -13,11 +13,11 @@ class CreateAdminsTable extends Migration
     public function up()
     {
         Schema::create('admins', function (Blueprint $table) {
-            $table->integer('id')->unsigned();
-            $table->primary('id');
+            $table->integer('user_id')->unsigned();
+            $table->primary('user_id');
             $table->timestamps();
-            
-            $table->foreign('id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

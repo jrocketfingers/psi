@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DeleteTeamsStudentsTableAddedForeignKeyToStudents extends Migration
+class CreateStudentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,14 @@ class DeleteTeamsStudentsTableAddedForeignKeyToStudents extends Migration
      */
     public function up()
     {
-        Schema::drop('teams_students');
-        Schema::table('students', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
+            $table->integer('user_id')->unsigned();
+            $table->primary('user_id');
+            $table->timestamps();
             $table->integer('team_id')->unsigned()->nullable();
             $table->boolean('is_leader')->nullable();
 
-            $table->foreign('team_id')->references('id')->on('teams');
+            $table->foreign('user_id')->references('id')->on('users')->onUpadate('cascade')->onDelete('cascade');
         });
     }
 
@@ -28,6 +30,6 @@ class DeleteTeamsStudentsTableAddedForeignKeyToStudents extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('students');
     }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTeamsRolesTable extends Migration
+class CreateStudentRoleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,14 @@ class CreateTeamsRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('teams_roles', function(Blueprint $table) {
+        Schema::create('student_role', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('team_id')->unsigned();
             $table->integer('role_id')->unsigned();
+            $table->integer('student_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('team_id')->references('id')->on('teams')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('student_id')->references('user_id')->on('students')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateTeamsRolesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('teams_roles');
+        Schema::drop('student_role');
     }
 }

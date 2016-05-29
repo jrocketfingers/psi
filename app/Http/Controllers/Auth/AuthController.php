@@ -71,7 +71,7 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);*/
 
-        $user =  User::create([
+        /*$user =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
@@ -85,6 +85,22 @@ class AuthController extends Controller
             Assistant::create([
                 'id' => $user->id
             ]);
+        }*/
+
+        $user = new User();
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = bcrypt($data['password']);
+        $user->save();
+
+        if($data['user_type'] == 'student') {
+            $student = new Student();
+            $student->user_id = $user->id;
+            $student->save();
+        } else {
+            $assistant = new Assistant();
+            $assistant->user_id = $user->id;
+            $assistant->save();
         }
 
         return $user;
