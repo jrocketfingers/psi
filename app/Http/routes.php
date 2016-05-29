@@ -33,8 +33,11 @@ Route::resource('roles', 'RolesController');
 Route::post('/roles/{id}', 'RolesController@update');
 //ROUTE FOR DESTROYING ROLES, CANT USE DELETE VERB
 Route::post('/roles/destroy/{id}', 'RolesController@destroy');
-
+//Assistants logic
 Route::get('/assistants/getAllStudents', 'AssistantsController@getAllStudents');
 Route::get('/assistants/getAllTeams', 'AssistantsController@getAllTeams');
 Route::get('/assistants/showStudentDetails/{id}', 'AssistantsController@showStudentDetails');
 Route::get('/assistants/showTeamDetails/{id}', 'AssistantsController@showTeamDetails');
+//Admin logic
+Route:;get('/admins/showAllUsers', 'AdminsController@showAllUsers');
+Route::post('/admins/destroyUser/{id}', 'AdminsController@destroy');

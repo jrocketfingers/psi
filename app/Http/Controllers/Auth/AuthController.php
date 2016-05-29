@@ -102,7 +102,7 @@ class AuthController extends Controller
             $assistant->user_id = $user->id;
             $assistant->save();
         }
-
-        return $user;
+        return redirect()->action('HomeController@index');
+        //return $user;
     }
 }
