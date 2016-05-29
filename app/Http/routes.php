@@ -39,5 +39,11 @@ Route::post('/students_roles/create', 'StudentsRolesController@store');
 Route::post('students_roles/destroy/{role_id}', 'StudentsRolesController@destroy');
 Route::get('/students_roles/{student_id}', 'StudentsRolesController@index');
 
-Route::get('/students', 'StudentsController@getAll');
-Route::get('/students/{role_id}', 'StudentsController@getByRole');
+
+Route::resource('students', 'StudentsController');
+Route::get('/students', 'StudentsController@index');
+Route::get('/students/edit/{id}', 'StudentsController@edit');
+Route::post('/students/edit', 'StudentsController@update');
+
+/*Route::get('/students', 'StudentsController@getAll');
+Route::get('/students/{role_id}', 'StudentsController@getByRole');*/
