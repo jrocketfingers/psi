@@ -30,4 +30,19 @@ class Student extends Model
     public function team() {
         return $this->belongsTo('App\Team');
     }
+    public function notifications() {
+        return $this->hasMany('App\Notification');
+    }
+    public function invites() {
+        return $this->hasMany('App\Invite');
+    }
+    public function kicks() {
+        return $this->hasMany('App\Kick');
+    }
+    public function leaderChanges() {
+        return $this->hasMany('App\LeaderChange');
+    }
+    public function votesPending() {
+        return $this->hasMany('App\Vote');
+    }
 }

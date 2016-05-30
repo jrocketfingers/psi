@@ -16,4 +16,7 @@ class Team extends Model
     public function roles() {
         return $this->hasMany('App\Roles');
     }
+    public function joins() {
+        return $this->hasMany('App\Join');
+    }
 }
