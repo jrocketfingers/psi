@@ -23,12 +23,14 @@ class StudentsController extends Controller
     public function index($id = null)
     {
         $teams = Team::all();
+        $student = Student::find(Auth::user()->id);
 
         return view('students.index', [
             'teams' => $teams,
+            'student' => $student,
         ]);
     }
-
+    
     public function edit($id)
     {
         $student = Student::find($id);
@@ -65,6 +67,53 @@ class StudentsController extends Controller
         return redirect()->action('StudentsController@show', [$id]);
     }
 
+    public function showTeamCreationForm()
+    {
+        $roles = array_column(Role::all()->toArray(), 'name', 'id');
+
+        return view('students.team_creation',[
+            'roles' => $roles,
+        ]);
+    }
+
+    public function createTeam(Request $request)
+    {
+        $id = Auth::user()->id;
+
+
+        $student = Student::with('user')->where('user_id', '=', $id)->firstOrFail();
+        $new_roles = Role::all()->only($request['add_role_id']);
+
+        $team = Team::create($request->all());
+        $team->roles()->sync($new_roles);
+        $team->save();
+
+        $student->team()->associate($team);
+        $student->is_leader = true;
+        $student->save();
+
+
+        return redirect()->action('StudentsController@index', [$id]);
+    }
+
+    public function disbandTeam()
+    {
+        $id = Auth::user()->id;
+        $student = Student::find($id);
+
+        if(!$student->is_leader)
+        {
+            return back()->withInput();
+        }
+
+        $student->team->delete();
+        $student->is_leader = false;
+        $student->save();
+
+        return redirect()->action('StudentsController@index', [$id]);
+
+    }
+
     public function getAll() {
         $students = Student::getAll();
 
@@ -89,11 +138,10 @@ class StudentsController extends Controller
      */
     public function show($id)
     {
-        $roles = RolesRepository::getByStudentId($id);
         $student = Student::with('user')->find($id);
         return view('students.show', [
             'student' => $student,
-            'roles' => $roles,
+            'roles' => $student->roles,
         ]);
     }
 }
