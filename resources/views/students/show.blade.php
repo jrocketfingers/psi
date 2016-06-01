@@ -14,9 +14,11 @@
 						<div class="col-lg-11">
 							<h3 class="panel-title">Profile Info</h3>
 						</div>
-						<div class="col-lg-1">
-							<a href="{{ url('students/edit', [$student->user_id]) }}">Edit</a>
-						</div>
+						@if ($student->user_id == Auth::user()->id)
+							<div class="col-lg-1">
+								<a href="{{ url('students/edit', [$student->user_id]) }}">Edit</a>
+							</div>
+						@endif
 					</div>
 				</div>
 				<div class="panel-body">
