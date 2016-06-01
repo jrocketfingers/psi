@@ -12,7 +12,7 @@ class CreateStudentRoleTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_role', function (Blueprint $table) {
+        Schema::create('role_student', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('role_id')->unsigned();
             $table->integer('student_id')->unsigned();

@@ -18,7 +18,7 @@ class CreateInvitesTable extends Migration
             $table->foreign('request_id')->references('id')->on('requests')->onUpdate('cascade')->onDelete('cascade');
 
             $table->integer('student_id')->unsigned();
-            $table->foreign('student_id')->references('user_id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('student_id')->references('user_id')->on('students')->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
         });

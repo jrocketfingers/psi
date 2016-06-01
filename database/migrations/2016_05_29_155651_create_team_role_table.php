@@ -12,7 +12,7 @@ class CreateTeamRoleTable extends Migration
      */
     public function up()
     {
-        Schema::create('team_role', function(Blueprint $table) {
+        Schema::create('role_team', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('team_id')->unsigned();
             $table->integer('role_id')->unsigned();

@@ -14,7 +14,7 @@ class CreateLeaderchangesTable extends Migration
     {
         Schema::create('leaderchanges', function (Blueprint $table) {
             $table->integer('request_id')->unsigned();
-            $table->primary('request_id')->unsigned();
+            $table->primary('request_id');
             $table->foreign('request_id')->references('id')->on('requests')->onUpdate('cascade')->onDelete('cascade');
 
             $table->integer('num_voted');

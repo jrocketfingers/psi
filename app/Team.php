@@ -11,10 +11,10 @@ class Team extends Model
     ];
 
     public function students() {
-        return $this->hasMany('App\User');
+        return $this->hasMany('App\Student');
     }
     public function roles() {
-        return $this->hasMany('App\Roles');
+        return $this->belongsToMany('App\Role');
     }
     public function joins() {
         return $this->hasMany('App\Join');

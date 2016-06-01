@@ -17,8 +17,8 @@ class CreateJoinsTable extends Migration
             $table->primary('request_id');
             $table->foreign('request_id')->references('id')->on('requests')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->integer('team_id')->unsigned;
-            $table->foreign('team_id')->references('id')->on('team')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('team_id')->unsigned();
+            $table->foreign('team_id')->references('id')->on('teams')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

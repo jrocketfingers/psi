@@ -25,7 +25,7 @@ class Student extends Model
     }
 
     public function roles() {
-        return $this->belongsToMany('App\Role', 'student_role');
+        return $this->belongsToMany('App\Role');
     }
     public function team() {
         return $this->belongsTo('App\Team');
