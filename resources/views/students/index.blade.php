@@ -6,7 +6,11 @@
 	@if ($student->is_leader)
 		<li><a href="{{ url('students/team/delete') }}" ><i class="fa fa-btn fa-info"></i>Disband Team</a></li>
 	@else
-		<li><a href="{{ url('students/team/create') }}" ><i class="fa fa-btn fa-info"></i>Create Team</a></li>
+		@if ($student->team)
+			<li><a href="{{ url('students/team/leave', [$student->team->id]) }}" ><i class="fa fa-btn fa-info"></i>Leave Team</a></li>
+		@else
+			<li><a href="{{ url('students/team/create') }}" ><i class="fa fa-btn fa-info"></i>Create Team</a></li>
+		@endif
 	@endif
 	
 @endsection
@@ -21,13 +25,14 @@
 		                    <div class="row">
 		                    	<div class="col-lg-2">
 			                    	{{ $team->name }}
+			                    	<a class="label label-success" href="{{ action('StudentsController@join', [$team->id]) }}"> Join </a>
 			                    </div>
 		                        
 		                        @foreach ($team->students as $student)
 		                        	<div class="col-lg-1 col-lg-offset-1">
-		                        		<label class="label label-default">
+		                        		<a class="label label-default" href="{{ action('StudentsController@show', [$student->user->id]) }}">
 			                        		{{ $student->user->name }}
-			                        	</label>
+			                        	</a>
 		                        	</div>
 		                        @endforeach
 		                    </div>
