@@ -42,6 +42,8 @@ Route::post('/students/edit', 'StudentsController@update');
 Route::get('/students/team/create', 'StudentsController@showTeamCreationForm');
 Route::post('/students/team/create', 'StudentsController@createTeam');
 Route::get('/students/team/delete', 'StudentsController@disbandTeam');
+Route::get('/students/team/join/{id}', 'StudentsController@join');
+Route::get('/students/team/leave/{id}', 'StudentsController@leave');
 
 /*Route::get('/students', 'StudentsController@getAll');
 Route::get('/students/{role_id}', 'StudentsController@getByRole');*/
