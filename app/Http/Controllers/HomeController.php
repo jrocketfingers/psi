@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Assistant;
 use App\Http\Requests;
 use App\Student;
-use App\StudentRole;
 use Illuminate\Http\Request;
 use App\Admin;
 use Illuminate\Support\Facades\Auth;

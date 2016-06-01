@@ -6,7 +6,6 @@ use App\Student;
 use App\User;
 use App\Team;
 use App\Role;
-use App\StudentRole;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\RolesRepository;
 use Illuminate\Http\Request;
