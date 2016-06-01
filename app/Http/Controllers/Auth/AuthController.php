@@ -83,6 +83,6 @@ class AuthController extends Controller
 
 
 
-        return redirect()->action('HomeController@index');
+        return $user;
     }
 }
