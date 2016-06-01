@@ -114,6 +114,28 @@ class StudentsController extends Controller
 
     }
 
+    public function join($id)
+    {
+        $team = Team::find($id);
+        $student = Student::find(Auth::user()->id);
+
+        $student->team()->associate($team);
+        $student->save();
+
+        return redirect()->action('StudentsController@index', [$student->user->id]);
+    }
+
+    public function leave($id)
+    {
+        $team = Team::find($id);
+        $student = Student::find(Auth::user()->id);
+
+        $student->team()->dissociate();
+        $student->save();
+
+        return redirect()->action('StudentsController@index', [$student->user->id]);
+    }
+
     public function getAll() {
         $students = Student::getAll();
 
