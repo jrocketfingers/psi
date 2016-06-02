@@ -13,12 +13,12 @@ class RequestsController extends Controller
     }
 
     public function action($id, $accepted) {
-        if($accepted === true) {
-            Request::find($id)->requastable()->accept();
+        if($accepted == true) {
+            Request::find($id)->requestable()->accept();
         } else {
-            Request::find($id)->requastable()->deny();
+            Request::find($id)->requestable()->deny();
         }
-        //redirect
+    //redirect to view
     }
 
     public function destroyRequest($id) {
