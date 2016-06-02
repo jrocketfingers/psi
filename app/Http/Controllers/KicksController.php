@@ -7,18 +7,19 @@ use App\Notification;
 use App\Student;
 use App\Vote;
 use App\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KicksController extends Controller
 {
     public function __construct() {
         $this->middleware('auth');
-        $this->middleware('is_leader');
+        //$this->middleware('is_leader_kick'); //OVO TREBA DA BUDE UBACENO KADA ODRADIMO OVO PREKO NEKE FORME
     }
 
     public function create($student_id) { //id studenta za izbacivanje
         $request = Request::createRequest();
         $request->requestable_id = $request->id;
-        $request->requestable_type = "Kick";
+        $request->requestable_type = "App\\Kick";
         $request->save();
 
         $kick = new Kick();
@@ -30,7 +31,7 @@ class KicksController extends Controller
 
         foreach($team->students as $student) {
             $can_show = false;
-            if($student->id != $student_id) {
+            if($student->user_id != $student_id) {
                 Vote::create([
                     'request_id' => $request->id,
                     'student_id' => $student->user_id,
