@@ -120,11 +120,6 @@ class UsersController extends Controller
     {
         $isAdmin = Admin::isAdmin(Auth::user()->id);
         User::destroy($id);
-        if($isAdmin) {
-            return redirect()->action('UsersController@index');
-        } else {
-            return redirect()->action('HomeController@index');
-        }
-
+        return redirect()->action('HomeController@index');
     }
 }
