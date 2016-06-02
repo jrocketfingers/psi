@@ -13,10 +13,14 @@ class AssistantsController extends Controller
     public function __construct() {
         $this->middleware('assistant');
     }
-    
+
+    public function index($id = null) {
+        return view('assistants.home');
+    }
+
     public function getAllStudents() {
         $students = Student::all();
-        
+
         return view('assistants.showAllStudents')->with('students', $students);
     }
 
