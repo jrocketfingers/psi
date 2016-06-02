@@ -22,7 +22,7 @@ class Kick extends Model
     public function accept() {
         $student_id = Auth::user()->id;
         Vote::destroyVote($this->request_id, $student_id);
-        $this->numVoted++;
+        $this->num_voted++;
         $this->save();
         //AKO JE POSLEDNJI GLASAO ZA MINUS JEDAN KOJI SE IZBACUJE
         if($this->num_voted == count($this->student->team->students) - 1) {
@@ -33,7 +33,7 @@ class Kick extends Model
             $this->request->status = "ACCEPTED";
             $this->request->save();
             //PA IZABACIMO IZ TIMA
-            $this->student->team = null;
+            $this->student->team_id = null;
             $this->student->is_leader = null;
             $this->student->save();
         }
