@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\LeaderChange;
+use App\Notification;
 use App\Request;
+use App\Student;
+use App\Vote;
+use Illuminate\Support\Facades\Auth;
 
 class LeaderChangesController extends Controller
 {
@@ -14,7 +18,7 @@ class LeaderChangesController extends Controller
     public function create($student_id) { //student za koga se glasa da bude vodja
         $request = Request::createRequest();
         $request->requestable_id = $request->id;
-        $request->requestable_type = "LeaderChange";
+        $request->requestable_type = "App\\LeaderChange";
         $request->save();
 
         $leader_change = new LeaderChange();
@@ -26,7 +30,7 @@ class LeaderChangesController extends Controller
 
         foreach($team->students as $student) {
             $can_show = false;
-            if($student->id != $student_id) {
+            if($student->user_id != $student_id && $student->is_leader == false) {
                 Vote::create([
                     'request_id' => $request->id,
                     'student_id' => $student->user_id,
