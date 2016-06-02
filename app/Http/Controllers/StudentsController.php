@@ -6,10 +6,10 @@ use App\Student;
 use App\User;
 use App\Team;
 use App\Role;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\RolesRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collections;
 
 use App\Http\Requests;
 
@@ -21,8 +21,19 @@ class StudentsController extends Controller
 
     public function index($id = null)
     {
-        $teams = Team::all();
+       // $teams = Team::all();
         $student = Student::find(Auth::user()->id);
+
+        $roles= $student->roles->sortBy('name');
+        $teams = new Collection();
+        foreach ($roles as $role) {
+            $tmpteams = $role->teams->sortBy('name');
+            foreach ($tmpteams as $team) {
+               if($student->team != $team) {
+                   $teams->push($team);
+               }
+            }
+        }
 
         return view('students.index', [
             'teams' => $teams,
@@ -164,5 +175,21 @@ class StudentsController extends Controller
             'student' => $student,
             'roles' => $student->roles,
         ]);
+    }
+
+    public function getStudentsByRole() {
+        $team = Student::find(Auth::user()->id)->team;
+        $roles = $team->roles->sortBy('name');
+        $students = new Collection();
+        foreach ($roles as $role) {
+            $tmpstudents = $role->students->sortBy('name');
+            foreach ($tmpstudents as $student) {
+                if($student->team != $team) {
+                    $students->push($student);
+                }
+            }
+        }
+        //RETURN SOME VIEW
+        return $students;
     }
 }
