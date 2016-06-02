@@ -52,6 +52,8 @@ Route::get('/assistants/getAllStudents', 'AssistantsController@getAllStudents');
 Route::get('/assistants/getAllTeams', 'AssistantsController@getAllTeams');
 Route::get('/assistants/showStudentDetails/{id}', 'AssistantsController@showStudentDetails');
 Route::get('/assistants/showTeamDetails/{id}', 'AssistantsController@showTeamDetails');
+Route::get('/assistants/{id?}', 'AssistantsController@index');
 //Admin logic
 Route::get('/admins/showAllUsers', 'AdminsController@showAllUsers');
 Route::post('/admins/destroyUser/{id}', 'AdminsController@destroy');
+Route::get('/admins/{id?}', 'AdminsController@index');
