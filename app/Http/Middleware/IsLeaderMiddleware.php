@@ -17,7 +17,7 @@ class IsLeaderMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(!Student::find(Auth::user()->id)->is_leader) {
+        if(Student::find(Auth::user()->id)->is_leader) {
             return redirect()->action('HomeController@index');
         }
 
