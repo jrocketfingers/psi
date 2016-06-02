@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Join;
 use App\Notification;
 use App\Request;
 
 use App\Http\Requests;
-use Mockery\Matcher\Not;
+use App\Team;
 
 class JoinsController extends Controller
 {
@@ -17,8 +18,8 @@ class JoinsController extends Controller
     public function create($team_id) {
         $request = Request::createRequest();
 
-        $request->requeastble_id = $request->id;
-        $request->requestable_type = "Join";
+        $request->requestable_id = $request->id;
+        $request->requestable_type = "App\\Join";
         $request->save();
 
         $join = new Join();
@@ -26,8 +27,9 @@ class JoinsController extends Controller
         $join->team_id = $team_id;
         $join->save();
 
-        Notification::createNotification($request>id, Team::find($team_id)->students()->where('is_leader', '=', true)->first()->id, "NEW JOIN REQUEST", true);
+        Notification::createNotification($request->id, Team::find($team_id)->students->where('is_leader', 1)->first()->user_id, "NEW JOIN REQUEST", true);
 
-        //redirect to somewhere
+        //Redirect to a view
+        return $join;
     }
 }
