@@ -16,8 +16,8 @@ class TeamLeaderMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Student::find($request->input('student_id'))->is_leader === true) {
-            return "TEAM LEADER CANT BE KICKED";
+        if(Student::find($request->input('student_id'))->is_leader == true) {
+            return redirect()->action('HomeController@index');
         }
 
         return $next($request);
