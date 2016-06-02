@@ -18,6 +18,6 @@
         </div>
     </table>
     <div>
-        <a href="/home">Back</a>
+        <a href="{{ url('/admins') }}">Back</a>
     </div>
 @endsection
