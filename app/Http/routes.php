@@ -57,3 +57,7 @@ Route::get('/assistants/{id?}', 'AssistantsController@index');
 Route::get('/admins/showAllUsers', 'AdminsController@showAllUsers');
 Route::post('/admins/destroyUser/{id}', 'AdminsController@destroy');
 Route::get('/admins/{id?}', 'AdminsController@index');
+
+
+//TEST ROUTES
+Route::get('/avaliablestudents', 'StudentsController@getStudentsByRole');
