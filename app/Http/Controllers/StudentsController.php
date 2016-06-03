@@ -160,9 +160,16 @@ class StudentsController extends Controller
             ));
         }*/
 
-        // $student = Student::find(Auth::user()->id);
+        $student = Student::find(Auth::user()->id);
+        $notifications = Student::find(Auth::user()->id)->notifications->where('seen', '=', false);
+        
+        foreach($notifications as $notification)
+        {
+            $notification->seen = true;
+            $notification->save();
+        }
 
-        return Student::all()->toJson();
+        return array_values($notifications->all());
     }
 
     public function getAll() {
