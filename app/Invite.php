@@ -27,12 +27,12 @@ class Invite extends Model
 
         $this->request->status = "ACCEPTED";
         $this->request->save();
-        Notification::createNotification($this->request_id, $this->request->student_id , "INVITE ACCEPTED" , true);
+        Notification::createNotification($this->request, $this->request->student , "INVITE ACCEPTED" , true, true);
     }
 
     public function deny() {
         $this->request->status = "DENIED";
         $this->request->save();
-        Notification::createNotification($this->request_id, $this->request->student_id , "INVITE DENIED" , true);
+        Notification::createNotification($this->request, $this->request->student , "INVITE DENIED" , true, true);
     }
 }
