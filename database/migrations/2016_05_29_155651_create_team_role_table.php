@@ -30,6 +30,6 @@ class CreateTeamRoleTable extends Migration
      */
     public function down()
     {
-        Schema::drop('team_role');
+        Schema::drop('role_team');
     }
 }

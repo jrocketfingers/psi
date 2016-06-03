@@ -8,7 +8,7 @@ class Student extends Model
 {
     protected $primaryKey = 'user_id';
     protected $fillable = [
-        'user_id', 'team_id', 'is_leader'
+        'user_id', 'team_id', 'is_leader',
     ];
 
     public static function isStudent($id) {

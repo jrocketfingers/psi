@@ -19,7 +19,7 @@ class CreateStudentsTable extends Migration
             $table->integer('team_id')->unsigned()->nullable();
             $table->boolean('is_leader')->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users')->onUpadate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

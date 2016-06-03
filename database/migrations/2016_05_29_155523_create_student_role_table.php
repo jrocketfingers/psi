@@ -30,6 +30,6 @@ class CreateStudentRoleTable extends Migration
      */
     public function down()
     {
-        Schema::drop('student_role');
+        Schema::drop('role_student');
     }
 }
