@@ -151,6 +151,20 @@ class StudentsController extends Controller
         return redirect()->action('StudentsController@index', [$student->user->id]);
     }
 
+    public function getNotifications()
+    {
+        /*if (Session::token() !== Input::get('_token'))
+        {
+            return Response::json(array(
+                'message' => 'Unauthorized attempt to get notifications'
+            ));
+        }*/
+
+        // $student = Student::find(Auth::user()->id);
+
+        return Student::all()->toJson();
+    }
+
     public function getAll() {
         $students = Student::getAll();
 
