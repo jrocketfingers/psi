@@ -16,7 +16,8 @@ class KicksController extends Controller
         //$this->middleware('is_leader_kick'); //OVO TREBA DA BUDE UBACENO KADA ODRADIMO OVO PREKO NEKE FORME
     }
 
-    public function create($student_id) { //id studenta za izbacivanje
+    public function create($student_id) {
+
         $request = Request::createRequest();
         $request->requestable_id = $request->id;
         $request->requestable_type = "App\\Kick";
@@ -39,8 +40,9 @@ class KicksController extends Controller
                 $can_show = true;
             }
 
-            Notification::createNotification($request->id, $student->user_id, "NEW KICK REQUEST", $can_show);
+            Notification::createNotification($request, $student, "NEW KICK REQUEST", $can_show, false);
         }
-        //redirect to somewhere
+
+        return back()->withInput();
     }
 }
