@@ -17,6 +17,7 @@ class CreateNotificationsTable extends Migration
             $table->string('text');
             $table->boolean('can_show')->nullable();
             $table->boolean('seen')->nullable();
+            $table->boolean('info_only')->nullable();
             $table->timestamps();
 
             $table->integer('student_id')->unsigned();
@@ -34,6 +35,6 @@ class CreateNotificationsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('notifications');
     }
 }
