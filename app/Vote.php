@@ -18,9 +18,9 @@ class Vote extends Model
         return $this->belongsTo('App\Student');
     }
 
-    public static function destroyVote($requset_id,$student_id) {
-        Vote::whrere('request_id', '=', $requset_id)
-            ->where('student_id', '=', $student_id)
-            ->destroy();
+    public static function destroyVote($request_id,$student_id) {
+        Vote::where('request_id', $request_id)
+            ->where('student_id', $student_id)
+            ->delete();
     }
 }

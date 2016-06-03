@@ -23,7 +23,7 @@ Route::get('/tasks', 'HomeController@index');
 
 Route::resource('users', 'UsersController');
 
-Route::post('/users/destroy/{id}', 'UsersController@destroy');
+Route::post('/users/destroy/{id}', 'UsersController@destroy')->middleware('is_leader');
 
 //ROUTE FOR USERS PREVIEW AND DELETING ACCOUNTS FOR ADMINS
 Route::get('/users', 'UsersController@index')->middleware('admin');
@@ -63,3 +63,9 @@ Route::get('/admins/{id?}', 'AdminsController@index');
 
 
 //TEST ROUTES
+Route::get('/avaliablestudents', 'StudentsController@getStudentsByRole');
+Route::get('/createjoin/{team_id}', "JoinsController@create");
+Route::get('/createinvite/{student_id}', 'InvitesController@create');
+Route::get('/createkick/{student_id}', 'KicksController@create');
+Route::get('/createleaderchange/{student_id}', 'LeaderChangesController@create');
+Route::get('/action/{id}/{accepted}', 'RequestsController@action');

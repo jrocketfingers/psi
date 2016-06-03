@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Request extends Model
 {
@@ -16,9 +17,11 @@ class Request extends Model
     public function notifications() {
         return $this->hasMany('App\Notification');
     }
-
+    public function student() {
+        return $this->belongsTo('App\Student');
+    }
     public function requestable() {
-        return $this->morphTo();
+        return $this->morphTo()->first();
     }
 
     public static function createRequest() {
@@ -28,5 +31,13 @@ class Request extends Model
         $request->save();
 
         return $request;
+    }
+
+    public function accept() {
+
+    }
+
+    public function deny() {
+
     }
 }

@@ -18,7 +18,8 @@ class InvitesController extends Controller
         $request = Request::createRequest();
 
         $request->requestable_id = $request->id;
-        $request->requestable_type = "Invite";
+        $request->requestable_type = "App\\Invite";
+        $request->save();
 
         $invite = new Invite();
         $invite->request_id = $request->id;
@@ -27,6 +28,6 @@ class InvitesController extends Controller
 
         Notification::createNotification($request->id, $student_id, "NEW INVITE REQUEST", true);
 
-        //redirect to somewhere
+        return $invite;
     }
 }

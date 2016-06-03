@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class LeaderChange extends Model
 {
+    protected $table = 'leaderchanges';
     protected $primaryKey = 'request_id';
     protected $fillable = [
         'request_id', 'student_id', 'num_voted'
@@ -21,10 +23,10 @@ class LeaderChange extends Model
     public function accept() {
         $student_id = Auth::user()->id;
         Vote::destroyVote($this->request_id, $student_id);
-        $this->numVoted++;
+        $this->num_voted++;
         $this->save();
-        //AKO JE POSLEDNJI GLASAO ZA MINUS JEDAN KOJI SE ZA KOGA SE GLASA
-        if($this->num_voted == count($this->student->team->students) - 1) {
+        //AKO JE POSLEDNJI GLASAO ZA MINUS JEDAN KOJI SE ZA KOGA SE GLASA MINUS JEDAN ZA TEKUCEG VODJU
+        if($this->num_voted == count($this->student->team->students) - 2) {
             //NAPRAVIMO PRVO NOTIFIKACIJE ZA SVE
             foreach ($this->student->team->students as $student) {
                 Notification::createNotification($this->request_id, $student->user_id, "LEADER CHANGE REQUEST ACCEPTED", true);
