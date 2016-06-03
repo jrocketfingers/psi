@@ -26,7 +26,7 @@
 		                    <div class="row">
 		                    	<div class="col-lg-2">
 			                    	{{ $team->name }}
-			                    	<a class="label label-success" href="{{ action('StudentsController@join', [$team->id]) }}"> Join </a>
+			                    	<a class="label label-success" href="{{ action('JoinsController@create', [$team->id]) }}"> Join </a>
 			                    </div>
 		                        
 		                        @foreach ($team->students as $student)
