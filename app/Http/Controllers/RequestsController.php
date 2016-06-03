@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Request;
-
+use App\Notification;
 use App\Http\Requests;
 
 class RequestsController extends Controller
@@ -13,16 +13,33 @@ class RequestsController extends Controller
     }
 
     public function action($id, $accepted) {
-        if($accepted == true) {
-            Request::find($id)->requestable()->accept();
-        } else {
-            Request::find($id)->requestable()->deny();
+        $notification = Notification::find($id);
+        $message = "Nothing";
+
+        if ($notification->info_only == true)
+        {
+            $notification->text .= " SEEN";
         }
-    //redirect to view
+        else
+        {
+            if($accepted == true) {
+                $notification->request->requestable()->accept();
+                $message = "Accept Proceeded";
+            } else {
+                $notification->request->requestable()->deny();
+                $message = "Deny Proceeded";
+            }
+        }
+        
+    
+        $notification->save();
+
+        return $message;
     }
 
     public function destroyRequest($id) {
         Request::destroy($id);
-        //redirect
+        
+        return back()->withInput();
     }
 }
