@@ -35,6 +35,11 @@ class StudentsController extends Controller
             }
         }
 
+        if ($teams->isEmpty())
+        {
+            $teams = Team::all();
+        }
+
         return view('students.index', [
             'teams' => $teams,
             'student' => $student,
