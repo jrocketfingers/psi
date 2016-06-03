@@ -27,9 +27,23 @@ class JoinsController extends Controller
         $join->team_id = $team_id;
         $join->save();
 
-        Notification::createNotification($request->id, Team::find($team_id)->students->where('is_leader', 1)->first()->user_id, "NEW JOIN REQUEST", true);
+        $notification = Notification::createNotification($request, Team::find($team_id)->students->where('is_leader', 1)->first(), "NEW JOIN REQUEST", true, false);
 
-        //Redirect to a view
-        return $join;
+        return back()->withInput();
+    }
+
+    public function reply($notification_id)
+    {
+        $notification = Notification::find($notification_id);
+        $request = $notification->request;
+        if ($notification->student->is_leader && (Auth::user()->id == $notification->student->user->id))
+        {
+            $student = Student::find(Auth::user()->id);
+
+            $student->team()->associate($request->requestable->team);
+            $student->save(); 
+        }
+
+        return $request->toJson();
     }
 }
