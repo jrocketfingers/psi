@@ -17,13 +17,16 @@ class Notification extends Model
         return $this->belongsTo('App\Request');
     }
 
-    public static function createNotification($request_id, $student_id, $text, $can_show) {
+    public static function createNotification($request, $student, $text, $can_show, $info_only) {
         $notification = new Notification();
-        $notification->request_id = $request_id;
-        $notification->student_id = $student_id;
+        $notification->request()->associate($request);
+        $notification->student()->associate($student);
         $notification->text = $text;
         $notification->can_show = $can_show;
+        $notification->info_only = $info_only;
         $notification->seen = false;
         $notification->save();
+
+        return $notification;
     }
 }
