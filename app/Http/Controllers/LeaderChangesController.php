@@ -15,7 +15,8 @@ class LeaderChangesController extends Controller
         $this->middleware('auth');
     }
     
-    public function create($student_id) { //student za koga se glasa da bude vodja
+    public function create($student_id) {
+        
         $request = Request::createRequest();
         $request->requestable_id = $request->id;
         $request->requestable_type = "App\\LeaderChange";
@@ -38,8 +39,10 @@ class LeaderChangesController extends Controller
                 $can_show = true;
             }
 
-            Notification::createNotification($request->id, $student->user_id, "NEW LEADER CHANGE REQUEST", $can_show);
+            Notification::createNotification($request, $student, "NEW LEADER CHANGE REQUEST", $can_show, false);
         }
-        //redirect to somewhere
+     
+        return back()->withInput();
+
     }
 }
