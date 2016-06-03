@@ -23,6 +23,12 @@
         .fa-btn {
             margin-right: 6px;
         }
+
+        .scrollable-menu {
+            height: auto;
+            max-height: 200px;
+            overflow-x: hidden;
+        }
     </style>
 </head>
 <body id="app-layout">
@@ -62,7 +68,7 @@
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="notifications">Notifications</a>
-                            <ul class="dropdown-menu" role="menu" id="myMenu">
+                            <ul class="dropdown-menu scrollable-menu" role="menu" id="myMenu">
                                 
                             </ul>
                             
