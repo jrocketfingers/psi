@@ -35,7 +35,7 @@ Route::post('/roles/{id}', 'RolesController@update');
 Route::post('/roles/destroy/{id}', 'RolesController@destroy');
 
 
-Route::resource('students', 'StudentsController');
+// Route::resource('students', 'StudentsController');
 Route::get('/students', 'StudentsController@index');
 Route::get('/students/edit/{id}', 'StudentsController@edit');
 Route::post('/students/edit', 'StudentsController@update');
@@ -44,6 +44,9 @@ Route::post('/students/team/create', 'StudentsController@createTeam');
 Route::get('/students/team/delete', 'StudentsController@disbandTeam');
 Route::get('/students/team/join/{id}', 'StudentsController@join');
 Route::get('/students/team/leave/{id}', 'StudentsController@leave');
+Route::get('/students/list', 'StudentsController@getStudentsByRole');
+Route::get('/students/show/{id}', 'StudentsController@show');
+Route::get('/students/notifications', 'StudentsController@getNotifications');
 
 /*Route::get('/students', 'StudentsController@getAll');
 Route::get('/students/{role_id}', 'StudentsController@getByRole');*/
@@ -60,4 +63,3 @@ Route::get('/admins/{id?}', 'AdminsController@index');
 
 
 //TEST ROUTES
-Route::get('/avaliablestudents', 'StudentsController@getStudentsByRole');

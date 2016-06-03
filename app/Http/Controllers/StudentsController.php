@@ -197,18 +197,24 @@ class StudentsController extends Controller
     }
 
     public function getStudentsByRole() {
-        $team = Student::find(Auth::user()->id)->team;
+        $student = Student::find(Auth::user()->id);
+        $team = $student->team;
         $roles = $team->roles->sortBy('name');
         $students = new Collection();
+
         foreach ($roles as $role) {
             $tmpstudents = $role->students->sortBy('name');
             foreach ($tmpstudents as $student) {
-                if($student->team != $team) {
+                if($student->team == null) {
                     $students->push($student);
                 }
             }
         }
-        //RETURN SOME VIEW
-        return $students;
+
+
+        return view('students.students', [
+            'students' => $students,
+            'student' => $student,
+        ]);
     }
 }
