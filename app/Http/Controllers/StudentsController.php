@@ -6,6 +6,7 @@ use App\Student;
 use App\User;
 use App\Team;
 use App\Role;
+use App\Notification;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\RolesRepository;
@@ -21,7 +22,6 @@ class StudentsController extends Controller
 
     public function index($id = null)
     {
-       // $teams = Team::all();
         $student = Student::find(Auth::user()->id);
 
         $roles= $student->roles->sortBy('name');
