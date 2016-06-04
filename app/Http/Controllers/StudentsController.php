@@ -107,6 +107,18 @@ class StudentsController extends Controller
 
     public function createTeam(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'project_name' => 'required|max:255',
+            'description' => 'required|max:255',
+        ]);
+
+        if($validator->fails()) {
+            return redirect()->action('StudentsController@showTeamCreationForm')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        
         $id = Auth::user()->id;
 
 
