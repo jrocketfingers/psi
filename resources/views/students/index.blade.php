@@ -13,10 +13,10 @@
 			                    	<a class="label label-success" href="{{ action('JoinsController@create', [$team->id]) }}"> Join </a>
 			                    </div>
 		                        
-		                        @foreach ($team->students as $student)
+		                        @foreach ($team->students as $team_student)
 		                        	<div class="col-lg-1 col-lg-offset-1">
-		                        		<a class="label label-default" href="{{ action('StudentsController@show', [$student->user->id]) }}">
-			                        		{{ $student->user->name }}
+		                        		<a class="label label-default" href="{{ action('StudentsController@show', [$team_student->user->id]) }}">
+			                        		{{ $team_student->user->name }}
 			                        	</a>
 		                        	</div>
 		                        @endforeach
