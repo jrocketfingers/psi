@@ -50,6 +50,7 @@ Route::get('/students/show/{id}', 'StudentsController@show');
 Route::get('/students/notifications', 'StudentsController@getNotifications');
 Route::get('/students/team/edit/{id}', 'StudentsController@editTeam');
 Route::post('students/team/store', 'StudentsController@storeTeam');
+
 /*Route::get('/students', 'StudentsController@getAll');
 Route::get('/students/{role_id}', 'StudentsController@getByRole');*/
 //Assistants logic
