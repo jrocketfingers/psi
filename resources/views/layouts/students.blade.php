@@ -76,7 +76,7 @@
         })();
 
         $(document).on('click', 'div[name=notification]', function(){
-            var url = 'http://192.168.99.100/action/' + $(this).data('notification-id') + '/' + $(this).data('check');
+            var url = 'http://localhost/psi/public/index.php/action/' + $(this).data('notification-id') + '/' + $(this).data('check');
             var dom = $(this);
 
             $.get(url, function(data){
