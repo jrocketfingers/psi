@@ -93,6 +93,17 @@ class StudentsController extends Controller
         ]);
     }
 
+    public function showTeam()
+    {
+        $student = Student::find(Auth::user()->id);
+        $team = $student->team;
+
+        return view('students.team',[
+            'student' => $student,
+            'team' => $team,
+        ]);
+    }
+
     public function createTeam(Request $request)
     {
         $id = Auth::user()->id;
