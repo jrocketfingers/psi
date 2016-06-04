@@ -74,6 +74,7 @@ class AuthController extends Controller
         if($data['user_type'] == 'student') {
             $student = new Student();
             $student->user_id = $user->id;
+            $student->is_leader = false;
             $student->save();
         } else {
             $assistant = new Assistant();
