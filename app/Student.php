@@ -33,6 +33,9 @@ class Student extends Model
     public function notifications() {
         return $this->hasMany('App\Notification');
     }
+    public function joins() {
+        return $this->hasMany('App\Joins');
+    }
     public function invites() {
         return $this->hasMany('App\Invite');
     }
