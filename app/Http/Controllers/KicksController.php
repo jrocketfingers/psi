@@ -29,6 +29,8 @@ class KicksController extends Controller
         $kick->save();
         $team = Student::find(Auth::user()->id)->team;
 
+        $kick_student = Student::find($student_id);
+
         foreach($team->students as $student) {
             $can_show = false;
             if($student->user_id != $student_id) {
@@ -39,7 +41,7 @@ class KicksController extends Controller
                 $can_show = true;
             }
 
-            Notification::createNotification($request, $student, "NEW KICK REQUEST", $can_show, false);
+            Notification::createNotification($request, $student, "New kick request for " . $kick_student->name, $can_show, false);
         }
 
         return back()->withInput();
