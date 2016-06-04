@@ -13,7 +13,6 @@ class KicksController extends Controller
 {
     public function __construct() {
         $this->middleware('auth');
-        //$this->middleware('is_leader_kick'); //OVO TREBA DA BUDE UBACENO KADA ODRADIMO OVO PREKO NEKE FORME
     }
 
     public function create($student_id) {
