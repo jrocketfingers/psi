@@ -8,11 +8,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col-md-6 text-center">
-                                <h3 class="panel-title text-center">
-                                    Students
-                                </h3>
-                            </div>
+                            <h3 class="panel-title text-center">
+                                Students
+                            </h3>
                         </div>
                     </div>
                     <div class="panel-body">
