@@ -1,8 +1,4 @@
-@extends('layouts.app')
-
-@section('details')
-<li><a href="{{ action('StudentsController@show', [Auth::user()->id]) }}" ><i class="fa fa-btn fa-info"></i>Details</a></li>
-@endsection
+@extends('layouts.students')
 
 @section('content')
 <div class="container-fluid">
@@ -16,7 +12,7 @@
 						</div>
 						@if ($student->user_id == Auth::user()->id)
 							<div class="col-lg-1">
-								<a href="{{ url('students/edit', [$student->user_id]) }}">Edit</a>
+								<a href="{{ url('students/edit', [$student->user->id]) }}">Edit</a>
 							</div>
 						@endif
 					</div>
