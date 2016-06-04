@@ -1,19 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        @foreach($teams as $team)
+    <div class='container'>
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-4">
-                    {{ $team->name }}
-                </div>
-                <div class="col-sm-4">
-                    <a href="{{ url('/assistants/showTeamDetails/'.$team->id) }}">Details</a>
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-6 text-center">
+                                    <h3 class="panel-title text-center">
+                                        Teams
+                                    </h3>
+                                </div>
+                                <div class="col-sm-4 text-right">
+                                    <a href="{{ action('AssistantsController@index') }}">Back</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            @foreach($teams as $team)
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ $team->name }}
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <a href="{{ action('AssistantsController@showTeamDetails', [$team->id]) }}">Details</a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             </div>
-        @endforeach
-    </div>
-    <div>
-        <a href="{{ url('/home') }}">Back</a>
+        </div>
     </div>
 @endsection
