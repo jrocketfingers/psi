@@ -27,7 +27,7 @@
 
         (function poll() {
            setTimeout(function() {
-               $.get('http://192.168.99.100/students/notifications', function(data){
+               $.get('http://localhost/psi/public/index.php/students/notifications', function(data){
                     var currentLength = $('ul#myMenu li').length;
 
                     for (var i=0; i<data.length; i++)
