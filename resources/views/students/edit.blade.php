@@ -1,9 +1,4 @@
-@extends('layouts.app')
-
-
-@section('details')
-<li><a href="{{ action('StudentsController@show', [Auth::user()->id]) }}" ><i class="fa fa-btn fa-info"></i>Details</a></li>
-@endsection
+@extends('layouts.students')
 
 @section('content')
 
