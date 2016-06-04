@@ -28,7 +28,11 @@ class Kick extends Model
         if($this->num_voted == count($this->student->team->students) - 1) {
             //NAPRAVIMO PRVO NOTIFIKACIJE ZA SVE
             foreach ($this->student->team->students as $student) {
-                Notification::createNotification($this->request, $student, "KICK REQUEST ACCEPTED", true, true);
+                if($student->user_id == $this->student->user_id) {
+                    Notification::createNotification($this->request, $student, "You have been kick out from team " . $student->team->name, true, true);
+                } else {
+                    Notification::createNotification($this->request, $student, "Student " . $this->student->name . " has been kicked out of your team", true, true);
+                }
             }
             $this->request->status = "ACCEPTED";
             $this->request->save();
@@ -43,7 +47,7 @@ class Kick extends Model
 
     public function deny() {
         foreach ($this->student->team->students as $student) {
-            Notification::createNotification($this->request, $student, "KICK REQUEST DENIED", true, true);
+            Notification::createNotification($this->request, $student, "Kick request for student " . $this->student->name . " denied", true, true);
             
             Vote::destroyVote($this->request_id, $student->user_id);
         }
