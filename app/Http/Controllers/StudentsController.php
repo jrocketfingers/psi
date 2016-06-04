@@ -84,10 +84,12 @@ class StudentsController extends Controller
 
     public function showTeamCreationForm()
     {
+        $student = Student::find(Auth::user()->id);
         $roles = array_column(Role::all()->toArray(), 'name', 'id');
 
         return view('students.team_creation',[
             'roles' => $roles,
+            'student' => $student,
         ]);
     }
 
@@ -174,17 +176,21 @@ class StudentsController extends Controller
 
     public function getAll() {
         $students = Student::getAll();
+        $student = Student::find(Auth::user()->id);
 
         return view('students.index', [
             'students' => $students,
+            'student' => $student,
         ]);
     }
 
     public function getByRole($role_id) {
         $students = Student::getByRole($role_id);
+        $student = Student::find(Auth::user()->id);
 
         return view('students.index', [
-           'students' => $students
+           'students' => $students,
+           'student' => $student,
         ]);
     }
 
@@ -196,7 +202,7 @@ class StudentsController extends Controller
      */
     public function show($id)
     {
-        $student = Student::with('user')->find($id);
+        $student = Student::find($id);
         return view('students.show', [
             'student' => $student,
             'roles' => $student->roles,
@@ -218,6 +224,7 @@ class StudentsController extends Controller
             }
         }
 
+        $student = Student::find(Auth::user()->id);
 
         return view('students.students', [
             'students' => $students,
