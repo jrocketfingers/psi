@@ -16,7 +16,7 @@ class StudentsTableSeeder extends Seeder
     {
         //
 
-    	for ($i = 5; $i < 9; $i++)
+    	for ($i = 5; $i < 50; $i++)
     	{
     		$name = "test_user_".$i;
     		$password = bcrypt("test_user_".$i);
