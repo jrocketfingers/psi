@@ -28,13 +28,6 @@ Route::post('/users/destroy/{id}', 'UsersController@destroy')->middleware('is_le
 //ROUTE FOR USERS PREVIEW AND DELETING ACCOUNTS FOR ADMINS
 Route::get('/users', 'UsersController@index')->middleware('admin');
 
-Route::resource('roles', 'RolesController');
-//ROUTE FOR UPDATING ROLE INFO, CANT USE PUT VERB
-Route::post('/roles/{id}', 'RolesController@update');
-//ROUTE FOR DESTROYING ROLES, CANT USE DELETE VERB
-Route::post('/roles/destroy/{id}', 'RolesController@destroy');
-
-
 // Route::resource('students', 'StudentsController');
 Route::get('/students', 'StudentsController@index');
 Route::get('/students/edit/{id}', 'StudentsController@edit');
@@ -61,10 +54,16 @@ Route::get('/assistants/showTeamDetails/{id}', 'AssistantsController@showTeamDet
 Route::get('/assistants/{id?}', 'AssistantsController@index');
 Route::get('/assistants/role/{id}', 'AssistantsController@showRole');
 //Admin logic
-Route::get('/admins/showAllUsers', 'AdminsController@showAllUsers');
-Route::post('/admins/destroyUser/{id}', 'AdminsController@destroyUser');
+Route::get('/admins/users', 'AdminsController@showAllUsers');
+Route::post('/admins/users/{id}', 'AdminsController@destroyUser');
+Route::get('/admins/roles', 'AdminsController@getAllRoles');
+Route::post('admins/roles', 'AdminsController@storeRole');
+Route::get('/admins/roles/create', 'AdminsController@createRole');
+Route::get('/admins/roles/show/{id}', 'AdminsController@showRole');
+Route::get('/admins/roles/edit/{id}', 'AdminsController@editRole');
+Route::post('/admins/roles/update/{id}', 'AdminsController@updateRole');
+Route::post('/admins/roles/destroy/{id}', 'AdminsController@destroyRole');
 Route::get('/admins/{id?}', 'AdminsController@index');
-
 
 //request routes
 Route::get('/createjoin/{team_id}', "JoinsController@create");
