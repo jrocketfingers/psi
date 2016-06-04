@@ -48,7 +48,6 @@ Route::get('/students/team/leave/{id}', 'StudentsController@leave');
 Route::get('/students/list', 'StudentsController@getStudentsByRole');
 Route::get('/students/show/{id}', 'StudentsController@show');
 Route::get('/students/notifications', 'StudentsController@getNotifications');
-//routes for team editing
 Route::get('/students/team/edit/{id}', 'StudentsController@editTeam');
 Route::post('students/team/store', 'StudentsController@storeTeam');
 /*Route::get('/students', 'StudentsController@getAll');
@@ -65,8 +64,7 @@ Route::post('/admins/destroyUser/{id}', 'AdminsController@destroy');
 Route::get('/admins/{id?}', 'AdminsController@index');
 
 
-//TEST ROUTES
-Route::get('/avaliablestudents', 'StudentsController@getStudentsByRole');
+//request routes
 Route::get('/createjoin/{team_id}', "JoinsController@create");
 Route::get('/createinvite/{student_id}', 'InvitesController@create');
 Route::get('/createkick/{student_id}', 'KicksController@create');
