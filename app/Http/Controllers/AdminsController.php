@@ -52,7 +52,7 @@ class AdminsController extends Controller
                             }
                         }
                     }
-                    foreach ($student->joins as $join) {
+                    foreach ($student->team->joins as $join) {
                         if($join->request->status != "CONFIRMED") {
                             $join->delete();
                         }
@@ -64,8 +64,8 @@ class AdminsController extends Controller
                     }
                     $team = $student->team;
                     foreach ($team->students as $student) {
-                        $student->team = null;
-                        $student->is_leader = false;
+                        $student->team_id = null;
+                        $student->is_leader = null;
                         $student->save();
                     }
                     $team->delete();
