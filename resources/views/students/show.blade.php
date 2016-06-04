@@ -47,14 +47,13 @@
 									<div> {{ $show_student->user->email }} </div>
 								</div>
 							</div>
-							
 						</div>
 						<div class="col-lg-6 col-lg-offset-2">
 							<div class="row" style="text-align: center;">
-								@foreach($roles as $role)
-						            <div class="col-lg-4 text-center">
-						                <div class="label label-default"> {{ $role->name }} </div>
-						            </div>
+								@foreach($show_student->roles as $role)
+									<div class="label label-default">
+										{{ $role->name }}
+									</div>
 						        @endforeach
 							</div>
 						</div>
