@@ -11,35 +11,51 @@
 					<legend>Team Creation Form</legend>
 				</div>
 
-				<div class="form-group">
+				<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
 						<span class="control-label">Name</span>
 					</div>
 
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 						{{ Form::text('name', null, [ 'class' => 'form-control']) }}
-					</div>
 
+						@if ($errors->has('name'))
+							<span class="help-block">
+								<strong>{{ $errors->first('name') }}</strong>
+							</span>
+						@endif
+					</div>
 				</div>
 
-				<div class="form-group">
+				<div class="form-group{{ $errors->has('project_name') ? ' has-error' : '' }}">
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
 						<span class="control-label">Project Name</span>
 					</div>
 
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 						{{ Form::text('project_name', null, [ 'class' => 'form-control']) }}
-					</div>
 
+						@if ($errors->has('project_name'))
+							<span class="help-block">
+                          	     <strong>{{ $errors->first('project_name') }}</strong>
+                            </span>
+						@endif
+					</div>
 				</div>
 
-				<div class="form-group">
+				<div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
 						<span class="control-label">Description</span>
 					</div>
 
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 						{{ Form::text('description', null, [ 'class' => 'form-control']) }}
+
+						@if ($errors->has('description'))
+							<span class="help-block">
+								<strong>{{ $errors->first('description') }}</strong>
+							</span>
+						@endif
 					</div>
 
 				</div>
