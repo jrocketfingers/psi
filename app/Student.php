@@ -33,9 +33,6 @@ class Student extends Model
     public function notifications() {
         return $this->hasMany('App\Notification');
     }
-    public function joins() {
-        return $this->hasMany('App\Joins');
-    }
     public function invites() {
         return $this->hasMany('App\Invite');
     }
@@ -47,5 +44,8 @@ class Student extends Model
     }
     public function votesPending() {
         return $this->hasMany('App\Vote');
+    }
+    public function requests() {
+        return $this->hasMany('App\Request');
     }
 }
