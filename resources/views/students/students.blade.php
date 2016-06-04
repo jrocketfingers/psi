@@ -11,6 +11,7 @@
 		                    <span class="label label-success text-right">
 		                    	Invite
 		                    </span>
+		                    <a href="{{ url('students/show', [$show_student->user_id]) }}"> Details </a>
 		                </div>
 		                <div class="panel-body">
 		                	@foreach ($show_student->roles as $role)
