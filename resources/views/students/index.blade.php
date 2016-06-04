@@ -9,7 +9,7 @@
 	                    <div class="panel-heading">
 		                    <div class="row">
 		                    	<div class="col-lg-2">
-			                    	{{ $team->name }}
+										{{ $team->name }}
 			                    	<a class="label label-success" href="{{ action('JoinsController@create', [$team->id]) }}"> Join </a>
 			                    </div>
 		                        
