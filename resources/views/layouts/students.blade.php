@@ -3,6 +3,10 @@
 @section('details')
 <li><a href="{{ action('StudentsController@show', [Auth::user()->id]) }}" ><i class="fa fa-btn fa-info"></i>Details</a></li>
 
+@if ($student->team)
+    <li><a href="{{ url('students/team/show') }}" ><i class="fa fa-btn fa-info"></i>My Team</a></li>
+@endif
+
 @if ($student->is_leader)
 	<li><a href="{{ url('students/team/delete') }}" ><i class="fa fa-btn fa-info"></i>Disband Team</a></li>
 	<li><a href="{{ url('students/list') }}" ><i class="fa fa-btn fa-info"></i>Show Eligible Students</a></li>
