@@ -24,21 +24,23 @@ class StudentsController extends Controller
     public function index($id = null)
     {
         $student = Student::find(Auth::user()->id);
-
-        $roles= $student->roles->sortBy('name');
         $teams = new Collection();
-        foreach ($roles as $role) {
-            $tmpteams = $role->teams->sortBy('name');
-            foreach ($tmpteams as $team) {
-               if($student->team != $team) {
-                   $teams->push($team);
-               }
-            }
-        }
 
-        if ($teams->isEmpty())
-        {
-            $teams = Team::all();
+        if($student->team == null) {
+            $roles= $student->roles->sortBy('name');
+            foreach ($roles as $role) {
+                $tmpteams = $role->teams->sortBy('name');
+                foreach ($tmpteams as $team) {
+                    if(!$teams->contains($team)) {
+                        $teams->push($team);
+                    }
+                }
+            }
+
+            if ($teams->isEmpty())
+            {
+                $teams = Team::all();
+            }
         }
 
         return view('students.index', [
@@ -46,7 +48,7 @@ class StudentsController extends Controller
             'student' => $student,
         ]);
     }
-    
+
     public function edit($id)
     {
         $student = Student::find($id);
@@ -273,6 +275,14 @@ class StudentsController extends Controller
         ]);
     }
 
+    public function showRole($id) {
+        $role = Role::find($id);
+
+        return view('students.showRole', [
+            'role' => $role,
+        ]);
+    }
+
     public function getStudentsByRole() {
         $student = Student::find(Auth::user()->id);
         $team = $student->team;
@@ -282,14 +292,11 @@ class StudentsController extends Controller
         foreach ($roles as $role) {
             $tmpstudents = $role->students->sortBy('name');
             foreach ($tmpstudents as $student) {
-                if($student->team == null) {
+                if($student->team == null && !$students->contains($student)) {
                     $students->push($student);
                 }
             }
         }
-
-        $student = Student::find(Auth::user()->id);
-
         return view('students.students', [
             'students' => $students,
             'student' => $student,
