@@ -13,6 +13,7 @@ use App\Repositories\RolesRepository;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Validator;
 
 class StudentsController extends Controller
 {
@@ -140,6 +141,43 @@ class StudentsController extends Controller
 
         return redirect()->action('StudentsController@index', [$id]);
 
+    }
+
+    public function editTeam($id) {
+        $team = Team::find($id);
+        $student = Student::find(Auth::user()->id);
+
+        return view('students.team_edit', [
+            'student' => $student,
+            'team' => $team,
+        ]);
+    }
+
+    public function storeTeam(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'project_name' => 'required|max:255',
+            'description' => 'required|max:255',
+        ]);
+        
+        if($validator->fails()) {
+            return redirect()->action('StudentsController@editTeam', [$request->input('id')])
+                            ->withErrors($validator)
+                            ->withInput();
+        }
+
+        $team = Team::find($request->input('id'));
+        $team->name = $request->input('name');
+        $team->project_name = $request->input('project_name');
+        $team->description = $request->input('description');
+        $team->save();
+
+        $student = Student::find(Auth::user()->id);
+
+        return view('students.team',[
+            'student' => $student,
+            'team' => $team,
+        ]);
     }
 
     public function join($id)
