@@ -48,7 +48,9 @@ Route::get('/students/team/leave/{id}', 'StudentsController@leave');
 Route::get('/students/list', 'StudentsController@getStudentsByRole');
 Route::get('/students/show/{id}', 'StudentsController@show');
 Route::get('/students/notifications', 'StudentsController@getNotifications');
-
+//routes for team editing
+Route::get('/students/team/edit/{id}', 'StudentsController@editTeam');
+Route::post('students/team/store', 'StudentsController@storeTeam');
 /*Route::get('/students', 'StudentsController@getAll');
 Route::get('/students/{role_id}', 'StudentsController@getByRole');*/
 //Assistants logic
