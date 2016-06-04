@@ -39,6 +39,7 @@ Route::post('/roles/destroy/{id}', 'RolesController@destroy');
 Route::get('/students', 'StudentsController@index');
 Route::get('/students/edit/{id}', 'StudentsController@edit');
 Route::post('/students/edit', 'StudentsController@update');
+Route::get('/students/team/show', 'StudentsController@showTeam');
 Route::get('/students/team/create', 'StudentsController@showTeamCreationForm');
 Route::post('/students/team/create', 'StudentsController@createTeam');
 Route::get('/students/team/delete', 'StudentsController@disbandTeam');
