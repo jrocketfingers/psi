@@ -58,12 +58,14 @@ class RolesController extends Controller
                 ->withInput();
         }
 
-        Role::create([
+        $role = Role::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
         ]);
         
-        return redirect()->action('RolesController@index');
+        return view('roles.show', [
+            'role' => $role,
+        ]);
     }
 
     /**
