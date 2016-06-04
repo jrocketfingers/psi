@@ -161,6 +161,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Model generator
+         */
+        Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
+
     ],
 
     /*
