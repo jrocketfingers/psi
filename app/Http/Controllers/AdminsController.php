@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Student;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -24,8 +25,58 @@ class AdminsController extends Controller
     }
 
     public function destroyUser($id) {
-        User::destroy($id);
+        $student = Student::find($id);
+        if($student != null) {
+            if($student->team != null) {
+                if($student->is_leader == false) {
+                    foreach ($student->kicks as $kick) {
+                        if($kick->requset->status != "CONFIRMED") {
+                            $kick->request->delete();
+                        }
+                    }
+                    foreach ($student->leaderChanges as $leaderhange) {
+                        if($leaderhange->requset->status != "CONFIRMED") {
+                            $leaderhange->request->delete();
+                        }
+                    }
+                } else {
+                    foreach ($student->team->students as $team_student) {
+                        foreach ($team_student->kicks as $kick) {
+                            if($kick->requset->status != "CONFIRMED") {
+                                $kick->request->delete();
+                            }
+                        }
+                        foreach ($team_student->leaderChanges as $leaderhange) {
+                            if($leaderhange->requset->status != "CONFIRMED") {
+                                $leaderhange->request->delete();
+                            }
+                        }
+                    }
+                    foreach ($student->joins as $join) {
+                        if($join->request->status != "CONFIRMED") {
+                            $join->delete();
+                        }
+                    }
+                    foreach ($student->requests as $request) {
+                        if($request->status != "CONFIRMED") {
+                            $request->delete();
+                        }
+                    }
+                    $team = $student->team;
+                    foreach ($team->students as $student) {
+                        $student->team = null;
+                        $student->is_leader = false;
+                        $student->save();
+                    }
+                    $team->delete();
+                }
 
-        return redirect()->action('AdminsCotnroller@showAllUsers');
+            }
+        }
+
+        User::destroy($id);
+        $users = User::where('name', '!=', 'admin')->get();
+
+        return view('admins.showAllUsers')->with('users', $users);
     }
 }
