@@ -213,10 +213,13 @@ class StudentsController extends Controller
      */
     public function show($id)
     {
-        $student = Student::find($id);
+        $show_student = Student::find($id);
+        $student = Student::find(Auth::user()->id);
+
         return view('students.show', [
-            'student' => $student,
+            'show_student' => $show_student,
             'roles' => $student->roles,
+            'student' => $student,
         ]);
     }
 
