@@ -21,19 +21,21 @@ class Join extends Model
 
     public function accept() {
         $student = $this->request->student;
-        $student->team()->associate(Student::find(Auth::user()->id)->team);
+        $team = Student::find(Auth::user()->id)->team;
+        $student->team()->associate($team);
         $student->is_leader = false;
         $student->save();
 
         $this->request->status = "ACCEPTED";
         $this->request->save();
-        Notification::createNotification($this->request, $student , "JOIN ACCEPTED" , true, true);
+        Notification::createNotification($this->request, $student , "You have joined team " . $team->name , true, true);
     }
 
     public function deny() {
+        $team = Student::find(Auth::user()->id)->team;
         $this->request->status = "DENIED";
         $this->request->save();
-        Notification::createNotification($this->request, $this->request->student , "JOIN DENIED" , true, true);
+        Notification::createNotification($this->request, $this->request->student , "Team " . $team->name . " denied your join request" , true, true);
     }
 
 }

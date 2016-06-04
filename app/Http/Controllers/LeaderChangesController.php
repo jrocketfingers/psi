@@ -29,6 +29,8 @@ class LeaderChangesController extends Controller
         $leader_change->save();
         $team = Student::find(Auth::user()->id)->team;
 
+        $leader_student = Student::find($student_id);
+
         foreach($team->students as $student) {
             $can_show = false;
             if($student->user_id != $student_id && $student->is_leader == false) {
@@ -39,7 +41,7 @@ class LeaderChangesController extends Controller
                 $can_show = true;
             }
 
-            Notification::createNotification($request, $student, "NEW LEADER CHANGE REQUEST", $can_show, false);
+            Notification::createNotification($request, $student, "New leader change request for " . $leader_student->name, $can_show, false);
         }
      
         return back()->withInput();

@@ -45,4 +45,7 @@ class Student extends Model
     public function votesPending() {
         return $this->hasMany('App\Vote');
     }
+    public function requests() {
+        return $this->hasMany('App\Request');
+    }
 }

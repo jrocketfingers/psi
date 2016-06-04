@@ -7,6 +7,8 @@ use App\Notification;
 use App\Request;
 
 use App\Http\Requests;
+use App\Student;
+use Illuminate\Support\Facades\Auth;
 
 class InvitesController extends Controller
 {
@@ -27,7 +29,9 @@ class InvitesController extends Controller
         $invite->student_id = $student_id;
         $invite->save();
 
-        Notification::createNotification($request, $student, "NEW INVITE REQUEST", true, false);
+        $team = Student::find(Auth::user()->id)->team;
+
+        Notification::createNotification($request, $student, "New invite request from team " . $team->name, true, false);
 
         return back()->withInput();
     }

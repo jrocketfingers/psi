@@ -8,7 +8,16 @@
 		<div class="col-md-6 col-md-offset-3">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title text-center"> {{ $team->name }} </h3>
+					<div class = "row">
+						<div class="col-lg-6">
+							<h3 class="panel-title text-center"> {{ $team->name }} </h3>
+						</div>
+						@if($student->is_leader == 1)
+							<div class="col-lg-1 pull-right">
+								<a href="{{ action('StudentsController@editTeam', ['id' => $team->id]) }}">Edit</a>
+							</div>
+						@endif
+					</div>
 				</div>
 				<div class="panel-body">
 					<h4 class="text-center"> Members </h4>

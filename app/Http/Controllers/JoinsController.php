@@ -7,7 +7,9 @@ use App\Notification;
 use App\Request;
 
 use App\Http\Requests;
+use App\Student;
 use App\Team;
+use Illuminate\Support\Facades\Auth;
 
 class JoinsController extends Controller
 {
@@ -27,7 +29,9 @@ class JoinsController extends Controller
         $join->team_id = $team_id;
         $join->save();
 
-        $notification = Notification::createNotification($request, Team::find($team_id)->students->where('is_leader', 1)->first(), "NEW JOIN REQUEST", true, false);
+        $student = Student::find(Auth::user()->id);
+
+        $notification = Notification::createNotification($request, Team::find($team_id)->students->where('is_leader', 1)->first(), "Student " . $student->name . " wants to join your team", true, false);
 
         return back()->withInput();
     }

@@ -24,7 +24,7 @@ class CreateNotificationsTable extends Migration
             $table->foreign('student_id')->references('user_id')->on('students')->onUpdate('cascade')->onDelete('cascade');
 
             $table->integer('request_id')->unsigned()->nullable();
-            $table->foreign('request_id')->references('id')->on('requests')->onUpdate('cascade')->onDelet('cascade');
+            $table->foreign('request_id')->references('id')->on('requests')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
