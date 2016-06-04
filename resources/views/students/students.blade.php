@@ -7,16 +7,24 @@
 	   		<div class="col-md-8 col-md-offset-2">
 	   			<div class="panel panel-default">
 	                    <div class="panel-heading">
-		                    <span> {{ $show_student->name }} </span>
-		                    <span class="label label-success text-right">
-		                    	Invite
-		                    </span>
-		                    <a href="{{ url('students/show', [$show_student->user_id]) }}"> Details </a>
+							<div class="row">
+								<div class="col-lg-6">
+									<h3 class="panel-title text-center">{{ $show_student->user->name }}</h3>
+								</div>
+								<div class="col-lg-3 pull-right">
+									<span class="label label-success text-right">
+		                    			<a href="{{ action('InvitesController@create', [$show_student->user_id]) }}">Invite</a>
+		                    		</span>
+								</div>
+								<div class="col-lg-3 pull-right">
+									<a href="{{ url('students/show', [$show_student->user_id]) }}"> Details </a>
+								</div>
+							</div>
 		                </div>
 		                <div class="panel-body">
 		                	@foreach ($show_student->roles as $role)
 		                		<div class="label label-default">
-		                			{{ $role->name }}
+									{{ $role->name }}
 		                		</div>
 		                	@endforeach
 		                </div>    
