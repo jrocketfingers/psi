@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use App\Student;
 use App\Team;
 use Illuminate\Http\Request;
@@ -34,6 +35,14 @@ class AssistantsController extends Controller
         $teams = Team::all();
 
         return view('assistants.showAllTeams')->with('teams', $teams);
+    }
+    
+    public function showRole($id) {
+        $role = Role::find($id);
+
+        return view('assistants.showRole', [
+            'role' => $role,
+        ]);
     }
 
     public function showTeamDetails($id){
