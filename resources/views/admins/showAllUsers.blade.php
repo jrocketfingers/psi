@@ -24,7 +24,8 @@
                                     {{ $user->name }}
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <form class="form-group" role="form" method="POST" action="{{ url('/admins/destroyUser/'.$user->id) }}">
+                                    <form class="form-group" role="form" method="POST" action="{{ action('AdminsController@destroyUser', [$user->id]) }}">
+                                        {{ csrf_field() }}
                                         <input class="form-group" type="submit" value="Delete">
                                     </form>
                                 </div>
