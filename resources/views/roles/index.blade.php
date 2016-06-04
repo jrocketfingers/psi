@@ -11,9 +11,6 @@
                                 <h3 class="panel-title text-center">Roles</h3>
                             </div>
                             <div class="col-lg-3 pull-right">
-                                <a href="{{ action('AdminsController@index') }}">Back</a>
-                            </div>
-                            <div class="col-lg-3 pull-right">
                                 <a href="{{ action('RolesController@create') }}">Add new role</a>
                             </div>
                         </div>

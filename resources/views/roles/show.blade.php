@@ -10,9 +10,6 @@
                             <div class="col-lg-6">
                                 <h3 class="panel-title text-center">Role</h3>
                             </div>
-                            <div class="col-lg-3 pull-right">
-                                <a href="{{ action('RolesController@index') }}">Back</a>
-                            </div>
                             <div class="col-lg-1 pull-right">
                                 <a href="{{ action('RolesController@edit', [$role->id]) }}">Edit</a>
                             </div>
