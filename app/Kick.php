@@ -31,7 +31,7 @@ class Kick extends Model
                 if($student->user_id == $this->student->user_id) {
                     Notification::createNotification($this->request, $student, "You have been kick out from team " . $student->team->name, true, true);
                 } else {
-                    Notification::createNotification($this->request, $student, "Student " . $this->student->name . " has been kicked out of your team", true, true);
+                    Notification::createNotification($this->request, $student, "Student " . $this->student->user->name . " has been kicked out of your team", true, true);
                 }
             }
             $this->request->status = "ACCEPTED";
