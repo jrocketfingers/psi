@@ -11,7 +11,7 @@
                                 <h3 class="panel-title text-center">Roles</h3>
                             </div>
                             <div class="col-lg-3 pull-right">
-                                <a href="{{ action('RolesController@create') }}">Add new role</a>
+                                <a href="{{ action('AdminsController@createRole') }}">Add new role</a>
                             </div>
                         </div>
                     </div>
@@ -22,13 +22,13 @@
                                     {{ $role->name }}
                                 </div>
                                 <div class="col-lg-2 pull-right">
-                                    <form  role="form" method="POST" action="{{ url('roles/destroy/'.$role->id) }}" >
+                                    <form  role="form" method="POST" action="{{ action('AdminsController@destroyRole', [$role->id]) }}" >
                                         {!! csrf_field() !!}
                                         <input type="submit" value="Delete">
                                     </form>
                                 </div>
                                 <div class="col-lg-3 pull-right">
-                                    <a href="{{ action('RolesController@show', [$role->id]) }}">Show Details</a>
+                                    <a href="{{ action('AdminsController@showRole', [$role->id]) }}">Show Details</a>
                                 </div>
                             </div>
                             <br>

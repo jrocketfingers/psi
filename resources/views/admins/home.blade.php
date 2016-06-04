@@ -16,7 +16,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-md-offset-5">
-                                <a href="{{ action('RolesController@index') }}">Edit roles</a>
+                                <a href="{{ action('AdminsController@getAllRoles') }}">Edit roles</a>
                             </div>
                         </div>
                     </div>
