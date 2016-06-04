@@ -46,11 +46,9 @@
                             <div class="row" style="text-align: center;">
                                 @foreach($student->roles as $role)
                                     <div class="col-lg-4 text-center">
-                                        <div class="label label-default">
-                                            <a href="{{ action('AssistantsController@showRole', [$role->id]) }}">
-                                                {{ $role->name }}
-                                            </a>
-                                        </div>
+                                        <a class="label label-default" href="{{ action('AssistantsController@showRole', [$role->id]) }}">
+                                            {{ $role->name }}
+                                        </a>
                                     </div>
                                 @endforeach
                             </div>
