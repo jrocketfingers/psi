@@ -63,16 +63,18 @@
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
-                        <li>
-                            <span class="label label-default" id="notify"></span>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="notifications">Notifications</a>
-                            <ul class="dropdown-menu scrollable-menu" role="menu" id="myMenu">
-                                
-                            </ul>
-                            
-                        </li>
+                        @if(\App\Student::isStudent(\Illuminate\Support\Facades\Auth::user()->id))
+                            <li>
+                                <span class="label label-default" id="notify"></span>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="notifications">Notifications</a>
+                                <ul class="dropdown-menu scrollable-menu" role="menu" id="myMenu">
+
+                                </ul>
+
+                            </li>
+                        @endif
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
