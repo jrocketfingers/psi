@@ -18,7 +18,7 @@
 						@endif
 						@if ($show_student->team == $student->team && !($show_student->is_leader) && ($show_student->user_id != $student->user_id))
 							<div class="col-lg-2 pull-right">
-								<a href="{{ action('KicksController@create', [[$show_student->user->id]]) }}">Kick Vote</a>
+								<a href="{{ action('KicksController@create', [$show_student->user->id]) }}">Kick Vote</a>
 							</div>
 
 							<div class="col-lg-3 pull-right">
