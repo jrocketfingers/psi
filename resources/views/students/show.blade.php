@@ -7,14 +7,25 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="row">
-						<div class="col-lg-11">
+						<div class="col-lg-6">
 							<h3 class="panel-title">Profile Info</h3>
 						</div>
-						@if ($student->user_id == Auth::user()->id)
-							<div class="col-lg-1">
-								<a href="{{ url('students/edit', [$student->user->id]) }}">Edit</a>
+
+						@if ($show_student->user_id == Auth::user()->id)
+							<div class="col-lg-1 pull-right">
+								<a href="{{ url('students/edit', [$show_student->user->id]) }}">Edit</a>
 							</div>
 						@endif
+						@if ($show_student->team == $student->team && !($show_student->is_leader) && ($show_student->user_id != $student->user_id))
+							<div class="col-lg-2 pull-right">
+								<a href="{{ url('students/edit', [$show_student->user->id]) }}">Kick Vote</a>
+							</div>
+
+							<div class="col-lg-3 pull-right">
+								<a href="{{ url('students/edit', [$show_student->user->id]) }}">Promote Leader Vote</a>
+							</div>
+						@endif
+						
 					</div>
 				</div>
 				<div class="panel-body">
@@ -25,7 +36,7 @@
 									<span>Username: </span>
 								</div>
 								<div class="col-lg-4 col-lg-offset-2"> 
-									<div> {{ $student->user->name }} </div>
+									<div> {{ $show_student->user->name }} </div>
 								</div>
 							</div>
 							<div class="row">
@@ -33,7 +44,7 @@
 									<span>Email: </span>
 								</div>
 								<div class="col-lg-4 col-lg-offset-2"> 
-									<div> {{ $student->user->email }} </div>
+									<div> {{ $show_student->user->email }} </div>
 								</div>
 							</div>
 							
@@ -49,6 +60,8 @@
 						</div>
 					</div>
 				</div>
+
+		
 			</div>
 		</div>
 	</div>
