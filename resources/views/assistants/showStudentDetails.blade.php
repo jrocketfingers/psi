@@ -34,6 +34,20 @@
                                     {{ $student->user->email}}
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-2 col-lg-offset-2">
+                                    <span>Roles:</span>
+                                </div>
+                                <div class="col-lg-6 col-lg-offset-4">
+                                    @foreach($student->roles as $role)
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                {{ $role->name }}
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                             @if($student->team != null)
                                 <div class="row">
                                     <div class="col-lg-4 col-lg-offset-2">
