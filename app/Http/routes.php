@@ -60,7 +60,7 @@ Route::get('/assistants/showTeamDetails/{id}', 'AssistantsController@showTeamDet
 Route::get('/assistants/{id?}', 'AssistantsController@index');
 //Admin logic
 Route::get('/admins/showAllUsers', 'AdminsController@showAllUsers');
-Route::post('/admins/destroyUser/{id}', 'AdminsController@destroy');
+Route::post('/admins/destroyUser/{id}', 'AdminsController@destroyUser');
 Route::get('/admins/{id?}', 'AdminsController@index');
 
 
