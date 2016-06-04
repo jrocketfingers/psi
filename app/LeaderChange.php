@@ -29,7 +29,7 @@ class LeaderChange extends Model
         if($this->num_voted == count($this->student->team->students) - 2) {
             //NAPRAVIMO PRVO NOTIFIKACIJE ZA SVE
             foreach ($this->student->team->students as $student) {
-                Notification::createNotification($this->request, $student, "LEADER CHANGE REQUEST ACCEPTED", true, true);
+                Notification::createNotification($this->request, $student, "Leader change request accepted, new leader is " . $this->student->name, true, true);
             }
             $this->request->status = "ACCEPTED";
             $this->request->save();
@@ -47,7 +47,7 @@ class LeaderChange extends Model
 
     public function deny() {
         foreach ($this->student->team->students as $student) {
-            Notification::createNotification($this->request, $student, "LEADER CHANGE REQUEST DENIED", true, true);
+            Notification::createNotification($this->request, $student, "Leader change request denied", true, true);
             Vote::destroyVote($this->request_id, $student->user_id);
         }
 
