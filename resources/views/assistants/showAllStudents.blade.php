@@ -13,9 +13,6 @@
                                     Students
                                 </h3>
                             </div>
-                            <div class="col-sm-4 text-right">
-                                <a href="{{ action('AssistantsController@index') }}">Back</a>
-                            </div>
                         </div>
                     </div>
                     <div class="panel-body">

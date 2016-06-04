@@ -8,14 +8,9 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col-md-6 text-center">
-                                    <h3 class="panel-title text-center">
-                                        Teams
-                                    </h3>
-                                </div>
-                                <div class="col-sm-4 text-right">
-                                    <a href="{{ action('AssistantsController@index') }}">Back</a>
-                                </div>
+                                <h3 class="panel-title text-center">
+                                    Teams
+                                </h3>
                             </div>
                         </div>
                         <div class="panel-body">

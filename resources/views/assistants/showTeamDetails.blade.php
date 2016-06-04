@@ -7,12 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <h3 class="panel-title text-center">Team</h3>
-                        </div>
-                        <div class="col-lg-3 pull-right">
-                            <a href="{{ action('AssistantsController@getAllTeams') }}">Back</a>
-                        </div>
+                        <h3 class="panel-title text-center">Team</h3>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -50,11 +45,13 @@
                                     @foreach($team->students as $student)
                                         <div class="row">
                                             <div class="col-lg-10">
-                                                @if($student->is_leader == 1)
-                                                    <strong>{{ $student->user->name }}</strong>
-                                                @else
-                                                    {{ $student->user->name }}
-                                                @endif
+                                                <a href="{{ action('AssistantsController@showStudentDetails', [$student->user_id]) }}">
+                                                    @if($student->is_leader == 1)
+                                                        <strong>{{ $student->user->name }}</strong>
+                                                    @else
+                                                        {{ $student->user->name }}
+                                                    @endif
+                                                </a>
                                             </div>
                                         </div>
                                     @endforeach
