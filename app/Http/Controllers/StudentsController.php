@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Image;
 use App\Request as AppRequest;
 use App\Student;
 use App\User;
@@ -81,6 +82,36 @@ class StudentsController extends Controller
 
     public function update(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|max:255',
+            'email' => 'email|required|max:255',
+            'image' => 'image',
+        ]);
+
+        if($validator->fails()) {
+            return redirect()->action('StudentsController@edit', [Auth::user()->id])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $filepath = $request->file('image');
+        if($filepath != null) {
+            if(Auth::user()->image != null) {
+                $imageblob = Auth::user()->image;
+                Auth::user()->image_id = null;
+                Auth::user()->save();
+                $imageblob->delete();
+            }
+
+            $image = new Image();
+            $image->image = readfile($filepath);
+            $image->imageable_id = Auth::user()->id;
+            $image->imageable_type = 'App\\User';
+            $image->save();
+            Auth::user()->image_id = $image->id;
+            Auth::user()->save();
+        }
+
         $input = $request->all();
 
         $id = Auth::user()->id;
