@@ -12,8 +12,11 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
+
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+
 
 class StudentsController extends Controller
 {
@@ -58,8 +61,57 @@ class StudentsController extends Controller
         ]);
     }
 
-    public function showTeams()
+    public function showTeams(Request $request)
     {
+        $student = Student::find(Auth::user()->id);
+        $input = Input::all();
+        $search = Input::has('search')? $input['search']: "";
+        $choice = Input::has('choice')? $input['choice']: "";
+        $teams = Team::all();
+
+        if (strcmp($search, "") != 0)
+        {
+            $search_string = "%".$search."%";
+            $teams = Team::where('name', 'like', $search_string)->get();
+        }
+
+        $choices = array('roles', 'names', 'participants');
+
+        return view('students.teams',[
+                    'student' => $student,
+                    'choice' => $choice,
+                    'search' => $search,
+                    'teams' => $teams,
+                    'choices' => $choices,
+                ]);
+        
+    }
+
+     public function showStudents(Request $request)
+    {
+        $student = Student::find(Auth::user()->id);
+        $input = Input::all();
+        $search = Input::has('search')? $input['search']: "";
+        $choice = Input::has('choice')? $input['choice']: "";
+        $students = Student::all();
+
+        if (strcmp($search, "") != 0)
+        {
+            $search_string = "%".$search."%";
+            $students = Student::whereHas('user', function($query) use ($search_string) { $query->where('name', 'like', $search_string);})->get();
+
+
+        }
+
+        $choices = array('roles', 'names', 'participants');
+
+        return view('students.students',[
+                    'student' => $student,
+                    'choice' => $choice,
+                    'search' => $search,
+                    'students' => $students,
+                    'choices' => $choices,
+                ]);
         
     }
 

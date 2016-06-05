@@ -2,14 +2,15 @@
 
 @section('details')
 <li><a href="{{ action('StudentsController@show', [Auth::user()->id]) }}" ><i class="fa fa-btn fa-info"></i>Details</a></li>
-
+<li><a href="{{ action('StudentsController@showTeams') }}" ><i class="fa fa-btn fa-info"></i>Show Teams</a></li>
+<li><a href="{{ action('StudentsController@showStudents') }}" ><i class="fa fa-btn fa-info"></i>Show Students</a></li>
 @if ($student->team)
     <li><a href="{{ url('students/team/show') }}" ><i class="fa fa-btn fa-info"></i>My Team</a></li>
 @endif
 
 @if ($student->is_leader)
 	<li><a href="{{ url('students/team/delete') }}" ><i class="fa fa-btn fa-info"></i>Disband Team</a></li>
-	<li><a href="{{ url('students/list') }}" ><i class="fa fa-btn fa-info"></i>Show Eligible Students</a></li>
+	<li><a href="{{ url('students/list/all') }}" ><i class="fa fa-btn fa-info"></i>Show Eligible Students</a></li>
 @else
 	@if ($student->team)
 		<li><a href="{{ url('students/team/leave', [$student->team->id]) }}" ><i class="fa fa-btn fa-info"></i>Leave Team</a></li>
