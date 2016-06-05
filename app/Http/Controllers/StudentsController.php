@@ -41,12 +41,26 @@ class StudentsController extends Controller
             {
                 $teams = Team::all();
             }
+        }else{
+
+            return view('students.team', [
+                'team' => $student->team,
+                'student' => $student,
+            ]);
         }
+
+        $choices = array('roles', 'names', 'participants');
 
         return view('students.index', [
             'teams' => $teams,
             'student' => $student,
+            'choices' => $choices,
         ]);
+    }
+
+    public function showTeams()
+    {
+        
     }
 
     public function edit($id)
