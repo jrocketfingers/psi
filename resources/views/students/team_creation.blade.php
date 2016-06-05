@@ -49,7 +49,7 @@
 					</div>
 
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-						{{ Form::text('description', null, [ 'class' => 'form-control']) }}
+						{{ Form::textarea('description', null, [ 'class' => 'form-control', 'style' => 'resize: none;', 'rows' => '5']) }}
 
 						@if ($errors->has('description'))
 							<span class="help-block">

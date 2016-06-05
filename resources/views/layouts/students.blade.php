@@ -2,14 +2,15 @@
 
 @section('details')
 <li><a href="{{ action('StudentsController@show', [Auth::user()->id]) }}" ><i class="fa fa-btn fa-info"></i>Details</a></li>
-
+<li><a href="{{ action('StudentsController@showTeams') }}" ><i class="fa fa-btn fa-info"></i>Show Teams</a></li>
+<li><a href="{{ action('StudentsController@showStudents') }}" ><i class="fa fa-btn fa-info"></i>Show Students</a></li>
 @if ($student->team)
     <li><a href="{{ url('students/team/show') }}" ><i class="fa fa-btn fa-info"></i>My Team</a></li>
 @endif
 
 @if ($student->is_leader)
 	<li><a href="{{ url('students/team/delete') }}" ><i class="fa fa-btn fa-info"></i>Disband Team</a></li>
-	<li><a href="{{ url('students/list') }}" ><i class="fa fa-btn fa-info"></i>Show Eligible Students</a></li>
+	<li><a href="{{ url('students/list/all') }}" ><i class="fa fa-btn fa-info"></i>Show Eligible Students</a></li>
 @else
 	@if ($student->team)
 		<li><a href="{{ url('students/team/leave', [$student->team->id]) }}" ><i class="fa fa-btn fa-info"></i>Leave Team</a></li>
@@ -27,26 +28,30 @@
 
         (function poll() {
            setTimeout(function() {
-               $.get('http://localhost/psi/public/index.php/students/notifications', function(data){
+               $.get('http://192.168.99.100/students/notifications', function(data){
                     var currentLength = $('ul#myMenu li').length;
 
                     for (var i=0; i<data.length; i++)
                     {
-                        $('#myMenu').prepend(
-                            $('<li>').append(
-                                $('<div>').attr('class', 'row').append(
-                                    $('<div>').attr('class', 'col-md-8').append(
-                                        $('<span>').attr('class', 'label label-default').text(data[i].text)
-                                    )
-                                ).append(
-                                    $('<div>').attr('class', 'col-md-4').append(
-                                        $('<div>').attr({'class': 'fa fa-check', 'data-check': true, 'data-notification-id': data[i].id, 'name': 'notification'})
-                                    ).append(
-                                        $('<div>').attr({'class': 'fa fa-times', 'data-check': false, 'data-notification-id': data[i].id, 'name': 'notification'})
-                                    )
-                                )
-                                
-                        ));
+                         $('#myMenu').prepend(
+                            $('<li>')
+                            .css('width', '30em')
+                            .append($('<div>')
+                                    .append(
+                                        $('<div>')
+                                        .attr('class', 'col-md-10')
+                                        .append($('<p>')
+                                                .text(data[i].text)))
+                                    .append($('<div>')
+                                            .attr('class', 'col-md-1')
+                                            .append($('<div>')
+                                                    .attr({'class': 'fa fa-check', 'data-check': true, 'data-notification-id': data[i].id, 'name': 'notification'})))
+                                    .append($('<div>')
+                                            .attr('class', 'col-md-1')
+                                            .append($('<div>')
+                                                    .attr({'class': 'fa fa-times', 'data-check': false, 'data-notification-id': data[i].id, 'name': 'notification'})))));
+
+
 
                         $("ul#myMenu > li:first > div > div[class='col-md-4'] > div[data-check=false]").each(function(){
                             if (data[i].info_only)
@@ -76,7 +81,7 @@
         })();
 
         $(document).on('click', 'div[name=notification]', function(){
-            var url = 'http://localhost/psi/public/index.php/action/' + $(this).data('notification-id') + '/' + $(this).data('check');
+            var url = 'http://192.168.99.100/action/' + $(this).data('notification-id') + '/' + $(this).data('check');
             var dom = $(this);
 
             $.get(url, function(data){

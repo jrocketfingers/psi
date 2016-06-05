@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Request as AppRequest;
 use App\Student;
 use App\User;
 use App\Team;
@@ -9,11 +10,13 @@ use App\Role;
 use App\Notification;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\RolesRepository;
 use Illuminate\Http\Request;
+
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+
 
 class StudentsController extends Controller
 {
@@ -27,7 +30,7 @@ class StudentsController extends Controller
         $teams = new Collection();
 
         if($student->team == null) {
-            $roles= $student->roles->sortBy('name');
+            $roles = $student->roles->sortBy('name');
             foreach ($roles as $role) {
                 $tmpteams = $role->teams->sortBy('name');
                 foreach ($tmpteams as $team) {
@@ -41,12 +44,75 @@ class StudentsController extends Controller
             {
                 $teams = Team::all();
             }
+        }else{
+
+            return view('students.team', [
+                'team' => $student->team,
+                'student' => $student,
+            ]);
         }
+
+        $choices = array('roles', 'names', 'participants');
 
         return view('students.index', [
             'teams' => $teams,
             'student' => $student,
+            'choices' => $choices,
         ]);
+    }
+
+    public function showTeams(Request $request)
+    {
+        $student = Student::find(Auth::user()->id);
+        $input = Input::all();
+        $search = Input::has('search')? $input['search']: "";
+        $choice = Input::has('choice')? $input['choice']: "";
+        $teams = Team::all();
+
+        if (strcmp($search, "") != 0)
+        {
+            $search_string = "%".$search."%";
+            $teams = Team::where('name', 'like', $search_string)->get();
+        }
+
+        $choices = array('roles', 'names', 'participants');
+
+        return view('students.teams',[
+                    'student' => $student,
+                    'choice' => $choice,
+                    'search' => $search,
+                    'teams' => $teams,
+                    'choices' => $choices,
+                ]);
+        
+    }
+
+     public function showStudents(Request $request)
+    {
+        $student = Student::find(Auth::user()->id);
+        $input = Input::all();
+        $search = Input::has('search')? $input['search']: "";
+        $choice = Input::has('choice')? $input['choice']: "";
+        $students = Student::all();
+
+        if (strcmp($search, "") != 0)
+        {
+            $search_string = "%".$search."%";
+            $students = Student::whereHas('user', function($query) use ($search_string) { $query->where('name', 'like', $search_string);})->get();
+
+
+        }
+
+        $choices = array('roles', 'names', 'participants');
+
+        return view('students.students',[
+                    'student' => $student,
+                    'choice' => $choice,
+                    'search' => $search,
+                    'students' => $students,
+                    'choices' => $choices,
+                ]);
+        
     }
 
     public function edit($id)
@@ -283,8 +349,9 @@ class StudentsController extends Controller
         ]);
     }
 
-     
-    
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getStudentsByRole() {
         $student = Student::find(Auth::user()->id);
         $team = $student->team;
@@ -299,8 +366,38 @@ class StudentsController extends Controller
                 }
             }
         }
+
+        $student = Student::find(Auth::user()->id);
+        $joins = $team->joins;
+        $students_with_active_requests = new Collection();
+        $requests = new Collection();
+
+        foreach($joins as $join) {
+            $req = AppRequest::find($join->request_id);
+            if ($req->status === 'PENDING') {
+                $students_with_active_requests->push(Student::find($req->student_id));
+            }
+        }
+
+        foreach($students as $st) {
+            foreach($st->invites as $invite) {
+                $req = AppRequest::find($invite->request_id);
+                if ($req->student_id == Auth::user()->id && $req->status === 'PENDING') { // if logged user invited students to his team.
+                    $students_with_active_requests->push(Student::find($invite->student_id)); //students with invite request
+                }
+            }
+        }
+
+        $students_excluded = new Collection();
+
+        foreach ($students as $st) {
+            if (!$students_with_active_requests->contains($st)) {
+                $students_excluded->push($st);
+            }
+        }
+
         return view('students.students', [
-            'students' => $students,
+            'students' => $students_excluded,
             'student' => $student,
         ]);
     }

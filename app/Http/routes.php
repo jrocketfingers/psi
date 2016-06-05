@@ -35,10 +35,12 @@ Route::get('/students/team/delete', 'StudentsController@disbandTeam');
 Route::get('/students/team/join/{id}', 'StudentsController@join');
 Route::get('/students/team/leave/{id}', 'StudentsController@leave');
 Route::get('/students/list', 'StudentsController@getStudentsByRole');
+Route::get('/students/list/all', 'StudentsController@showStudents');
 Route::get('/students/show/{id}', 'StudentsController@show');
 Route::get('/students/notifications', 'StudentsController@getNotifications');
 Route::get('/students/team/edit/{id}', 'StudentsController@editTeam');
 Route::post('students/team/store', 'StudentsController@storeTeam');
+Route::get('/students/team/list', 'StudentsController@showTeams');
 
 /*Route::get('/students', 'StudentsController@getAll');
 Route::get('/students/{role_id}', 'StudentsController@getByRole');*/
@@ -62,7 +64,12 @@ Route::get('/admins/roles/show/{id}', 'AdminsController@showRole');
 Route::get('/admins/roles/edit/{id}', 'AdminsController@editRole');
 Route::post('/admins/roles/update/{id}', 'AdminsController@updateRole');
 Route::post('/admins/roles/destroy/{id}', 'AdminsController@destroyRole');
+Route::get('/admins/notifications', 'AdminsController@showAllNotifications');
+Route::get('/admins/notifications/show/{id}', 'AdminsController@showNotificationDetails');
+Route::get('/admins/requests', 'AdminsController@showAllRequests');
+Route::get('/admins/requests/{id}', 'AdminsController@showRequestDetails');
 Route::get('/admins/{id?}', 'AdminsController@index');
+Route::get('/admins/users/search/', 'AdminsController@searchUsers');
 
 //request routes
 Route::get('/createjoin/{team_id}', "JoinsController@create");

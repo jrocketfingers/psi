@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Notification;
+use App\Request;
 use App\Role;
 use App\Student;
 use App\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
@@ -22,6 +24,13 @@ class AdminsController extends Controller
 
     public function showAllUsers() {
         $users = User::where('name', '!=', 'admin')->get();
+
+        return view('admins.showAllUsers')->with('users', $users);
+    }
+
+    public function searchUsers() {
+        $searchTerm = Input::get('searchTerm');
+        $users = User::where('name', '!=', 'admin')->where('name', 'LIKE', '%'.$searchTerm.'%')->get();
 
         return view('admins.showAllUsers')->with('users', $users);
     }
@@ -160,5 +169,37 @@ class AdminsController extends Controller
     {
         Role::destroy($id);
         return redirect()->action('AdminsController@getAllRoles');
+    }
+
+    public function showAllNotifications() {
+        $notifications = Notification::all();
+
+        return view('admins.showNotifications', [
+            'notifications' => $notifications,
+        ]);
+    }
+
+    public function showNotificationDetails($id) {
+        $notification = Notification::find($id);
+
+        return view('admins.showNotificationDetails', [
+            'notification' => $notification,
+        ]);
+    }
+
+    public function showAllRequests() {
+        $requests = Request::all();
+
+        return view('admins.showRequests', [
+            'requests' => $requests,
+        ]);
+    }
+    
+    public function showRequestDetails($id) {
+        $request = Request::find($id);
+
+        return view('admins.showRequestDetails', [
+            'request' => $request,
+        ]);
     }
 }
