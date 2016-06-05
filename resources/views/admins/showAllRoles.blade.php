@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admins')
 
 @section('content')
     <div class="container-fluid">
@@ -8,10 +8,10 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h3 class="panel-title text-center">Roles</h3>
+                                <h3 class="panel-title text-left">Roles</h3>
                             </div>
                             <div class="col-lg-3 pull-right">
-                                <a href="{{ action('AdminsController@createRole') }}">Add new role</a>
+                                <a href="{{ action('AdminsController@createRole') }}" >Add new role</a>
                             </div>
                         </div>
                     </div>
@@ -19,16 +19,16 @@
                         @foreach($roles as $role)
                             <div class="row">
                                 <div class="col-lg-6">
-                                    {{ $role->name }}
+                                    <label style="margin: 0 auto; vertical-align: middle;">{{ $role->name }} </label>
                                 </div>
                                 <div class="col-lg-2 pull-right">
                                     <form  role="form" method="POST" action="{{ action('AdminsController@destroyRole', [$role->id]) }}" >
                                         {!! csrf_field() !!}
-                                        <input type="submit" value="Delete">
+                                        <input type="submit" value="Delete" class="form-control btn btn-danger">
                                     </form>
                                 </div>
                                 <div class="col-lg-3 pull-right">
-                                    <a href="{{ action('AdminsController@showRole', [$role->id]) }}">Show Details</a>
+                                    <a href="{{ action('AdminsController@showRole', [$role->id]) }}" style="margin: 0 auto; vertical-align: middle;">Show Details</a>
                                 </div>
                             </div>
                             <br>

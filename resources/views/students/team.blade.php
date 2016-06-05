@@ -23,7 +23,7 @@
 					<h4 class="text-center"> Members </h4>
 					<div class="text-center">
 						@foreach ($team->students as $team_student)
-							<a class="label label-default" href="{{ url('students/show', [$team_student->user->id]) }}"> {{ $team_student->user->name }} </a>
+							<a style="padding-right: 0.5em; padding-left: 0.5em;" class="btn btn-primary" href="{{ url('students/show', [$team_student->user->id]) }}"> {{ $team_student->user->name }} </a>
 						@endforeach
 					</div>
 					
@@ -35,6 +35,17 @@
 
 					<p class="text-center"> {{ $team->description }} </p>
 
+
+					<h4 class="text-center"> Roles </h4>
+					<div class="col-md-8 col-md-offset-2">
+						<div class="row" style="text-align: center;">
+							@foreach($team->roles as $role)
+								<div class="label label-default" style="margin-left: 0.5em; margin-right: 0.5em;">
+									{{ $role->name }}
+								</div>
+					        @endforeach
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

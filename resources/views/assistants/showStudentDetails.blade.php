@@ -3,58 +3,55 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
+        <div class="col-lg-6 col-lg-offset-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <h3 class="panel-title text-center">Student</h3>
+                        <div class="col-lg-6 col-lg-offset-3">
+                            <h3 class="panel-title text-center">Profile Info</h3>
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-8 col-lg-offset-2">
                             <div class="row">
-                                <div class="col-lg-4 col-lg-offset-2">
-                                    <span>Name:</span>
+                                <div class="col-lg-4 col-lg-offset-2 text-center">
+                                    <label>Username </label>
                                 </div>
-                                <div class="col-lg-4 col-lg-offset-2">
-                                    {{ $student->user->name }}
+                                <div class="col-lg-4 text-center"> 
+                                    <label>Email </label>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-4 col-lg-offset-2">
-                                    <span>Email:</span>
+                                <div class="col-lg-4 col-lg-offset-2 text-center">
+                                    
+                                    <div> {{ $student->user->name }} </div>
                                 </div>
-                                <div class="col-lg-4 col-lg-offset-2">
-                                    {{ $student->user->email}}
+                                <div class="col-lg-4 text-center"> 
+                                    <div> {{ $student->user->email }} </div>
                                 </div>
                             </div>
-                            @if($student->team != null)
-                                <div class="row">
-                                    <div class="col-lg-4 col-lg-offset-2">
-                                        <span>Team name:</span>
-                                    </div>
-                                    <div class="col-lg-4 col-lg-offset-2">
-                                        <a href="{{ action('AssistantsController@showTeamDetails', [$student->team->id]) }}">
-                                            {{ $student->team->name }}
-                                        </a>
-                                    </div>
-                                </div>
-                            @endif
                         </div>
-                        <div class="col-lg-6">
+                        
+                        <div class="col-md-8 col-md-offset-2 text-center" style="padding-top: 1em; padding-bottom:1em;">
+                            <label>Roles</label>
+                        </div>
+
+                        <div class="col-md-8 col-md-offset-2">
                             <div class="row" style="text-align: center;">
                                 @foreach($student->roles as $role)
-                                    <div class="col-lg-4 text-center">
-                                        <a class="label label-default" href="{{ action('AssistantsController@showRole', [$role->id]) }}">
-                                            {{ $role->name }}
-                                        </a>
+                                    <div class="label label-default">
+                                        {{ $role->name }}
                                     </div>
                                 @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
+
+        
             </div>
         </div>
     </div>
