@@ -10,7 +10,7 @@
 				<div class="panel-heading">
 					<div class = "row">
 						<div class="col-lg-6">
-							<h3 class="panel-title text-center"> {{ $team->name }} </h3>
+							<h3 class="panel-title"> {{ $team->name }} </h3>
 						</div>
 						@if($student->is_leader == 1)
 							<div class="col-lg-1 pull-right">
