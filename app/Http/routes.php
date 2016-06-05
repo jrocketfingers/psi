@@ -21,8 +21,7 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/tasks', 'HomeController@index');
 
-Route::resource('users', 'UsersController');
-
+//Route for deleting accounts
 Route::post('/users/destroy/{id}', 'UsersController@destroy');
 
 // Route::resource('students', 'StudentsController');
