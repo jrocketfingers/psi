@@ -165,8 +165,11 @@ class UsersController extends Controller
 
             }
         }
-
-        User::destroy($id);
+        $user = User::find($id);
+        if($user->image) {
+            $user->image->delete();
+        }
+        $user->delete();
 
         return redirect()->action('HomeController@index');
     }
