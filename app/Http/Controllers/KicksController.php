@@ -15,7 +15,7 @@ class KicksController extends Controller
         $this->middleware('auth');
     }
 
-    public function create($student_id) {
+    public function create(\Illuminate\Http\Request $req, $student_id) {
 
         $request = Request::createRequest();
         $request->requestable_id = $request->id;
@@ -31,6 +31,9 @@ class KicksController extends Controller
 
         $kick_student = Student::find($student_id);
 
+        $message = "New kick request for " . $kick_student->user->name;
+        $req->session()->flash('message', $message);
+
         foreach($team->students as $student) {
             $can_show = false;
             if($student->user_id != $student_id) {
@@ -41,7 +44,7 @@ class KicksController extends Controller
                 $can_show = true;
             }
 
-            Notification::createNotification($request, $student, "New kick request for " . $kick_student->name, $can_show, false);
+            Notification::createNotification($request, $student, $message, $can_show, false);
         }
 
         return back()->withInput();
