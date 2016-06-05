@@ -73,7 +73,6 @@ class AssistantsController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'required|max:255',
             'email' => 'required|max:255|email',
-            'image' => 'mimes:gif'
         ]);
         
         if($validator->fails()) {
@@ -82,19 +81,26 @@ class AssistantsController extends Controller
                 ->withInput();
         }
 
-        return $request->all();
-        $file = $request->file('image');
-        return $file;
 
-        if($file != null) {
-            $image = new Image();
-            //$image->image = $file->
-        }
+        $file_path = $request->file('image');
 
         $assistant = Assistant::find(Auth::user()->id);
         $assistant->user->name = $request->input('name');
         $assistant->user->email = $request->input('email');
+
+
+        if($file_path != null) {
+            $image = new Image();
+            $image->image = readfile($file_path);
+            $image->imageable_id = Auth::user()->id;
+            $image->imageable_type = 'App\\Assistant';
+            $image->save();
+            $assistant->image_id = $image->id;
+        }
+
         $assistant->save();
+
+
 
         return view('assistants.show');
     }
