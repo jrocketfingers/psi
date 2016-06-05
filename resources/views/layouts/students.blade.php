@@ -27,26 +27,30 @@
 
         (function poll() {
            setTimeout(function() {
-               $.get('http://localhost/psi/public/index.php/students/notifications', function(data){
+               $.get('http://192.168.99.100/students/notifications', function(data){
                     var currentLength = $('ul#myMenu li').length;
 
                     for (var i=0; i<data.length; i++)
                     {
-                        $('#myMenu').prepend(
-                            $('<li>').append(
-                                $('<div>').attr('class', 'row').append(
-                                    $('<div>').attr('class', 'col-md-8').append(
-                                        $('<span>').attr('class', 'label label-default').text(data[i].text)
-                                    )
-                                ).append(
-                                    $('<div>').attr('class', 'col-md-4').append(
-                                        $('<div>').attr({'class': 'fa fa-check', 'data-check': true, 'data-notification-id': data[i].id, 'name': 'notification'})
-                                    ).append(
-                                        $('<div>').attr({'class': 'fa fa-times', 'data-check': false, 'data-notification-id': data[i].id, 'name': 'notification'})
-                                    )
-                                )
-                                
-                        ));
+                         $('#myMenu').prepend(
+                            $('<li>')
+                            .css('width', '30em')
+                            .append($('<div>')
+                                    .append(
+                                        $('<div>')
+                                        .attr('class', 'col-md-10')
+                                        .append($('<p>')
+                                                .text(data[i].text)))
+                                    .append($('<div>')
+                                            .attr('class', 'col-md-1')
+                                            .append($('<div>')
+                                                    .attr({'class': 'fa fa-check', 'data-check': true, 'data-notification-id': data[i].id, 'name': 'notification'})))
+                                    .append($('<div>')
+                                            .attr('class', 'col-md-1')
+                                            .append($('<div>')
+                                                    .attr({'class': 'fa fa-times', 'data-check': false, 'data-notification-id': data[i].id, 'name': 'notification'})))));
+
+
 
                         $("ul#myMenu > li:first > div > div[class='col-md-4'] > div[data-check=false]").each(function(){
                             if (data[i].info_only)
