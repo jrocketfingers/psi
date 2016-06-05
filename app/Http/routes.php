@@ -43,6 +43,9 @@ Route::post('students/team/store', 'StudentsController@storeTeam');
 /*Route::get('/students', 'StudentsController@getAll');
 Route::get('/students/{role_id}', 'StudentsController@getByRole');*/
 //Assistants logic
+Route::get('/assistants/show', 'AssistantsController@showDetails');
+Route::get('/assistants/edit', 'AssistantsController@editDetails');
+Route::post('/assistants/update', 'AssistantsController@updateDetails');
 Route::get('/assistants/getAllStudents', 'AssistantsController@getAllStudents');
 Route::get('/assistants/getAllTeams', 'AssistantsController@getAllTeams');
 Route::get('/assistants/showStudentDetails/{id}', 'AssistantsController@showStudentDetails');
