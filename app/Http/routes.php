@@ -23,10 +23,7 @@ Route::get('/tasks', 'HomeController@index');
 
 Route::resource('users', 'UsersController');
 
-Route::post('/users/destroy/{id}', 'UsersController@destroy')->middleware('is_leader');
-
-//ROUTE FOR USERS PREVIEW AND DELETING ACCOUNTS FOR ADMINS
-Route::get('/users', 'UsersController@index')->middleware('admin');
+Route::post('/users/destroy/{id}', 'UsersController@destroy');
 
 // Route::resource('students', 'StudentsController');
 Route::get('/students', 'StudentsController@index');
