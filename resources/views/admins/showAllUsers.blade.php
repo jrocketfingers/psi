@@ -1,17 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.admins')
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <div class="row">
-                <div class="col-md-6 col-md-offset-3">
-                    <form  action="{{ action ('AdminsController@searchUsers')}}" method="get">
-                        <input type="text"  name="searchTerm" placeholder="Search"/>
-                        <button class="btn btn-info" type="submit">Search</button>
-                    </form>
+                <div class="row" style="padding-bottom: 0.5em;">
+                    <div class="col-md-6 col-md-offset-3">
+                        {{ Form::open([ 'action' => 'AdminsController@searchUsers', 'method' => 'GET']) }}
+                        <!-- <input type="text"  name="searchTerm" placeholder="Search"/> -->
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                {{ Form::text('searchTerm', 'Search', ['class' => 'form-control']) }}
+                            </div>
 
-                </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-large fa fa-search" type="submit"></button>
+                            </div>
+                        </div>
+
+                        {{ Form::close() }}
+
+                    </div>
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -24,13 +33,13 @@
                     <div class="panel-body">
                         @foreach($users as $user)
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-9">
                                     {{ $user->name }}
                                 </div>
-                                <div class="col-md-6 text-right">
+                                <div class="col-md-3">
                                     <form class="form-group" role="form" method="POST" action="{{ action('AdminsController@destroyUser', [$user->id]) }}">
                                         {{ csrf_field() }}
-                                        <input class="form-group" type="submit" value="Delete">
+                                        <input class="form-control btn btn-danger" type="submit" value="Delete">
                                     </form>
                                 </div>
                             </div>
