@@ -7,38 +7,44 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title text-center">
-                            Request: {{ $request->id }}
+                            Notification: {{ $notification->id }}
                         </h3>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-4 col-lg-offset-2">
-                                Status:
+                                Text:
                             </div>
                             <div class="col-lg-4 col-lg-offset-2">
-                                {{ $request->status }}
+                                {{ $notification->text }}
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-4 col-lg-offset-2">
-                                Inititated by:
+                                Seen: 
                             </div>
                             <div class="col-lg-4 col-lg-offset-2">
-                                {{ $request->student->user->name }}
+                                {{ $notification->seen ? 'Yes' : 'No' }}
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-4 col-lg-offset-2">
-                                Notifications:
+                                For student:
                             </div>
                             <div class="col-lg-4 col-lg-offset-2">
-                                @foreach($request->notifications as $notification)
-                                    <a href="{{ action('AdminsController@showNotificationDetails', [$notification->id]) }}" class="label label-default">
-                                        {{ 'Notification: ' . $notification->id }}
-                                    </a>
-                                @endforeach
+                                {{ $notification->student->user->name }}
                             </div>
                         </div>
+                        @if($notification->request != null)
+                            <div class="row">
+                                <div class="col-lg-4 col-lg-offset-2">
+                                    Request:
+                                </div>
+                                <div class="col-lg-4 col-lg-offset-2">
+                                    <a href="{{ action('AdminsController@showRequestDetails', [$notification->request->id]) }}" class="label label-primary">{{ 'Request:' . $notification->request->id }}</a>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
