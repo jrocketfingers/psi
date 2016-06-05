@@ -16,22 +16,8 @@ class LeaderChangesController extends Controller
     }
     
     public function create($student_id) {
-        //If num of members is two then change leader without voting
-        $team = Student::find(Auth::user()->id)->team;
+        
 
-        if($team->students->count() == 2) {
-            foreach ($team->students as $student) {
-                if($student->user_id == $student_id) {
-                    $student->is_leader = true;
-                    Notification::createNotification(null, $student, "You are the new team leader" , true, true);
-                } else {
-                    $student->is_leader = false;
-                }
-                $student->save();
-            }
-
-            return back()->withInput();
-        }
 
         $request = Request::createRequest();
         $request->requestable_id = $request->id;
@@ -43,6 +29,7 @@ class LeaderChangesController extends Controller
         $leader_change->num_voted = 0;
         $leader_change->student_id = $student_id;
         $leader_change->save();
+        $team = Student::find(Auth::user()->id)->team;
 
         $leader_student = Student::find($student_id);
 
