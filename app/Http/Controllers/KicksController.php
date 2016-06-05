@@ -20,7 +20,7 @@ class KicksController extends Controller
         //If num of memebers is two then just kick
         if($team->students->count() == 2) {
             $student = Student::find($student_id);
-            Notification::createNotification(null, $student, "You have been kicked out of " . $team->name , true, false);
+            Notification::createNotification(null, $student, "You have been kicked out of " . $team->name , true, true);
             $student->team_id = null;
             $student->is_leader = null;
             $student->save();
