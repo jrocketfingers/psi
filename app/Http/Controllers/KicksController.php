@@ -50,9 +50,9 @@ class KicksController extends Controller
                     'student_id' => $student->user_id,
                 ]);
                 $can_show = true;
-            }
 
-            Notification::createNotification($request, $student, $message, $can_show, false);
+                Notification::createNotification($request, $student, $message, $can_show, false);
+            }
         }
 
         return back()->withInput();
