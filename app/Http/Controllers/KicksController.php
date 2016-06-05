@@ -40,6 +40,13 @@ class KicksController extends Controller
 
         $kick_student = Student::find($student_id);
 
+        if($kick_student->is_leader) {
+            $req->session()->flash('message', 'You cannot vote to kick the team leader!');
+            $req->session()->flash('alert-class', 'alert-danger');
+
+            return back()->withInput();
+        }
+
         $message = "New kick request for " . $kick_student->user->name;
         $req->session()->flash('message', $message);
         $req->session()->flash('alert-class', 'alert-success');
