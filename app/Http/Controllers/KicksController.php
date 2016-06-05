@@ -17,7 +17,9 @@ class KicksController extends Controller
 
     public function create(\Illuminate\Http\Request $req, $student_id) {
 
-        if(Kick::where('student_id', '=', $student_id)->first() != null) {
+        if(Kick::with('request')->where('student_id', '=', $student_id)->whereHas('request', function($q) {
+            return $q->where('status', 'PENDING');
+        })->first() != null) {
             $req->session()->flash('message', 'Kick request alrady exists.');
             $req->session()->flash('alert-class', 'alert-danger');
 
