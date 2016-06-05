@@ -4,6 +4,15 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
+                <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <form  action="{{ action ('AdminsController@searchUsers')}}" method="get">
+                        <input type="text"  name="searchTerm" placeholder="Search"/>
+                        <button type="submit">Search</button>
+                    </form>
+
+                </div>
+                </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="row">

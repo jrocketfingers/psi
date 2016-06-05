@@ -68,6 +68,7 @@ Route::get('/admins/notifications/show/{id}', 'AdminsController@showNotification
 Route::get('/admins/requests', 'AdminsController@showAllRequests');
 Route::get('/admins/requests/{id}', 'AdminsController@showRequestDetails');
 Route::get('/admins/{id?}', 'AdminsController@index');
+Route::get('/admins/users/search/', 'AdminsController@searchUsers');
 
 //request routes
 Route::get('/createjoin/{team_id}', "JoinsController@create");
