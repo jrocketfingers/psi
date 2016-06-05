@@ -8,7 +8,7 @@
                 <div class="col-md-6 col-md-offset-3">
                     <form  action="{{ action ('AdminsController@searchUsers')}}" method="get">
                         <input type="text"  name="searchTerm" placeholder="Search"/>
-                        <button type="submit">Search</button>
+                        <button class="btn btn-info" type="submit">Search</button>
                     </form>
 
                 </div>
