@@ -2,6 +2,29 @@
 
 @section('content')
     <div class='container'>
+    	<div class="row" style="padding-bottom: 2em;">
+    		<div class="col-md-8 col-md-offset-2">
+    			{{ Form::open([ 'action' => 'StudentsController@searchTeams', 'method' => 'GET']) }}
+
+    			<div class="form-group">
+    				<div class="col-md-2">
+	    				{{ Form::label('Search', 'Search', ['style' => 'margin-top: 0.25em;']) }}
+	    			</div>
+	    			<div class="col-md-4">
+	    				{{ Form::text('search', 'search', [ 'class' => 'form-control']) }}
+	    			</div>
+
+	    			<div class="col-md-2">
+	    				{{ Form::label('Sort', 'Sort Criteria', ['style' => 'margin-top: 0.25em;']) }}
+	    			</div>
+
+	    			<div class="col-md-4">
+	    				{{ Form::select('choice', $choices, null, array('class' => 'form-control')) }}
+	    			</div>
+    			</div>
+    			{{ Form::close() }}
+    		</div>
+    	</div>
 	   @foreach ($teams as $team)
 	        <div class="row">
 	            <div class="col-lg-8 col-lg-offset-2">
