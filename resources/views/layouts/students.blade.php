@@ -10,7 +10,6 @@
 
 @if ($student->is_leader)
 	<li><a href="{{ url('students/team/delete') }}" ><i class="fa fa-btn fa-info"></i>Disband Team</a></li>
-	<li><a href="{{ url('students/list/all') }}" ><i class="fa fa-btn fa-info"></i>Show Eligible Students</a></li>
 @else
 	@if ($student->team)
 		<li><a href="{{ url('students/team/leave', [$student->team->id]) }}" ><i class="fa fa-btn fa-info"></i>Leave Team</a></li>

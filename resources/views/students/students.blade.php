@@ -7,10 +7,10 @@
     			{{ Form::open([ 'action' => 'StudentsController@showStudents', 'method' => 'GET']) }}
 
     			<div class="form-group">
-    				<div class="col-md-2">
+    				<div class="col-md-1">
 	    				{{ Form::label('Search', 'Search', ['style' => 'margin-top: 0.25em;', 'class' => 'control-label']) }}
 	    			</div>
-	    			<div class="col-md-4">
+	    			<div class="col-md-3">
 	    				{{ Form::text('search', $search, [ 'class' => 'form-control']) }}
 	    			</div>
 
@@ -20,7 +20,10 @@
 
 	    			<div class="col-md-4">
 	    				{{ Form::select('role_choice', $role_choices, null, array('class' => 'form-control')) }}
-	    			</div>
+					</div>
+	    			<div class="col-md-2">
+						<a href="<?php echo e(url('students/list/all')); ?>">Show eligible students</a>
+					</div>
     			</div>
 
     			{{ Form::close() }}
