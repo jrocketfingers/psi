@@ -27,7 +27,7 @@ class StudentsController extends Controller
         $teams = new Collection();
 
         if($student->team == null) {
-            $roles= $student->roles->sortBy('name');
+            $roles = $student->roles->sortBy('name');
             foreach ($roles as $role) {
                 $tmpteams = $role->teams->sortBy('name');
                 foreach ($tmpteams as $team) {
@@ -297,6 +297,9 @@ class StudentsController extends Controller
                 }
             }
         }
+
+        $student = Student::find(Auth::user()->id);
+
         return view('students.students', [
             'students' => $students,
             'student' => $student,
