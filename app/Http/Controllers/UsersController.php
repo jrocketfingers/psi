@@ -168,6 +168,6 @@ class UsersController extends Controller
 
         User::destroy($id);
 
-        return redirect()->to('HomeController@index');
+        return redirect()->action('HomeController@index');
     }
 }
