@@ -17,6 +17,13 @@ class KicksController extends Controller
 
     public function create(\Illuminate\Http\Request $req, $student_id) {
 
+        if(Kick::where('student_id', '=', $student_id)->first() != null) {
+            $req->session()->flash('message', 'Kick request alrady exists.');
+            $req->session()->flash('alert-class', 'alert-danger');
+
+            return back()->withInput();
+        }
+
         $request = Request::createRequest();
         $request->requestable_id = $request->id;
         $request->requestable_type = "App\\Kick";
@@ -46,6 +53,9 @@ class KicksController extends Controller
 
             Notification::createNotification($request, $student, $message, $can_show, false);
         }
+
+        $req->session()->flash('message', $message);
+        $req->session()->flash('alert-class', 'alert-success');
 
         return back()->withInput();
     }

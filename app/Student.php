@@ -45,7 +45,16 @@ class Student extends Model
     public function votesPending() {
         return $this->hasMany('App\Vote');
     }
+
     public function requests() {
         return $this->hasMany('App\Request');
+    }
+
+    public function can_act_on(Student $student) {
+        return $this->can_vote_for($student) && $this->is_leader;
+    }
+
+    public function can_vote_for(Student $student) {
+        return $this->team == $student->team && $this->user_id != $student->user_id;
     }
 }

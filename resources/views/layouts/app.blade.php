@@ -100,7 +100,7 @@
     </nav>
 
     @if(Session::has('message'))
-        <p class="alert alert-info">{{ Session::get('message') }}</p>
+        <p class="alert {{ Session::get('alert-class') }}">{{ Session::get('message') }}</p>
     @endif
 
     @yield('content')
