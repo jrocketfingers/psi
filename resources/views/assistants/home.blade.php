@@ -10,13 +10,13 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-6 col-md-offset-5">
-                                <a href="{{ action('AssistantsController@getAllStudents') }}">See all students</a>
+                            <div class="col-md-6 col-md-offset-3 text-center" style="padding-bottom: 0.5em;">
+                                <a class="btn btn-primary btn-block" href="{{ action('AssistantsController@getAllStudents') }}">See all students</a>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 col-md-offset-5">
-                                <a href="{{ action('AssistantsController@getAllTeams') }}">See all teams</a>
+                            <div class="col-md-6 col-md-offset-3 text-center" style="padding-bottom: 0.5em;">
+                                <a class="btn btn-primary btn-block" href="{{ action('AssistantsController@getAllTeams') }}">See all teams</a>
                             </div>
                         </div>
                     </div>

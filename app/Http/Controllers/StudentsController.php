@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Request as AppRequest;
+use App\Assistant;
 use App\Student;
 use App\User;
 use App\Team;
@@ -225,9 +227,17 @@ class StudentsController extends Controller
         $team = Team::find($id);
         $student = Student::find(Auth::user()->id);
 
+        $personal_roles = array_column($team->roles->toArray(), 'name', 'id');
+        $roles = array_column(Role::all()->toArray(), 'name', 'id');
+
+        
+        $missing_roles = array_diff($roles, $personal_roles);
+
         return view('students.team_edit', [
             'student' => $student,
             'team' => $team,
+            'personal_roles' => $personal_roles,
+            'missing_roles' => $missing_roles,
         ]);
     }
 
@@ -248,14 +258,14 @@ class StudentsController extends Controller
         $team->name = $request->input('name');
         $team->project_name = $request->input('project_name');
         $team->description = $request->input('description');
+
+        $new_roles = Role::all()->only($request['add_role_id']);
+        $removed_roles = Role::all()->only($request['delete_role_id']);
+
+        $team->roles()->sync($team->roles->diff($removed_roles)->merge($new_roles));
         $team->save();
 
-        $student = Student::find(Auth::user()->id);
-
-        return view('students.team',[
-            'student' => $student,
-            'team' => $team,
-        ]);
+        return redirect()->action('StudentsController@showTeam', [$team->id]);
     }
 
     public function join($id)
@@ -282,13 +292,6 @@ class StudentsController extends Controller
 
     public function getNotifications()
     {
-        /*if (Session::token() !== Input::get('_token'))
-        {
-            return Response::json(array(
-                'message' => 'Unauthorized attempt to get notifications'
-            ));
-        }*/
-
         $student = Student::find(Auth::user()->id);
         $notifications = Student::find(Auth::user()->id)->notifications->where('seen', '=', false);
         
