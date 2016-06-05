@@ -12,7 +12,7 @@
 						<div class="col-lg-6">
 							<h3 class="panel-title"> {{ $team->name }} </h3>
 						</div>
-						@if($student->is_leader == 1)
+						@if($student->is_leader && ($team->students->contains($student)))
 							<div class="col-lg-1 pull-right">
 								<a href="{{ action('StudentsController@editTeam', ['id' => $team->id]) }}">Edit</a>
 							</div>
