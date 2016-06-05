@@ -193,7 +193,10 @@ class StudentsController extends Controller
         }
 
         if($student->team->image != null) {
-            $student->team->image->delete();
+            $image = $student->team->image;
+            $student->team->image_id = null;
+            $student->team->save();
+            $image->delete();
         }
 
         $student->team->delete();
