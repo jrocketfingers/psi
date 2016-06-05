@@ -40,6 +40,7 @@ class KicksController extends Controller
 
         $message = "New kick request for " . $kick_student->user->name;
         $req->session()->flash('message', $message);
+        $req->session()->flash('alert-class', 'alert-success');
 
         foreach($team->students as $student) {
             $can_show = false;
@@ -53,9 +54,6 @@ class KicksController extends Controller
 
             Notification::createNotification($request, $student, $message, $can_show, false);
         }
-
-        $req->session()->flash('message', $message);
-        $req->session()->flash('alert-class', 'alert-success');
 
         return back()->withInput();
     }
