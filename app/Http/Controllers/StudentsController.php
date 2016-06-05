@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Image;
 use App\Request as AppRequest;
+use App\Assistant;
 use App\Student;
 use App\User;
 use App\Team;
 use App\Role;
 use App\Notification;
+use App\Join;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
 
 class StudentsController extends Controller
 {
@@ -59,8 +62,57 @@ class StudentsController extends Controller
         ]);
     }
 
-    public function showTeams()
+    public function showTeams(Request $request)
     {
+        $student = Student::find(Auth::user()->id);
+        $input = Input::all();
+        $search = Input::has('search')? $input['search']: "";
+        $choice = Input::has('choice')? $input['choice']: "";
+        $teams = Team::all();
+
+        if (strcmp($search, "") != 0)
+        {
+            $search_string = "%".$search."%";
+            $teams = Team::where('name', 'like', $search_string)->get();
+        }
+
+        $choices = array('roles', 'names', 'participants');
+
+        return view('students.teams',[
+                    'student' => $student,
+                    'choice' => $choice,
+                    'search' => $search,
+                    'teams' => $teams,
+                    'choices' => $choices,
+                ]);
+        
+    }
+
+     public function showStudents(Request $request)
+    {
+        $student = Student::find(Auth::user()->id);
+        $input = Input::all();
+        $search = Input::has('search')? $input['search']: "";
+        $choice = Input::has('choice')? $input['choice']: "";
+        $students = Student::all();
+
+        if (strcmp($search, "") != 0)
+        {
+            $search_string = "%".$search."%";
+            $students = Student::whereHas('user', function($query) use ($search_string) { $query->where('name', 'like', $search_string);})->get();
+
+
+        }
+
+        $choices = array('roles', 'names', 'participants');
+
+        return view('students.students',[
+                    'student' => $student,
+                    'choice' => $choice,
+                    'search' => $search,
+                    'students' => $students,
+                    'choices' => $choices,
+                ]);
         
     }
 
@@ -211,9 +263,17 @@ class StudentsController extends Controller
         $team = Team::find($id);
         $student = Student::find(Auth::user()->id);
 
+        $personal_roles = array_column($team->roles->toArray(), 'name', 'id');
+        $roles = array_column(Role::all()->toArray(), 'name', 'id');
+
+        
+        $missing_roles = array_diff($roles, $personal_roles);
+
         return view('students.team_edit', [
             'student' => $student,
             'team' => $team,
+            'personal_roles' => $personal_roles,
+            'missing_roles' => $missing_roles,
         ]);
     }
 
@@ -250,14 +310,14 @@ class StudentsController extends Controller
         $team->name = $request->input('name');
         $team->project_name = $request->input('project_name');
         $team->description = $request->input('description');
+
+        $new_roles = Role::all()->only($request['add_role_id']);
+        $removed_roles = Role::all()->only($request['delete_role_id']);
+
+        $team->roles()->sync($team->roles->diff($removed_roles)->merge($new_roles));
         $team->save();
 
-        $student = Student::find(Auth::user()->id);
-
-        return view('students.team',[
-            'student' => $student,
-            'team' => $team,
-        ]);
+        return redirect()->action('StudentsController@showTeam', [$team->id]);
     }
 
     public function join($id)
@@ -284,13 +344,6 @@ class StudentsController extends Controller
 
     public function getNotifications()
     {
-        /*if (Session::token() !== Input::get('_token'))
-        {
-            return Response::json(array(
-                'message' => 'Unauthorized attempt to get notifications'
-            ));
-        }*/
-
         $student = Student::find(Auth::user()->id);
         $notifications = Student::find(Auth::user()->id)->notifications->where('seen', '=', false);
         
@@ -373,7 +426,7 @@ class StudentsController extends Controller
         $requests = new Collection();
 
         foreach($joins as $join) {
-            $req = AppRequest::find($join->request_id);
+            $req = App\Request::find($join->request_id);
             if ($req->status === 'PENDING') {
                 $students_with_active_requests->push(Student::find($req->student_id));
             }
@@ -381,7 +434,7 @@ class StudentsController extends Controller
 
         foreach($students as $st) {
             foreach($st->invites as $invite) {
-                $req = AppRequest::find($invite->request_id);
+                $req = App\Request::find($invite->request_id);
                 if ($req->student_id == Auth::user()->id && $req->status === 'PENDING') { // if logged user invited students to his team.
                     $students_with_active_requests->push(Student::find($invite->student_id)); //students with invite request
                 }
@@ -398,6 +451,22 @@ class StudentsController extends Controller
 
         return view('students.students', [
             'students' => $students_excluded,
+            'student' => $student,
+        ]);
+    }
+
+    public function applications() {
+        $application_ids = \App\Request::where('student_id', '=', Auth::user()->id)
+                                  ->where('requestable_type', 'App\Join')
+                                  ->where('status', '=', 'PENDING')
+                                  ->lists('id');
+
+        $student = Student::find(Auth::user()->id);
+
+        $applications = Join::findMany($application_ids);
+
+        return view('students.applications', [
+            'applications' => $applications,
             'student' => $student,
         ]);
     }

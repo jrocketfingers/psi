@@ -15,9 +15,16 @@ class LeaderChangesController extends Controller
         $this->middleware('auth');
     }
     
-    public function create($student_id) {
-        
+    public function create(\Illuminate\Http\Request $req, $student_id) {
 
+        if(LeaderChange::where('student_id', '=', $student_id)->whereHas('request', function($q) {
+            return $q->where('status', 'PENDING');
+        })->first() != null) {
+            $req->session()->flash('message', 'Promote leader request alrady exists.');
+            $req->session()->flash('alert-class', 'alert-danger');
+
+            return back()->withInput();
+        }
 
         $request = Request::createRequest();
         $request->requestable_id = $request->id;
@@ -33,6 +40,10 @@ class LeaderChangesController extends Controller
 
         $leader_student = Student::find($student_id);
 
+        $message = "New leader change request for " . $leader_student->user->name;
+        $req->session()->flash('message', $message);
+        $req->session()->flash('alert-class', 'alert-success');
+
         foreach($team->students as $student) {
             $can_show = false;
             if($student->user_id != $student_id && $student->is_leader == false) {
@@ -43,9 +54,9 @@ class LeaderChangesController extends Controller
                 $can_show = true;
             }
 
-            Notification::createNotification($request, $student, "New leader change request for " . $leader_student->name, $can_show, false);
+            Notification::createNotification($request, $student, $message, $can_show, false);
         }
-     
+
         return back()->withInput();
 
     }

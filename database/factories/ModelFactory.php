@@ -18,9 +18,9 @@ use App\Student;
 $factory->define(App\Request::class, function (Faker\Generator $faker) {
     return [
         'status' =>  $faker->word ,
-        'student_id' =>  function () {
-             return factory(App\Student::class)->create()->user_id;
-        } ,
+        'student_id' => function() {
+            return factory(App\Student::class)->create()->user_id;
+        },
         'requestable_id' =>  $faker->randomNumber() ,
         'requestable_type' =>  $faker->word ,
     ];
@@ -28,58 +28,58 @@ $factory->define(App\Request::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Join::class, function (Faker\Generator $faker) {
     return [
-        'team_id' =>  function () {
-             return factory(App\Team::class)->create()->id;
-        } ,
+        'team_id' => function() {
+            return factory(App\Team::class)->create()->id;
+        },
     ];
 });
 
 $factory->define(App\Admin::class, function (Faker\Generator $faker) {
     return [
-        'user_id' =>  function () {
-             return factory(App\User::class)->create()->id;
-        } ,
+        'user_id' => function() {
+            return factory(App\User::class)->create()->id;
+        },
     ];
 });
 
 $factory->define(App\Notification::class, function (Faker\Generator $faker) {
     return [
-        'text' =>  $faker->sentence ,
-        'can_show' =>  $faker->boolean ,
-        'student_id' =>  function () {
-             return factory(App\Student::class)->create()->user_id;
-        } ,
-        'request_id' =>  function () {
-             return factory(App\Request::class)->create()->id;
-        } ,
+        'text' =>  $faker->sentence,
+        'can_show' =>  $faker->boolean,
+        'student_id' => function() {
+            return factory(App\Student::class)->create()->user_id;
+        },
+        'request_id' => function() {
+            return factory(App\Request::class)->create()->id;
+        },
     ];
 });
 
 $factory->define(App\Kick::class, function (Faker\Generator $faker) {
     return [
-        'num_voted' =>  $faker->numberBetween(0, 4) ,
-        'student_id' =>  function () {
-             return factory(App\Student::class)->create()->user_id;
-        } ,
+        'num_voted' => $faker->numberBetween(0, 4),
+        'student_id' => function() {
+            return factory(App\Student::class)->create()->user_id;
+        },
     ];
 });
 
 $factory->define(App\Assistant::class, function (Faker\Generator $faker) {
     return [
-        'user_id' =>  function () {
-             return factory(App\User::class)->create()->id;
-        } ,
+        'user_id' => function() {
+            return factory(App\User::class)->create()->id;
+        },
     ];
 });
 
 $factory->define(App\Vote::class, function (Faker\Generator $faker) {
     return [
-        'request_id' =>  function () {
-             return factory(App\Request::class)->create()->id;
-        } ,
-        'student_id' =>  function () {
-             return factory(App\Student::class)->create()->user_id;
-        } ,
+        'request_id' => function() {
+            return factory(App\Request::class)->create()->id;
+        },
+        'student_id' => function() {
+            return factory(App\Student::class)->create()->user_id;
+        }
     ];
 });
 
@@ -87,7 +87,7 @@ $factory->define(App\Team::class, function (Faker\Generator $faker) {
     return [
         'name' =>  $faker->company ,
         'project_name' =>  $faker->catchPhrase ,
-        'description' =>  $faker->sentences ,
+        'description' =>  $faker->paragraph(3, true) ,
         'creation_date' =>  $faker->dateTimeBetween() ,
     ];
 });
@@ -95,21 +95,28 @@ $factory->define(App\Team::class, function (Faker\Generator $faker) {
 $factory->define(App\LeaderChange::class, function (Faker\Generator $faker) {
     return [
         'num_voted' =>  $faker->numberBetween(0, 4) ,
-        'student_id' =>  function () {
-             return factory(App\Student::class)->create()->user_id;
-        } ,
+        'student_id' => function() {
+            return factory(App\Student::class)->create()->user_id;
+        },
+    ];
+});
+
+$factory->define(App\User::class, function (Faker\Generator $faker) {
+    return [
+        'name' =>  $faker->name ,
+        'email' =>  $faker->safeEmail ,
+        'password' =>  bcrypt($faker->password) ,
+        'remember_token' =>  str_random(10) ,
     ];
 });
 
 $factory->define(App\Student::class, function (Faker\Generator $faker) {
     return [
-        'team_id' =>  function () {
-             return factory(App\Team::class)->create()->id;
-        } ,
-        'is_leader' =>  $faker->boolean ,
-        'user_id' =>  function () {
-             return factory(App\User::class)->create()->id;
-        } ,
+        'team_id' => 0,
+        'is_leader' => 0,
+        'user_id' => function() {
+            return factory(App\User::class)->create()->id;
+        },
     ];
 });
 
@@ -122,18 +129,9 @@ $factory->define(App\Role::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Invite::class, function (Faker\Generator $faker) {
     return [
-        'student_id' =>  function () {
-             return factory(App\Student::class)->create()->user_id;
-        } ,
-    ];
-});
-
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    return [
-        'name' =>  $faker->name ,
-        'email' =>  $faker->safeEmail ,
-        'password' =>  bcrypt($faker->password) ,
-        'remember_token' =>  str_random(10) ,
+        'student_id' => function() {
+            return factory(App\Student::class)->create()->user_id;
+        },
     ];
 });
 

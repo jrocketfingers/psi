@@ -70,6 +70,20 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="col-md-4 control-label">Delete Role</label>
+                                <div class="col-lg-6">
+                                    {{ Form::select('delete_role_id[]', $personal_roles, null, array('class' => 'form-control', 'multiple' => 'multiple')) }} 
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Add Role </label>
+                                <div class="col-lg-6">
+                                    {{ Form::select('add_role_id[]', $missing_roles, null, array('class' => 'form-control', 'multiple' => 'multiple')) }} 
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fa fa-btn fa-user"></i>Submit changes

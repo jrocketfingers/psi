@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admins')
 
 @section('content')
     <div class="container-fluid">
@@ -12,28 +12,35 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-4 col-lg-offset-2">
-                                Status:
+                            <div class="col-lg-6 text-right">
+                                <label>
+                                    Status
+                                </label>
                             </div>
-                            <div class="col-lg-4 col-lg-offset-2">
+                            <div class="col-lg-6 text-left">
                                 {{ $request->status }}
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4 col-lg-offset-2">
-                                Inititated by:
+                            <div class="col-lg-6 text-right">
+                                <label>
+                                    Inititated by
+                                </label>
+                                
                             </div>
-                            <div class="col-lg-4 col-lg-offset-2">
+                            <div class="col-lg-6 text-left">
                                 {{ $request->student->user->name }}
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4 col-lg-offset-2">
-                                Notifications:
+                            <div class="col-lg-6 text-right" style="margin: 0 auto; vertical-align: middle;">
+                                <label>
+                                    Notifications
+                                </label>
                             </div>
-                            <div class="col-lg-4 col-lg-offset-2">
+                            <div class="col-lg-6 text-left">
                                 @foreach($request->notifications as $notification)
-                                    <a href="{{ action('AdminsController@showNotificationDetails', [$notification->id]) }}" class="label label-default">
+                                    <a href="{{ action('AdminsController@showNotificationDetails', [$notification->id]) }}" class="btn btn-primary">
                                         {{ 'Notification: ' . $notification->id }}
                                     </a>
                                 @endforeach

@@ -21,5 +21,8 @@ class Team extends Model
     }
     public function image() {
         return $this->belongsTo('App\\Image');
+
+    public function leader() {
+        return $this->students->where('is_leader', 1)->first();
     }
 }

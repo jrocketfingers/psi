@@ -16,7 +16,7 @@
 								<a href="{{ url('students/edit', [$show_student->user->id]) }}">Edit</a>
 							</div>
 						@endif
-						@if ($show_student->team == $student->team && !($show_student->is_leader) && ($show_student->user_id != $student->user_id))
+                        @if ($student->can_vote_for($show_student))
 							<div class="col-lg-2 pull-right">
 								<a href="{{ action('KicksController@create', [$show_student->user->id]) }}">Kick Vote</a>
 							</div>
