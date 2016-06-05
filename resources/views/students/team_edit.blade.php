@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Register</div>
+                    <div class="panel-heading">Edit</div>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST" action="{{ action('StudentsController@storeTeam') }}">
                             {!! csrf_field() !!}
@@ -45,9 +45,8 @@
                                 <label class="col-md-4 control-label">Description</label>
 
                                 <div class="col-md-6">
-                                    <textarea class="form-control" name="description" cols="20" rows="20">
-                                        {{ $team->description }}
-                                    </textarea>
+                                    {{ Form::textarea('description', $team->description, [ 'class' => 'form-control', 'style' => 'resize: none;', 'rows' => '5']) }}
+
                                     @if ($errors->has('description'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('description') }}</strong>
