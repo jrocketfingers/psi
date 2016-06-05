@@ -15,17 +15,17 @@ class TeamsTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create();
-
-        factory(App\Team::class, 15)->create()->each(function($u) {
+        factory(App\Team::class, 15)->create()->each(function($team) {
             $students = factory(App\Student::class, 3)->make();
             $students[0]->is_leader = 1;
 
-            foreach($students as $student) {
-                $student->roles()->saveMany(Role::random($faker->numberBetween(2,5)));
-            }
+            $team->students()->saveMany($students);
 
-            $u->students()->saveMany($students);
+            $faker = Faker::create();
+
+            foreach($team->students as $student) {
+                $student->roles()->attach(Role::all()->random($faker->numberBetween(2,5)));
+            }
         });
     }
 }

@@ -1,9 +1,11 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Student;
 use App\Role;
+use Faker\Factory as Faker;
 
 class StudentsTableSeeder extends Seeder
 {
@@ -14,30 +16,12 @@ class StudentsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(App\Student::class, 'empty', 15)->create()->each(function($student) {
+            $faker = Faker::create();
 
-    	for ($i = 5; $i < 50; $i++)
-    	{
-    		$name = "test_user_".$i;
-    		$password = bcrypt("test_user_".$i);
-    		$email = "test_user".$i."@email.com";
-    		
-	        $user = User::create([
-	        	'name' => $name,
-	        	'email' => $email,
-	        	'password' => $password,
-	        ]);
+            $student->user()->associate(factory(App\User::class)->make());
 
-	        $student = Student::create([
-	        	'user_id' => $user->id,
-	        ]);
-
-            $student = Student::find($user->id);
-
-
-	        $student->roles()->sync(Role::all());
-	        $student->save();
-    	}
-
+            $student->roles()->attach(Role::all()->random($faker->numberBetween(2,5)));
+        });
     }
 }
