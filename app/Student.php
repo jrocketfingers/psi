@@ -55,6 +55,6 @@ class Student extends Model
     }
 
     public function can_vote_for(Student $student) {
-        return $this->team == $student->team && $this->user_id != $student->user_id;
+        return $this->team && $this->team == $student->team && $this->user_id != $student->user_id;
     }
 }
