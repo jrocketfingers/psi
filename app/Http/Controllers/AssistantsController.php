@@ -91,18 +91,16 @@ class AssistantsController extends Controller
 
         if($file_path != null) {
             if(Auth::user()->image != null) {
-                $imageblob = Auth::user()->image;
-                Auth::user()->image_id = null;
-                Auth::user()->save();
-                $imageblob->delete();
+                Auth::user()->image->image = readfile($file_path);
+                Auth::user()->image->save();
+            } else {
+                $image = new Image();
+                $image->image = readfile($file_path);
+                $image->imageable_id = Auth::user()->id;
+                $image->imageable_type = 'App\\User';
+                $image->save();
+                Auth::user()->image_id = $image->id;
             }
-
-            $image = new Image();
-            $image->image = readfile($file_path);
-            $image->imageable_id = Auth::user()->id;
-            $image->imageable_type = 'App\\User';
-            $image->save();
-            Auth::user()->image_id = $image->id;
         }
 
         Auth::user()->save();
