@@ -38,3 +38,5 @@ standard SQL databases (MySQL tested so far, Azure SQL V12 not yet confirmed).
 For notifications we're currently using ajax long polling. Potential alternatives are adding a websocket server like
 Centrifugo, Ratchet, or using a third-party push service.
 
+Frontend is done using blade for serverside templating. Bootstrap is used as the frontend CSS framework.
+
