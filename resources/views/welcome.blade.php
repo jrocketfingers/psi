@@ -8,7 +8,7 @@
                 <div class="panel-heading">Welcome</div>
 
                 <div class="panel-body">
-                    Your Application's Landing Page.
+                    Welcome to the PSI Team Hub! The usage of the site requires user to be registered, so follow that and team up!
                 </div>
             </div>
         </div>

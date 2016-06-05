@@ -17,6 +17,16 @@ class InvitesController extends Controller
     }
 
     public function create($student_id) {
+
+        if(Invite::where('student_id', '=', $student_id)->whereHas('request', function($q) {
+            return $q->where('status', 'PENDING');
+        })->first() != null) {
+            $req->session()->flash('message', 'Invitation request alrady exists.');
+            $req->session()->flash('alert-class', 'alert-danger');
+
+            return back()->withInput();
+        }
+
         $request = Request::createRequest();
         $student = Student::find($student_id);
 
@@ -31,7 +41,11 @@ class InvitesController extends Controller
 
         $team = Student::find(Auth::user()->id)->team;
 
-        Notification::createNotification($request, $student, "New invite request from team " . $team->name, true, false);
+        $message = "New invite request from team " . $team->name;
+        $req->session()->flash('message', $message);
+        $req->session()->flash('alert-class', 'alert-success');
+
+        Notification::createNotification($request, $student, $message, true, false);
 
         return back()->withInput();
     }

@@ -6,6 +6,8 @@
 <li><a href="{{ action('StudentsController@showStudents') }}" ><i class="fa fa-btn fa-info"></i>Show Students</a></li>
 @if ($student->team)
     <li><a href="{{ url('students/team/show') }}" ><i class="fa fa-btn fa-info"></i>My Team</a></li>
+@else
+    <li><a href="{{ url('students/applications') }}"><i class="fa fa-btn fa-info"></i>My Applications</a></li>
 @endif
 
 @if ($student->is_leader)
@@ -28,7 +30,7 @@
 
         (function poll() {
            setTimeout(function() {
-               $.get('http://192.168.99.100/students/notifications', function(data){
+               $.get('/students/notifications', function(data){
                     var currentLength = $('ul#myMenu li').length;
 
                     for (var i=0; i<data.length; i++)
@@ -81,7 +83,7 @@
         })();
 
         $(document).on('click', 'div[name=notification]', function(){
-            var url = 'http://192.168.99.100/action/' + $(this).data('notification-id') + '/' + $(this).data('check');
+            var url = '/action/' + $(this).data('notification-id') + '/' + $(this).data('check');
             var dom = $(this);
 
             $.get(url, function(data){

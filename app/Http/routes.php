@@ -37,6 +37,7 @@ Route::get('/students/team/leave/{id}', 'StudentsController@leave');
 Route::get('/students/list', 'StudentsController@getStudentsByRole');
 Route::get('/students/list/all', 'StudentsController@showStudents');
 Route::get('/students/show/{id}', 'StudentsController@show');
+Route::get('/students/applications', 'StudentsController@applications');
 Route::get('/students/notifications', 'StudentsController@getNotifications');
 Route::get('/students/team/edit/{id}', 'StudentsController@editTeam');
 Route::post('students/team/store', 'StudentsController@storeTeam');

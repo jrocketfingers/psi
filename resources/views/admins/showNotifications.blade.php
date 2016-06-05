@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admins')
 
 @section('content')
     <div class="container-fluid">
@@ -13,11 +13,11 @@
                     <div class="panel-body">
                         @foreach($notifications as $notification)
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4 col-lg-offset-2 text-center">
                                     Notification: {{ $notification->id }}
                                 </div>
-                                <div class="col-lg-4 col-lg-offset-2">
-                                    <a href="{{ action('AdminsController@showNotificationDetails', [$notification->id]) }}" class="label label-default">
+                                <div class="col-lg-4 text-center">
+                                    <a href="{{ action('AdminsController@showNotificationDetails', [$notification->id]) }}">
                                         Details
                                     </a>
                                 </div>

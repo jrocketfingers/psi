@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admins')
 
 @section('content')
     <div class="container-fluid">
@@ -12,36 +12,36 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-4 col-lg-offset-2">
-                                Text:
-                            </div>
-                            <div class="col-lg-4 col-lg-offset-2">
+                            <label class="col-lg-6 text-center">
+                                Text
+                            </label>
+                            <div class="col-lg-6 text-left">
                                 {{ $notification->text }}
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4 col-lg-offset-2">
-                                Seen: 
-                            </div>
-                            <div class="col-lg-4 col-lg-offset-2">
+                            <label class="col-lg-6 text-center">
+                                Seen
+                            </label>
+                            <div class="col-lg-6 text-left">
                                 {{ $notification->seen ? 'Yes' : 'No' }}
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4 col-lg-offset-2">
-                                For student:
-                            </div>
-                            <div class="col-lg-4 col-lg-offset-2">
+                            <label class="col-lg-6 text-center">
+                                For student
+                            </label>
+                            <div class="col-lg-6 text-left">
                                 {{ $notification->student->user->name }}
                             </div>
                         </div>
                         @if($notification->request != null)
                             <div class="row">
-                                <div class="col-lg-4 col-lg-offset-2">
-                                    Request:
-                                </div>
-                                <div class="col-lg-4 col-lg-offset-2">
-                                    <a href="{{ action('AdminsController@showRequestDetails', [$notification->request->id]) }}" class="label label-primary">{{ 'Request:' . $notification->request->id }}</a>
+                                <label class="col-lg-6 text-center" style="margin-top: 0.4em;">
+                                    Request
+                                </label>
+                                <div class="col-lg-6 text-left">
+                                    <a href="{{ action('AdminsController@showRequestDetails', [$notification->request->id]) }}" class="btn  btn-primary">{{ 'Request:' . $notification->request->id }}</a>
                                 </div>
                             </div>
                         @endif

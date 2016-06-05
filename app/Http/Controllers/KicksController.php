@@ -17,7 +17,9 @@ class KicksController extends Controller
 
     public function create(\Illuminate\Http\Request $req, $student_id) {
 
-        if(Kick::where('student_id', '=', $student_id)->first() != null) {
+        if(Kick::with('request')->where('student_id', '=', $student_id)->whereHas('request', function($q) {
+            return $q->where('status', 'PENDING');
+        })->first() != null) {
             $req->session()->flash('message', 'Kick request alrady exists.');
             $req->session()->flash('alert-class', 'alert-danger');
 
@@ -38,6 +40,13 @@ class KicksController extends Controller
 
         $kick_student = Student::find($student_id);
 
+        if($kick_student->is_leader) {
+            $req->session()->flash('message', 'You cannot vote to kick the team leader!');
+            $req->session()->flash('alert-class', 'alert-danger');
+
+            return back()->withInput();
+        }
+
         $message = "New kick request for " . $kick_student->user->name;
         $req->session()->flash('message', $message);
         $req->session()->flash('alert-class', 'alert-success');
@@ -50,9 +59,9 @@ class KicksController extends Controller
                     'student_id' => $student->user_id,
                 ]);
                 $can_show = true;
-            }
 
-            Notification::createNotification($request, $student, $message, $can_show, false);
+                Notification::createNotification($request, $student, $message, $can_show, false);
+            }
         }
 
         return back()->withInput();
