@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Assistant;
 use App\Role;
 use App\Student;
 use App\Team;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AssistantsController extends Controller
 {
@@ -49,5 +52,34 @@ class AssistantsController extends Controller
         $team = Team::find($id);
 
         return view('assistants.showTeamDetails')->with('team', $team);
+    }
+
+    public function showDetails() {
+        $assistant = Assistant::find(Auth::user()->id);
+
+        return view('assistants.show', [
+            'assistant' => $assistant,
+        ]);
+
+    }
+    
+    public function editDetails() {
+        return view('assistants.edit');
+    }
+
+    public function updateDetails(Request $request) {
+        
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|max:255',
+            'email' => 'required|max:255|email'
+        ]);
+        
+        if($validator->fails()) {
+            return redirect()->action('AssistantsController@editDetails')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        
+        return view('assistants.show');
     }
 }
