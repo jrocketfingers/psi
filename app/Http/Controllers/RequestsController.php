@@ -23,10 +23,10 @@ class RequestsController extends Controller
         else
         {
             if($accepted == true) {
-                $notification->request->requestable()->accept();
+                $notification->request->requestable->accept();
                 $message = "Accept Proceeded";
             } else {
-                $notification->request->requestable()->deny();
+                $notification->request->requestable->deny();
                 $message = "Deny Proceeded";
             }
         }

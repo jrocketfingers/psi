@@ -21,16 +21,17 @@ class JoinsController extends Controller
 
         $team = Team::findOrFail($team_id);
 
-        /* TODO: switch to using queries across polymorphic relationships */
-        $join_requests = Request::where('student_id', '=', Auth::user()->id)->where('requestable_type', '=', 'App\Join')->get();
+        $student = Student::find(Auth::user()->id);
 
-        foreach($join_requests as $join_request) {
-            if($join_request->requestable()->team_id == $team_id) {
-                $req->session()->flash('message', 'You have already applied to ' . $team->name);
-                $req->session()->flash('alert-class', 'alert-danger');
+        $join_requests = Join::whereHas('request', function($q) use ($student) {
+            return $q->where('student_id', $student->user_id)->where('status', 'PENDING');
+        })->where('team_id', $team_id)->first();
 
-                return back()->withInput();
-            }
+        if($join_requests) {
+            $req->session()->flash('message', 'You have already applied to ' . $team->name);
+            $req->session()->flash('alert-class', 'alert-danger');
+
+            return back()->withInput();
         }
 
         $request = Request::createRequest();
