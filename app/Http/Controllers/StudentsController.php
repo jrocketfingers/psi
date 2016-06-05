@@ -162,10 +162,10 @@ class StudentsController extends Controller
         ]);
     }
 
-    public function showTeam()
+    public function showTeam($id)
     {
         $student = Student::find(Auth::user()->id);
-        $team = $student->team;
+        $team = Team::find($id);
 
         return view('students.team',[
             'student' => $student,

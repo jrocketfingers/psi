@@ -31,6 +31,7 @@ class JoinsController extends Controller
             $req->session()->flash('message', 'You have already applied to ' . $team->name);
             $req->session()->flash('alert-class', 'alert-danger');
 
+
             return back()->withInput();
         }
 
