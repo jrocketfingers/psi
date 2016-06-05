@@ -9,15 +9,14 @@ use App\User;
 use App\Team;
 use App\Role;
 use App\Notification;
+use App\Join;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
-
 
 class StudentsController extends Controller
 {
@@ -375,7 +374,7 @@ class StudentsController extends Controller
         $requests = new Collection();
 
         foreach($joins as $join) {
-            $req = AppRequest::find($join->request_id);
+            $req = App\Request::find($join->request_id);
             if ($req->status === 'PENDING') {
                 $students_with_active_requests->push(Student::find($req->student_id));
             }
@@ -383,7 +382,7 @@ class StudentsController extends Controller
 
         foreach($students as $st) {
             foreach($st->invites as $invite) {
-                $req = AppRequest::find($invite->request_id);
+                $req = App\Request::find($invite->request_id);
                 if ($req->student_id == Auth::user()->id && $req->status === 'PENDING') { // if logged user invited students to his team.
                     $students_with_active_requests->push(Student::find($invite->student_id)); //students with invite request
                 }
@@ -400,6 +399,22 @@ class StudentsController extends Controller
 
         return view('students.students', [
             'students' => $students_excluded,
+            'student' => $student,
+        ]);
+    }
+
+    public function applications() {
+        $application_ids = \App\Request::where('student_id', '=', Auth::user()->id)
+                                  ->where('requestable_type', 'App\Join')
+                                  ->where('status', '=', 'PENDING')
+                                  ->lists('id');
+
+        $student = Student::find(Auth::user()->id);
+
+        $applications = Join::findMany($application_ids);
+
+        return view('students.applications', [
+            'applications' => $applications,
             'student' => $student,
         ]);
     }

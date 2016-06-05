@@ -6,6 +6,8 @@
 <li><a href="{{ action('StudentsController@showStudents') }}" ><i class="fa fa-btn fa-info"></i>Show Students</a></li>
 @if ($student->team)
     <li><a href="{{ url('students/team/show') }}" ><i class="fa fa-btn fa-info"></i>My Team</a></li>
+@else
+    <li><a href="{{ url('students/applications') }}"><i class="fa fa-btn fa-info"></i>My Applications</a></li>
 @endif
 
 @if ($student->is_leader)

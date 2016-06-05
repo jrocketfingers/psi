@@ -99,6 +99,10 @@
         </div>
     </nav>
 
+    @if(Session::has('message'))
+        <p class="alert {{ Session::get('alert-class') }}">{{ Session::get('message') }}</p>
+    @endif
+
     @yield('content')
 
     <!-- JavaScripts -->

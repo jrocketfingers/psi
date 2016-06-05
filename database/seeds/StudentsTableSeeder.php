@@ -16,12 +16,14 @@ class StudentsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Student::class, 'empty', 15)->create()->each(function($student) {
-            $faker = Faker::create();
+        $faker = Faker::create();
+        foreach(range(1, 15) as $index) {
+            $user = factory(App\User::class)->create();
+            $student = factory(App\Student::class)->create(['user_id' => $user->id]);
 
-            $student->user()->associate(factory(App\User::class)->make());
+            $student = Student::find($user->id);
 
             $student->roles()->attach(Role::all()->random($faker->numberBetween(2,5)));
-        });
+        }
     }
 }
