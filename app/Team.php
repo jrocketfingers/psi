@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Team extends Model
 {
     protected $fillable = [
-        'name', 'project_name', 'description', 'creation_date',
+        'name', 'project_name', 'description', 'creation_date', 'image_id'
     ];
 
     public function students() {
@@ -18,5 +18,8 @@ class Team extends Model
     }
     public function joins() {
         return $this->hasMany('App\Join');
+    }
+    public function image() {
+        return $this->belongsTo('App\\Image');
     }
 }
