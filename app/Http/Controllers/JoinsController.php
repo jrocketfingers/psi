@@ -31,7 +31,7 @@ class JoinsController extends Controller
 
         $student = Student::find(Auth::user()->id);
 
-        $notification = Notification::createNotification($request, Team::find($team_id)->students->where('is_leader', 1)->first(), "Student " . $student->name . " wants to join your team", true, false);
+        Notification::createNotification($request, Team::find($team_id)->students->where('is_leader', 1)->first(), "Student " . $student->user->name . " wants to join your team", true, false);
 
         return back()->withInput();
     }
