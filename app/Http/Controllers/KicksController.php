@@ -16,17 +16,6 @@ class KicksController extends Controller
     }
 
     public function create($student_id) {
-        $team = Student::find(Auth::user()->id)->team;
-        //If num of memebers is two then just kick
-        if($team->students->count() == 2) {
-            $student = Student::find($student_id);
-            Notification::createNotification(null, $student, "You have been kicked out of " . $team->name , true, true);
-            $student->team_id = null;
-            $student->is_leader = null;
-            $student->save();
-
-            return back()->withInput();
-        }
 
         $request = Request::createRequest();
         $request->requestable_id = $request->id;
@@ -38,6 +27,7 @@ class KicksController extends Controller
         $kick->num_voted = 0;
         $kick->student_id = $student_id;
         $kick->save();
+        $team = Student::find(Auth::user()->id)->team;
 
         $kick_student = Student::find($student_id);
 
