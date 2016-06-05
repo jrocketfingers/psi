@@ -21,7 +21,7 @@ class Request extends Model
         return $this->belongsTo('App\Student');
     }
     public function requestable() {
-        return $this->morphTo()->first();
+        return $this->morphTo();
     }
 
     public static function createRequest() {

@@ -17,7 +17,9 @@ class LeaderChangesController extends Controller
     
     public function create(\Illuminate\Http\Request $req, $student_id) {
 
-        if(LeaderChange::where('student_id', '=', $student_id)->first() != null) {
+        if(LeaderChange::where('student_id', '=', $student_id)->whereHas('request', function($q) {
+            return $q->where('status', 'PENDING');
+        })->first() != null) {
             $req->session()->flash('message', 'Promote leader request alrady exists.');
             $req->session()->flash('alert-class', 'alert-danger');
 
