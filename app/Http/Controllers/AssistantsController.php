@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Assistant;
+use App\Image;
 use App\Role;
 use App\Student;
 use App\Team;
@@ -71,7 +72,8 @@ class AssistantsController extends Controller
         
         $validator = Validator::make($request->all(),[
             'name' => 'required|max:255',
-            'email' => 'required|max:255|email'
+            'email' => 'required|max:255|email',
+            'image' => 'mimes:gif'
         ]);
         
         if($validator->fails()) {
@@ -79,7 +81,21 @@ class AssistantsController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        
+
+        return $request->all();
+        $file = $request->file('image');
+        return $file;
+
+        if($file != null) {
+            $image = new Image();
+            //$image->image = $file->
+        }
+
+        $assistant = Assistant::find(Auth::user()->id);
+        $assistant->user->name = $request->input('name');
+        $assistant->user->email = $request->input('email');
+        $assistant->save();
+
         return view('assistants.show');
     }
 }
