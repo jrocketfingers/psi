@@ -85,7 +85,7 @@
                                 <li>
                                     <form role="form" method="POST" action="{{ url('/users/destroy/'. Auth::user()->id) }}">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                                        <a href="#" onclick="$(this).closest('form').submit()">
+                                        <a style="text-decoration: none; color: inherit; margin-left: 1em;" href="#" onclick="$(this).closest('form').submit()">
                                             <i class="fa fa-btn fa-user"></i>
                                             Delete account
                                         </a>
