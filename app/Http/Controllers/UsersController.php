@@ -167,7 +167,10 @@ class UsersController extends Controller
         }
         $user = User::find($id);
         if($user->image) {
-            $user->image->delete();
+            $image = $user->image;
+            $user->image_id = null;
+            $user->save();
+            $image->delete();
         }
         $user->delete();
 
