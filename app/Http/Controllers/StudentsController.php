@@ -217,6 +217,7 @@ class StudentsController extends Controller
             'name' => 'required|max:255',
             'project_name' => 'required|max:255',
             'description' => 'required|max:255',
+            'image' => 'image',
         ]);
         
         if($validator->fails()) {
@@ -226,6 +227,21 @@ class StudentsController extends Controller
         }
 
         $team = Team::find($request->input('id'));
+        $filepath = $request->file('image');
+        if($filepath != null) {
+            if($team->image != null) {
+                $team->image->image = readfile($filepath);
+                $team->image->save();
+            } else {
+                $image = new Image();
+                $image->image = readfile($filepath);
+                $image->imageable_id = $team->id;
+                $image->imageable_type = 'App\\Team';
+                $image->save();
+                $team->image_id = $image->id;
+            }
+        }
+        
         $team->name = $request->input('name');
         $team->project_name = $request->input('project_name');
         $team->description = $request->input('description');
