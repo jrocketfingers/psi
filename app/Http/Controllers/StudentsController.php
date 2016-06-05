@@ -97,19 +97,17 @@ class StudentsController extends Controller
         $filepath = $request->file('image');
         if($filepath != null) {
             if(Auth::user()->image != null) {
-                $imageblob = Auth::user()->image;
-                Auth::user()->image_id = null;
+                Auth::user()->image->image = readfile($filepath);
+                Auth::user()->image->save();
+            } else {
+                $image = new Image();
+                $image->image = readfile($filepath);
+                $image->imageable_id = Auth::user()->id;
+                $image->imageable_type = 'App\\User';
+                $image->save();
+                Auth::user()->image_id = $image->id;
                 Auth::user()->save();
-                $imageblob->delete();
             }
-
-            $image = new Image();
-            $image->image = readfile($filepath);
-            $image->imageable_id = Auth::user()->id;
-            $image->imageable_type = 'App\\User';
-            $image->save();
-            Auth::user()->image_id = $image->id;
-            Auth::user()->save();
         }
 
         $input = $request->all();
