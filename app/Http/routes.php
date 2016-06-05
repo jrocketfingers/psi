@@ -64,7 +64,12 @@ Route::get('/admins/roles/show/{id}', 'AdminsController@showRole');
 Route::get('/admins/roles/edit/{id}', 'AdminsController@editRole');
 Route::post('/admins/roles/update/{id}', 'AdminsController@updateRole');
 Route::post('/admins/roles/destroy/{id}', 'AdminsController@destroyRole');
+Route::get('/admins/notifications', 'AdminsController@showAllNotifications');
+Route::get('/admins/notifications/show/{id}', 'AdminsController@showNotificationDetails');
+Route::get('/admins/requests', 'AdminsController@showAllRequests');
+Route::get('/admins/requests/{id}', 'AdminsController@showRequestDetails');
 Route::get('/admins/{id?}', 'AdminsController@index');
+Route::get('/admins/users/search/', 'AdminsController@searchUsers');
 
 //request routes
 Route::get('/createjoin/{team_id}', "JoinsController@create");
