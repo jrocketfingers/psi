@@ -192,6 +192,10 @@ class StudentsController extends Controller
             return back()->withInput();
         }
 
+        if($student->team->image != null) {
+            $student->team->image->delete();
+        }
+
         $student->team->delete();
         $student->is_leader = false;
         $student->save();
