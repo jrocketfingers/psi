@@ -33,21 +33,23 @@
 	                    <div class="panel-heading">
 							<div class="row">
 								<div class="col-lg-6">
-									<h3 class="panel-title text-center">{{ $show_student->user->name }}</h3>
+									<a class="panel-title text-center" href="{{ action('StudentsController@show', [$show_student->user->id]) }}">{{ $show_student->user->name }}</a>
 								</div>
-								<div class="col-lg-3 pull-right">
+								@if(!($show_student->team) && !($show_student->team == $student->team) && $student->team && $student->is_leader)
+								<div class="col-lg-1 pull-right">
 									<a href="{{ action('InvitesController@create', [$show_student->user_id]) }}" class="label label-success pull-right">
 										Invite
 									</a>
 								</div>
-								<div class="col-lg-3 pull-right">
+								@endif
+								<div class="col-lg-1 pull-right">
 									<a href="{{ url('students/show', [$show_student->user_id]) }}"> Details </a>
 								</div>
 							</div>
 		                </div>
 		                <div class="panel-body">
 		                	@foreach ($show_student->roles as $role)
-		                		<div class="label label-default">
+		                		<div class="label label-default" style="margin-left:0.5em; margin-right:0.5em;">
 									{{ $role->name }}
 		                		</div>
 		                	@endforeach

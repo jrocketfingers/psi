@@ -99,11 +99,20 @@
         </div>
     </nav>
 
+    
+
     @if(Session::has('message'))
-        <p class="alert {{ Session::get('alert-class') }}">{{ Session::get('message') }}</p>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="alert {{ Session::get('alert-class') }}">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <p>{{ Session::get('message') }}</p>
+            </div>
+        </div>
     @endif
 
     @yield('content')
+
+    
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
