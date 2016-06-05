@@ -17,7 +17,22 @@ class JoinsController extends Controller
         $this->middleware('auth');
     }
     
-    public function create($team_id) {
+    public function create(\Illuminate\Http\Request $req, $team_id) {
+
+        $team = Team::findOrFail($team_id);
+
+        /* TODO: switch to using queries across polymorphic relationships */
+        $join_requests = Request::where('student_id', '=', Auth::user()->id)->where('requestable_type', '=', 'App\Join')->get();
+
+        foreach($join_requests as $join_request) {
+            if($join_request->requestable()->team_id == $team_id) {
+                $req->session()->flash('message', 'You have already applied to ' . $team->name);
+                $req->session()->flash('alert-class', 'alert-danger');
+
+                return back()->withInput();
+            }
+        }
+
         $request = Request::createRequest();
 
         $request->requestable_id = $request->id;
@@ -31,7 +46,12 @@ class JoinsController extends Controller
 
         $student = Student::find(Auth::user()->id);
 
-        Notification::createNotification($request, Team::find($team_id)->students->where('is_leader', 1)->first(), "Student " . $student->user->name . " wants to join your team", true, false);
+        $req->session()->flash('message', 'You have successfully applied to ' . $team->name);
+        $req->session()->flash('alert-class', 'alert-success');
+
+        $leader_message = "Student " . $student->user->name . " wants to join your team";
+
+        Notification::createNotification($request, $team->leader(), $leader_message, true, false);
 
         return back()->withInput();
     }

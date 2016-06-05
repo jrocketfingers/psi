@@ -19,4 +19,8 @@ class Team extends Model
     public function joins() {
         return $this->hasMany('App\Join');
     }
+
+    public function leader() {
+        return $this->students->where('is_leader', 1)->first();
+    }
 }

@@ -134,3 +134,4 @@ $factory->define(App\Invite::class, function (Faker\Generator $faker) {
         },
     ];
 });
+
