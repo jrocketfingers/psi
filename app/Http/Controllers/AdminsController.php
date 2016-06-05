@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Notification;
+use App\Request;
 use App\Role;
 use App\Student;
 use App\User;
-use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
@@ -160,5 +161,37 @@ class AdminsController extends Controller
     {
         Role::destroy($id);
         return redirect()->action('AdminsController@getAllRoles');
+    }
+
+    public function showAllNotifications() {
+        $notifications = Notification::all();
+
+        return view('admins.showNotifications', [
+            'notifications' => $notifications,
+        ]);
+    }
+
+    public function showNotificationDetails($id) {
+        $notification = Notification::find($id);
+
+        return view('admins.showNotificationDetails', [
+            'notification' => $notification,
+        ]);
+    }
+
+    public function showAllRequests() {
+        $requests = Request::all();
+
+        return view('admins.showRequests', [
+            'requests' => $requests,
+        ]);
+    }
+    
+    public function showRequestDetails($id) {
+        $request = Request::find($id);
+
+        return view('admins.showRequestDetails', [
+            'request' => $request,
+        ]);
     }
 }
