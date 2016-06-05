@@ -2,29 +2,6 @@
 
 @section('content')
     <div class='container'>
-    	<div class="row" style="padding-bottom: 2em;">
-    		<div class="col-md-8 col-md-offset-2">
-    			{{ Form::open([ 'action' => 'StudentsController@searchTeams', 'method' => 'GET']) }}
-
-    			<div class="form-group">
-    				<div class="col-md-2">
-	    				{{ Form::label('Search', 'Search', ['style' => 'margin-top: 0.25em;', 'class' => 'control-label']) }}
-	    			</div>
-	    			<div class="col-md-4">
-	    				{{ Form::text('search', 'search', [ 'class' => 'form-control']) }}
-	    			</div>
-
-	    			<div class="col-md-2">
-	    				{{ Form::label('Sort', 'Sort Criteria', ['style' => 'margin-top: 0.25em;', 'class' => 'control-label']) }}
-	    			</div>
-
-	    			<div class="col-md-4">
-	    				{{ Form::select('choice', $choices, null, array('class' => 'form-control')) }}
-	    			</div>
-    			</div>
-    			{{ Form::close() }}
-    		</div>
-    	</div>
 	   @foreach ($teams as $team)
 	        <div class="row">
 	            <div class="col-lg-8 col-lg-offset-2">
@@ -32,8 +9,10 @@
 	                    <div class="panel-heading">
 		                    <div class="row">
 		                    	<div class="col-lg-2">
-										{{ $team->name }}
+									{{ $team->name }}
+									@if (!($student->team))
 			                    	<a class="label label-success" href="{{ action('JoinsController@create', [$team->id]) }}"> Join </a>
+									@endif
 			                    </div>
 		                        
 		                        @foreach ($team->students as $team_student)
@@ -47,7 +26,8 @@
 		                    
 	                    </div>
 	                    <div class="panel-body">
-	                        <p>This is a Random Description</p>
+	                        <label>{{ $team->project_name }}</label>
+	                        <p> {{ $team->description }} </p>
 
 	                        @foreach ($team->roles as $role)
 	                        	<div class="col-lg-1 col-lg-offset-1">
