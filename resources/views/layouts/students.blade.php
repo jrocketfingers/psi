@@ -30,7 +30,7 @@
 
         (function poll() {
            setTimeout(function() {
-               $.get('http://192.168.99.100/students/notifications', function(data){
+               $.get('/students/notifications', function(data){
                     var currentLength = $('ul#myMenu li').length;
 
                     for (var i=0; i<data.length; i++)
@@ -83,7 +83,7 @@
         })();
 
         $(document).on('click', 'div[name=notification]', function(){
-            var url = 'http://192.168.99.100/action/' + $(this).data('notification-id') + '/' + $(this).data('check');
+            var url = '/action/' + $(this).data('notification-id') + '/' + $(this).data('check');
             var dom = $(this);
 
             $.get(url, function(data){
