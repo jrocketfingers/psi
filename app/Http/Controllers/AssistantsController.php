@@ -73,6 +73,7 @@ class AssistantsController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'required|max:255',
             'email' => 'required|max:255|email',
+            'image' => 'image'
         ]);
         
         if($validator->fails()) {
@@ -89,6 +90,13 @@ class AssistantsController extends Controller
 
 
         if($file_path != null) {
+            if(Auth::user()->image != null) {
+                $imageblob = Auth::user()->image;
+                Auth::user()->image_id = null;
+                Auth::user()->save();
+                $imageblob->delete();
+            }
+
             $image = new Image();
             $image->image = readfile($file_path);
             $image->imageable_id = Auth::user()->id;
