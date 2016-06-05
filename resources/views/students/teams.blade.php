@@ -13,14 +13,13 @@
 	    			<div class="col-md-4">
 	    				{{ Form::text('search', $search, [ 'class' => 'form-control']) }}
 	    			</div>
+					<div class="col-md-2">
+						{{ Form::label('By role', 'Search by role', ['style' => 'margin-top: 0.25em;', 'class' => 'control-label']) }}
+					</div>
 
-	    			<div class="col-md-2">
-	    				{{ Form::label('Sort', 'Sort Criteria', ['style' => 'margin-top: 0.25em;', 'class' => 'control-label']) }}
-	    			</div>
-
-	    			<div class="col-md-4">
-	    				{{ Form::select('choice', $choices, null, array('class' => 'form-control')) }}
-	    			</div>
+					<div class="col-md-4">
+						{{ Form::select('role_choice', $role_choices, null, array('class' => 'form-control')) }}
+					</div>
     			</div>
 
     			{{ Form::close() }}
