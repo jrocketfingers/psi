@@ -47,7 +47,7 @@ class Kick extends Model
 
     public function deny() {
         foreach ($this->student->team->students as $student) {
-            Notification::createNotification($this->request, $student, "Kick request for student " . $this->student->name . " denied", true, true);
+            Notification::createNotification($this->request, $student, "Kick request for student " . $this->student->user->name . " denied", true, true);
             
             Vote::destroyVote($this->request_id, $student->user_id);
         }
