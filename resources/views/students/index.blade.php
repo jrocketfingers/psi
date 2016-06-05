@@ -8,14 +8,14 @@
 
     			<div class="form-group">
     				<div class="col-md-2">
-	    				{{ Form::label('Search', 'Search', ['style' => 'margin-top: 0.25em;']) }}
+	    				{{ Form::label('Search', 'Search', ['style' => 'margin-top: 0.25em;', 'class' => 'control-label']) }}
 	    			</div>
 	    			<div class="col-md-4">
 	    				{{ Form::text('search', 'search', [ 'class' => 'form-control']) }}
 	    			</div>
 
 	    			<div class="col-md-2">
-	    				{{ Form::label('Sort', 'Sort Criteria', ['style' => 'margin-top: 0.25em;']) }}
+	    				{{ Form::label('Sort', 'Sort Criteria', ['style' => 'margin-top: 0.25em;', 'class' => 'control-label']) }}
 	    			</div>
 
 	    			<div class="col-md-4">
