@@ -21,12 +21,8 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/tasks', 'HomeController@index');
 
-Route::resource('users', 'UsersController');
-
-Route::post('/users/destroy/{id}', 'UsersController@destroy')->middleware('is_leader');
-
-//ROUTE FOR USERS PREVIEW AND DELETING ACCOUNTS FOR ADMINS
-Route::get('/users', 'UsersController@index')->middleware('admin');
+//Route for deleting accounts
+Route::post('/users/destroy/{id}', 'UsersController@destroy');
 
 // Route::resource('students', 'StudentsController');
 Route::get('/students', 'StudentsController@index');
@@ -47,6 +43,9 @@ Route::post('students/team/store', 'StudentsController@storeTeam');
 /*Route::get('/students', 'StudentsController@getAll');
 Route::get('/students/{role_id}', 'StudentsController@getByRole');*/
 //Assistants logic
+Route::get('/assistants/show', 'AssistantsController@showDetails');
+Route::get('/assistants/edit', 'AssistantsController@editDetails');
+Route::post('/assistants/update', 'AssistantsController@updateDetails');
 Route::get('/assistants/getAllStudents', 'AssistantsController@getAllStudents');
 Route::get('/assistants/getAllTeams', 'AssistantsController@getAllTeams');
 Route::get('/assistants/showStudentDetails/{id}', 'AssistantsController@showStudentDetails');

@@ -28,8 +28,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $this->middleware('admin');
-        $users = User::where('name', '<>', 'admin')->get();
+;        $users = User::where('name', '<>', 'admin')->get();
         return view('users.index')->with('users', $users);
     }
 
@@ -53,7 +52,7 @@ class UsersController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|user:unique',
         ]);
 
         if($validator->fails()) {
@@ -118,8 +117,57 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $isAdmin = Admin::isAdmin(Auth::user()->id);
+        $student = Student::find($id);
+        if($student != null) {
+            if($student->team != null) {
+                if($student->is_leader == false) {
+                    foreach ($student->kicks as $kick) {
+                        if($kick->request->status != "CONFIRMED") {
+                            $kick->request->delete();
+                        }
+                    }
+                    foreach ($student->leaderChanges as $leaderchange) {
+                        if($leaderchange->request->status != "CONFIRMED") {
+                            $leaderchange->request->delete();
+                        }
+                    }
+                } else {
+                    foreach ($student->team->students as $team_student) {
+                        foreach ($team_student->kicks as $kick) {
+                            if($kick->request->status != "CONFIRMED") {
+                                $kick->request->delete();
+                            }
+                        }
+                        foreach ($team_student->leaderChanges as $leaderhange) {
+                            if($leaderhange->request->status != "CONFIRMED") {
+                                $leaderhange->request->delete();
+                            }
+                        }
+                    }
+                    foreach ($student->team->joins as $join) {
+                        if($join->request->status != "CONFIRMED") {
+                            $join->delete();
+                        }
+                    }
+                    foreach ($student->requests as $request) {
+                        if($request->status != "CONFIRMED") {
+                            $request->delete();
+                        }
+                    }
+                    $team = $student->team;
+                    foreach ($team->students as $student) {
+                        $student->team_id = null;
+                        $student->is_leader = null;
+                        $student->save();
+                    }
+                    $team->delete();
+                }
+
+            }
+        }
+
         User::destroy($id);
+
         return redirect()->action('HomeController@index');
     }
 }

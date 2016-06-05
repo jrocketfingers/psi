@@ -12,9 +12,9 @@
 									<h3 class="panel-title text-center">{{ $show_student->user->name }}</h3>
 								</div>
 								<div class="col-lg-3 pull-right">
-									<span class="label label-success text-right">
-		                    			<a href="{{ action('InvitesController@create', [$show_student->user_id]) }}">Invite</a>
-		                    		</span>
+									<a href="{{ action('InvitesController@create', [$show_student->user_id]) }}" class="label label-success pull-right">
+										Invite
+									</a>
 								</div>
 								<div class="col-lg-3 pull-right">
 									<a href="{{ url('students/show', [$show_student->user_id]) }}"> Details </a>

@@ -32,24 +32,24 @@ class AdminsController extends Controller
             if($student->team != null) {
                 if($student->is_leader == false) {
                     foreach ($student->kicks as $kick) {
-                        if($kick->requset->status != "CONFIRMED") {
+                        if($kick->request->status != "CONFIRMED") {
                             $kick->request->delete();
                         }
                     }
-                    foreach ($student->leaderChanges as $leaderhange) {
-                        if($leaderhange->requset->status != "CONFIRMED") {
-                            $leaderhange->request->delete();
+                    foreach ($student->leaderChanges as $leaderchange) {
+                        if($leaderchange->request->status != "CONFIRMED") {
+                            $leaderchange->request->delete();
                         }
                     }
                 } else {
                     foreach ($student->team->students as $team_student) {
                         foreach ($team_student->kicks as $kick) {
-                            if($kick->requset->status != "CONFIRMED") {
+                            if($kick->request->status != "CONFIRMED") {
                                 $kick->request->delete();
                             }
                         }
                         foreach ($team_student->leaderChanges as $leaderhange) {
-                            if($leaderhange->requset->status != "CONFIRMED") {
+                            if($leaderhange->request->status != "CONFIRMED") {
                                 $leaderhange->request->delete();
                             }
                         }
