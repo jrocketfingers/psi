@@ -17,6 +17,8 @@ class LeaderChangesController extends Controller
     
     public function create($student_id) {
         
+
+
         $request = Request::createRequest();
         $request->requestable_id = $request->id;
         $request->requestable_type = "App\\LeaderChange";
