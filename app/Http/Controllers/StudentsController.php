@@ -106,7 +106,7 @@ class StudentsController extends Controller
         $student = Student::find(Auth::user()->id);
         $input = Input::all();
         $search = Input::has('search')? $input['search']: "";
-        $choice = Input::has('choice')? $input['choice']: "";
+        $role_choice = Input::has('role_choice')? $input['role_choice']: "";
         $students = Student::all();
 
         if (strcmp($search, "") != 0)
@@ -117,14 +117,29 @@ class StudentsController extends Controller
 
         }
 
-        $choices = array('roles', 'names', 'participants');
+        $role_choices = new Collection();
+        $role_choices->push('All');
+        foreach(Role::all() as $role) {
+            $role_choices->push($role->name);
+        }
+
+        $tmp_students = $students;
+        if ($role_choice != 0) {
+            $students = new Collection();
+            $role = Role::where('name', 'like', $role_choices[$role_choice])->get();
+            foreach($tmp_students as $student) {
+                if (!$student->roles->isEmpty() && $student->roles.contains($role)) {
+                    $students->push($student);
+                }
+            }
+        }
 
         return view('students.students',[
                     'student' => $student,
-                    'choice' => $choice,
+                    'role_choice' => $role_choice,
                     'search' => $search,
                     'students' => $students,
-                    'choices' => $choices,
+                    'role_choices' => $role_choices,
                 ]);
         
     }
