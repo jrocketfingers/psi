@@ -66,7 +66,7 @@ class StudentsController extends Controller
         $student = Student::find(Auth::user()->id);
         $input = Input::all();
         $search = Input::has('search')? $input['search']: "";
-        $choice = Input::has('choice')? $input['choice']: "";
+        $role_choice = Input::has('role_choice')? $input['role_choice']: "";
         $teams = Team::all();
 
         if (strcmp($search, "") != 0)
@@ -75,14 +75,28 @@ class StudentsController extends Controller
             $teams = Team::where('name', 'like', $search_string)->get();
         }
 
-        $choices = array('roles', 'names', 'participants');
+        $role_choices = new Collection();
+        $role_choices->push('All');
+        foreach(Role::all() as $role) {
+            $role_choices->push($role->name);
+        }
 
+        $tmp_teams = $teams;
+        if ($role_choice != 0) {
+            $teams = new Collection();
+            $role = Role::where('name', 'like', $role_choices[$role_choice])->get();
+            foreach($tmp_teams as $team) {
+                if (!$team->roles->isEmpty() && $team->roles.contains($role)) {
+                    $teams->push($team);
+                }
+            }
+        }
+        
         return view('students.teams',[
                     'student' => $student,
-                    'choice' => $choice,
                     'search' => $search,
                     'teams' => $teams,
-                    'choices' => $choices,
+                    'role_choices' => $role_choices,
                 ]);
         
     }
