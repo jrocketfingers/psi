@@ -30,13 +30,12 @@ class HomeController extends Controller
     {
         $id = Auth::user()->id;
 
+        if (Admin::isAdmin($id)){
+            return redirect()->action('AdminsController@index', [$id]);
+        }
 
         if (Student::isStudent($id)){
             return redirect()->action('StudentsController@index', [$id]);
-        }
-
-        if (Admin::isAdmin($id)){
-            return redirect()->action('AdminsController@index', [$id]);
         }
 
         if (Assistant::isAssistant($id)){
