@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Request as AppRequest;
 use App\Student;
 use App\User;
 use App\Team;
@@ -9,7 +10,6 @@ use App\Role;
 use App\Notification;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\RolesRepository;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -297,8 +297,9 @@ class StudentsController extends Controller
         ]);
     }
 
-     
-    
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getStudentsByRole() {
         $student = Student::find(Auth::user()->id);
         $team = $student->team;
@@ -315,9 +316,36 @@ class StudentsController extends Controller
         }
 
         $student = Student::find(Auth::user()->id);
+        $joins = $team->joins;
+        $students_with_active_requests = new Collection();
+        $requests = new Collection();
+
+        foreach($joins as $join) {
+            $req = AppRequest::find($join->request_id);
+            if ($req->status === 'PENDING') {
+                $students_with_active_requests->push(Student::find($req->student_id));
+            }
+        }
+
+        foreach($students as $st) {
+            foreach($st->invites as $invite) {
+                $req = AppRequest::find($invite->request_id);
+                if ($req->student_id == Auth::user()->id && $req->status === 'PENDING') { // if logged user invited students to his team.
+                    $students_with_active_requests->push(Student::find($invite->student_id)); //students with invite request
+                }
+            }
+        }
+
+        $students_excluded = new Collection();
+
+        foreach ($students as $st) {
+            if (!$students_with_active_requests->contains($st)) {
+                $students_excluded->push($st);
+            }
+        }
 
         return view('students.students', [
-            'students' => $students,
+            'students' => $students_excluded,
             'student' => $student,
         ]);
     }
