@@ -16,7 +16,7 @@ class InvitesController extends Controller
         $this->middleware('auth');
     }
 
-    public function create($student_id) {
+    public function create(\Illuminate\Http\Request $req, $student_id) {
 
         if(Invite::where('student_id', '=', $student_id)->whereHas('request', function($q) {
             return $q->where('status', 'PENDING');
