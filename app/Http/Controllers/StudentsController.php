@@ -390,6 +390,10 @@ class StudentsController extends Controller
         $roles = $team->roles->sortBy('name');
         $students = new Collection();
 
+        $input = Input::all();
+        $search = Input::has('search')? $input['search']: "";
+        $role_choice = Input::has('role_choice')? $input['role_choice']: "";
+
         foreach ($roles as $role) {
             $tmpstudents = $role->students->sortBy('name');
             foreach ($tmpstudents as $student) {
@@ -405,7 +409,7 @@ class StudentsController extends Controller
         $requests = new Collection();
 
         foreach($joins as $join) {
-            $req = App\Request::find($join->request_id);
+            $req = \App\Request::find($join->request_id);
             if ($req->status === 'PENDING') {
                 $students_with_active_requests->push(Student::find($req->student_id));
             }
@@ -413,7 +417,8 @@ class StudentsController extends Controller
 
         foreach($students as $st) {
             foreach($st->invites as $invite) {
-                $req = App\Request::find($invite->request_id);
+                //$req = \App\Request::find($invite->request_id);
+                $req = $invite->request;
                 if ($req->student_id == Auth::user()->id && $req->status === 'PENDING') { // if logged user invited students to his team.
                     $students_with_active_requests->push(Student::find($invite->student_id)); //students with invite request
                 }
@@ -428,11 +433,30 @@ class StudentsController extends Controller
             }
         }
 
+        $role_choices = new Collection();
+        $role_choices->push('All');
+        foreach(Role::all() as $role) {
+            $role_choices->push($role->name);
+        }
+
+        $tmp_students = $students_excluded;
+        if ($role_choice != 0) {
+            $students = new Collection();
+
+            $role = Role::where('name', 'like', $role_choices[$role_choice])->firstOrFail();
+
+            foreach($tmp_students as $student) {
+                if (!$student->roles->isEmpty() && $student->roles->contains($role)) {
+                    $students->push($student);
+                }
+            }
+        }
+
         return view('students.students', [
-            'students' => $students_excluded,
+            'students' => $students,
             'student' => $student,
-            'role_choices' => null,
-            'search' => null,
+            'role_choices' => $role_choices,
+            'search' => $search,
         ]);
     }
 
