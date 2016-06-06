@@ -84,9 +84,9 @@ class StudentsController extends Controller
         $tmp_teams = $teams;
         if ($role_choice != 0) {
             $teams = new Collection();
-            $role = Role::where('name', 'like', $role_choices[$role_choice])->get();
+            $role = Role::where('name', 'like', $role_choices[$role_choice])->firstOrFail();
             foreach($tmp_teams as $team) {
-                if (!$team->roles->isEmpty() && $team->roles.contains($role)) {
+                if (!$team->roles->isEmpty() && $team->roles->contains($role)) {
                     $teams->push($team);
                 }
             }
@@ -126,9 +126,11 @@ class StudentsController extends Controller
         $tmp_students = $students;
         if ($role_choice != 0) {
             $students = new Collection();
-            $role = Role::where('name', 'like', $role_choices[$role_choice])->get();
+
+            $role = Role::where('name', 'like', $role_choices[$role_choice])->firstOrFail();
+
             foreach($tmp_students as $student) {
-                if (!$student->roles->isEmpty() && $student->roles.contains($role)) {
+                if (!$student->roles->isEmpty() && $student->roles->contains($role)) {
                     $students->push($student);
                 }
             }
@@ -429,6 +431,8 @@ class StudentsController extends Controller
         return view('students.students', [
             'students' => $students_excluded,
             'student' => $student,
+            'role_choices' => null,
+            'search' => null,
         ]);
     }
 

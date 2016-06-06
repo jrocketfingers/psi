@@ -21,9 +21,12 @@
 	    			<div class="col-md-4">
 	    				{{ Form::select('role_choice', $role_choices, null, array('class' => 'form-control')) }}
 					</div>
-	    			<div class="col-md-2">
-						<a href="<?php echo e(url('students/list/all')); ?>">Show eligible students</a>
+					@if($student->team)
+					<div class="col-md-2">
+						<a href="{{ action('StudentsController@getStudentsByRole') }}">Show eligible students</a>
 					</div>
+					@endif
+	    			
     			</div>
 
     			{{ Form::close() }}
