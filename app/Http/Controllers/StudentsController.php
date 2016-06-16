@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Image;
 use App\Request as AppRequest;
 use App\Assistant;
 use App\Student;
@@ -164,6 +165,34 @@ class StudentsController extends Controller
 
     public function update(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|max:255',
+            'email' => 'email|required|max:255',
+            'image' => 'image',
+        ]);
+
+        if($validator->fails()) {
+            return redirect()->action('StudentsController@edit', [Auth::user()->id])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $filepath = $request->file('image');
+        if($filepath != null) {
+            if(Auth::user()->image != null) {
+                Auth::user()->image->image = readfile($filepath);
+                Auth::user()->image->save();
+            } else {
+                $image = new Image();
+                $image->image = readfile($filepath);
+                $image->imageable_id = Auth::user()->id;
+                $image->imageable_type = 'App\\User';
+                $image->save();
+                Auth::user()->image_id = $image->id;
+                Auth::user()->save();
+            }
+        }
+
         $input = $request->all();
 
         $id = Auth::user()->id;
@@ -246,6 +275,13 @@ class StudentsController extends Controller
             return back()->withInput();
         }
 
+        if($student->team->image != null) {
+            $image = $student->team->image;
+            $student->team->image_id = null;
+            $student->team->save();
+            $image->delete();
+        }
+
         $student->team->delete();
         $student->is_leader = false;
         $student->save();
@@ -277,6 +313,7 @@ class StudentsController extends Controller
             'name' => 'required|max:255',
             'project_name' => 'required|max:255',
             'description' => 'required|max:255',
+            'image' => 'image',
         ]);
         
         if($validator->fails()) {
@@ -286,6 +323,21 @@ class StudentsController extends Controller
         }
 
         $team = Team::find($request->input('id'));
+        $filepath = $request->file('image');
+        if($filepath != null) {
+            if($team->image != null) {
+                $team->image->image = readfile($filepath);
+                $team->image->save();
+            } else {
+                $image = new Image();
+                $image->image = readfile($filepath);
+                $image->imageable_id = $team->id;
+                $image->imageable_type = 'App\\Team';
+                $image->save();
+                $team->image_id = $image->id;
+            }
+        }
+        
         $team->name = $request->input('name');
         $team->project_name = $request->input('project_name');
         $team->description = $request->input('description');

@@ -8,7 +8,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Edit</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ action('StudentsController@storeTeam') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ action('StudentsController@storeTeam') }}" enctype="multipart/form-data">
                             {!! csrf_field() !!}
 
                             <input type="hidden" name="id" value="{{ $team->id }}">
@@ -50,6 +50,20 @@
                                     @if ($errors->has('description'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('description') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                                <label class="col-md-4 control-label">Image</label>
+
+                                <div class="col-md-6">
+                                    <input type="file" class="form-control" name="image" >
+
+                                    @if ($errors->has('image'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('image') }}</strong>
                                     </span>
                                     @endif
                                 </div>

@@ -83,7 +83,14 @@ class AdminsController extends Controller
             }
         }
 
-        User::destroy($id);
+        $user = User::find($id);
+        if($user->image) {
+            $image = $user->image;
+            $user->image_id = null;
+            $user->save();
+            $image->delete();
+        }
+        $user->delete();
         $users = User::where('name', '!=', 'admin')->get();
 
         return view('admins.showAllUsers')->with('users', $users);
