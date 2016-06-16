@@ -34,11 +34,13 @@
 					</div>
 				</div>
 				<div class="panel-body">
-					<div class="row">
-						<div class="col-md-6 col-md-offset-3 text-center" style="padding-bottom: 2em;">
-							<img src="data:image;base64,{{ $show_student->user->image->image }}">
+					@if($show_student->user->image)
+						<div class="row">
+							<div class="col-md-6 col-md-offset-3 text-center" style="padding-bottom: 2em;">
+								<img src="data:image;base64,{{ $show_student->user->image->image }}">
+							</div>
 						</div>
-					</div>
+					@endif
 					<div class="row">
 						<div class="col-lg-8 col-lg-offset-2">
 							<div class="row">
