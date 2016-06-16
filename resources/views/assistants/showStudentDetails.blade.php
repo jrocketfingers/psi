@@ -42,9 +42,7 @@
                         <div class="col-md-8 col-md-offset-2">
                             <div class="row" style="text-align: center;">
                                 @foreach($student->roles as $role)
-                                    <div class="label label-default">
-                                        {{ $role->name }}
-                                    </div>
+                                    <a class="label label-default" href="{{ action('AssistantsController@showRole', [$role->id]) }}">{{ $role->name }}</a>
                                 @endforeach
                             </div>
                         </div>
