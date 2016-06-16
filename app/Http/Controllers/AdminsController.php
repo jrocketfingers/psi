@@ -39,35 +39,35 @@ class AdminsController extends Controller
             if($student->team != null) {
                 if($student->is_leader == false) {
                     foreach ($student->kicks as $kick) {
-                        if($kick->request->status != "CONFIRMED") {
+                        if($kick->request->status == "PENDING") {
                             $kick->request->delete();
                         }
                     }
                     foreach ($student->leaderChanges as $leaderchange) {
-                        if($leaderchange->request->status != "CONFIRMED") {
+                        if($leaderchange->request->status == "PENDING") {
                             $leaderchange->request->delete();
                         }
                     }
                 } else {
                     foreach ($student->team->students as $team_student) {
                         foreach ($team_student->kicks as $kick) {
-                            if($kick->request->status != "CONFIRMED") {
+                            if($kick->request->status == "PENDING") {
                                 $kick->request->delete();
                             }
                         }
                         foreach ($team_student->leaderChanges as $leaderhange) {
-                            if($leaderhange->request->status != "CONFIRMED") {
+                            if($leaderhange->request->status == "PENDING") {
                                 $leaderhange->request->delete();
                             }
                         }
                     }
                     foreach ($student->team->joins as $join) {
-                        if($join->request->status != "CONFIRMED") {
+                        if($join->request->status == "PENDING") {
                             $join->delete();
                         }
                     }
                     foreach ($student->requests as $request) {
-                        if($request->status != "CONFIRMED") {
+                        if($request->status == "PENDING") {
                             $request->delete();
                         }
                     }
