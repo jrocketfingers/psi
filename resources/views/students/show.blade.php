@@ -69,10 +69,11 @@
 							<div class="col-md-8 col-md-offset-2">
 								<div class="row" style="text-align: center;">
 									@foreach($show_student->roles as $role)
-										<div class="label label-default" style="margin-left:0.5em; margin-right:0.5em;">
+	                                    <a href="{{ url('students/role', [$role->id]) }}" class="label label-default" style="margin-left:0.5em; margin-right:0.5em;">
 											{{ $role->name }}
-										</div>
+										</a>
 							        @endforeach
+
 								</div>
 							</div>
 						@endif
