@@ -22,13 +22,13 @@ class CreateImageTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->integer('image_id')->unsigned()->nullable();
 
-            $table->foreign('image_id')->references('id')->on('images');
+            $table->foreign('image_id')->references('id')->on('images')->onUpdate('cascade')->onDelete('cascade');
         });
 
         Schema::table('teams', function (Blueprint $table) {
             $table->integer('image_id')->unsigned()->nullable();
 
-            $table->foreign('image_id')->references('id')->on('images');
+            $table->foreign('image_id')->references('id')->on('images')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -39,6 +39,18 @@ class CreateImageTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('users', function($table)
+        {
+            $table->dropForeign('users_image_id_foreign');
+            $table->removeColumn('image_id');
+        });
+
+        Schema::table('teams', function($table)
+        {
+            $table->dropForeign('teams_image_id_foreign');
+            $table->removeColumn('image_id');
+        });
+
+        Schema::drop('images');
     }
 }
