@@ -36,7 +36,7 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-6 col-md-offset-3 text-center" style="padding-bottom: 2em;">
-							<img class="img-rounded" src="http://placehold.it/250x250" alt="Placeholder">
+							<img src="data:image;base64,{{ $show_student->user->image->image }}">
 						</div>
 					</div>
 					<div class="row">
