@@ -8,8 +8,6 @@ use App\Role;
 use App\Student;
 use App\User;
 use Illuminate\Support\Facades\Input;
-
-use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
 
 class AdminsController extends Controller
@@ -105,7 +103,7 @@ class AdminsController extends Controller
         return view('admins.createRole');
     }
 
-    public function storeRole(Request $request)
+    public function storeRole(\Illuminate\Http\Request $request)
     {
         $validator = Validator::make($request->all(),[
             'name' => 'required|max:255|unique:roles',
@@ -123,8 +121,10 @@ class AdminsController extends Controller
             'description' => $request->input('description'),
         ]);
 
-        return view('admins.showRole', [
-            'role' => $role,
+        $roles = Role::all();
+
+        return view('admins.showAllRoles', [
+            'roles' => $roles,
         ]);
     }
 
@@ -144,7 +144,7 @@ class AdminsController extends Controller
         ]);
     }
 
-    public function updateRole(Request $request, $id)
+    public function updateRole(\Illuminate\Http\Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
@@ -162,7 +162,9 @@ class AdminsController extends Controller
         $role->description = $request->input('description');
         $role->save();
 
-        return redirect()->action('AdminsController@getAllRoles');
+        return view('admins.showRole', [
+                'role' => $role
+            ]);
     }
 
     public function destroyRole($id)
