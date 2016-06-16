@@ -50,33 +50,80 @@ class StudentTest extends TestCase
         	 ->type(csrf_token(), '_token')
         	 ->press('Submit')
         	 ->seePageIs('/students?'.$student->user->id);
+
+        $student->user->delete();
     }
 
-    public function testDetailsDropDownSelect()
+    public function testDetailsShow()
     {
-    	$user = factory(App\User::class)->create([ 'password' => bcrypt('123123123') ]);
+    	$user = factory(App\User::class)->create();
         $student = factory(App\Student::class)->create(['user_id' => $user->id]);
         $student = Student::find($user->id);
 
         $this->actingAs($user)
         	 ->visit('/students?'.$student->user->id)
         	 ->click($student->user->name)
-        	 ->click('Details');
+        	 ->click('Details')
+        	 ->assertViewHas(['student', 'show_student']);
 
-        print (string)$this->content;
-        	 // ->assertViewHas(['student', 'show_student']);
+        $student->user->delete();
     }
 
-    public function testDetailsShow()
+    public function testDetailsEdit()
     {
-        $user = factory(App\User::class)->create([ 'password' => bcrypt('123123123') ]);
+        $user = factory(App\User::class)->create();
         $student = factory(App\Student::class)->create(['user_id' => $user->id]);
         $student = Student::find($user->id);
 
-        $response = $this->actingAs($user)
-                         ->call('GET', '/students/show/', [ 'id' => $student->user->id ]);
+        $mock = factory(App\User::class)->make();
 
-        print (string)$response;
+        $this->actingAs($student->user)
+             ->visit('/students/show/'.$student->user->id)
+             ->click('Edit')
+             ->type($mock->name, 'name')
+             ->type($mock->email,'email')
+             ->press('Submit changes')
+             ->seeInDatabase('users', [ 'name' => $mock->name, 'email' => $mock->email, 'id' => $user->id ]);
+
+        $student = Student::whereHas('user', function($query) use ($user, $mock) { 
+            $query->where('email', 'like', $mock->email)
+                  ->where('name', 'like', $mock->name)
+                  ->where('id', '=', $user->id);
+        })->firstOrFail();
+
+        $this->assertTrue($student != null);
+
+        $student->user->delete();
+    }
+
+    // this one needs fixing, student->team is null
+    public function testTeamCreation()
+    {
+        $user = factory(App\User::class)->create();
+        $student = factory(App\Student::class)->create(['user_id' => $user->id]);
+        $student = Student::find($user->id);
+
+        $mock = factory(App\Team::class)->make();
+
+        $this->actingAs($student->user)
+             ->visit('/students/team/create')
+             ->type($mock->name ,'name')
+             ->type($mock->project_name, 'project_name')
+             ->type($mock->description, 'description')
+             ->press('Submit')
+             ->seeInDatabase('teams', [ 
+                    'name' => $mock->name,
+                    'project_name' => $mock->project_name,
+                    'description' => $mock->description,
+                ]);
+
+        $this->assertTrue($student->is_leader == true);
+        $this->assertEquals($student->team->name, $mock->name);
+        $this->assertEquals($student->team->project_name, $mock->project_name);
+        $this->assertEquals($student->team->description, $mock->description);
+
+        $student->team->delete();
+        $student->user->delete();
     }
 
 }
