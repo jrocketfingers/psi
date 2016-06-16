@@ -27,7 +27,7 @@
 						@endif
 						@if(!$show_student->team && !($show_student->team == $student->team) && $student->team && $student->is_leader)
 							<div class="col-lg-1 pull-right">
-								<a href="{{ action('LeaderChangesController@create', [$show_student->user->id]) }}">Invite</a>
+								<a href="{{ action('InvitesController@create', [$show_student->user->id]) }}">Invite</a>
 							</div>
 						@endif
 						
