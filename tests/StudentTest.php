@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\User;
 use App\Student;
 use App\Role;
+use App\Team;
 use Faker\Factory as Faker;
 
 class StudentTest extends TestCase
@@ -14,21 +15,25 @@ class StudentTest extends TestCase
 
     public function testRegistration()
     {
+        $mock = factory(App\User::class)->make();
+
     	$this->visit('/')
     		 ->click('Register')
     		 ->seePageIs('/register')
-    		 ->type('Simke', 'name')
-    		 ->type('simke@gmail.com', 'email')
-    		 ->type('password', 'password')
-    		 ->type('password', 'password_confirmation')
+    		 ->type($mock->name, 'name')
+    		 ->type($mock->email, 'email')
+    		 ->type($mock->password, 'password')
+    		 ->type($mock->password, 'password_confirmation')
     		 ->type(csrf_token(), '_token')
     		 ->select('student', 'user_type')
     		 ->press('Submit')
-    		 ->seeInDatabase('users', [ 'email' => 'simke@gmail.com' ]);
+    		 ->seeInDatabase('users', [ 'email' => $mock->email ]);
 
-    	$student = Student::whereHas('user', function($query){ $query->where('email', 'like', 'simke@gmail.com');})->firstOrFail();
+    	$student = Student::whereHas('user', function($query) use ($mock) { 
+                        $query->where('email', 'like', $mock->email);
+                    })->firstOrFail();
+
         $student->user->delete();
-
     }
 
     public function testLogin()
