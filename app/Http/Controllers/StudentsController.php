@@ -418,11 +418,11 @@ class StudentsController extends Controller
         $show_student = Student::find($id);
         $student = Student::find(Auth::user()->id);
 
-        return view('students.show', [
+        return response()->view('students.show', [
             'show_student' => $show_student,
             'roles' => $student->roles,
             'student' => $student,
-        ]);
+        ])->header('Content-Type', 'text/html; charset=utf-8');
     }
 
     public function showRole($id) {
