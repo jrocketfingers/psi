@@ -37,6 +37,7 @@ Route::get('/students/team/leave/{id}', 'StudentsController@leave');
 Route::get('/students/list', 'StudentsController@getStudentsByRole');
 Route::get('/students/list/all', 'StudentsController@showStudents');
 Route::get('/students/show/{id}', 'StudentsController@show');
+Route::get('/students/role/{id}', 'StudentsController@showRole');
 Route::get('/students/applications', 'StudentsController@applications');
 Route::get('/students/notifications', 'StudentsController@getNotifications');
 Route::get('/students/team/edit/{id}', 'StudentsController@editTeam');
@@ -69,7 +70,7 @@ Route::get('/admins/notifications', 'AdminsController@showAllNotifications');
 Route::get('/admins/notifications/show/{id}', 'AdminsController@showNotificationDetails');
 Route::get('/admins/requests', 'AdminsController@showAllRequests');
 Route::get('/admins/requests/{id}', 'AdminsController@showRequestDetails');
-Route::get('/admins/{id?}', 'AdminsController@index');
+Route::get('/admins/{id}', 'AdminsController@index');
 Route::get('/admins/users/search/', 'AdminsController@searchUsers');
 
 //request routes
