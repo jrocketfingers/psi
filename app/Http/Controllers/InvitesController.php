@@ -49,19 +49,4 @@ class InvitesController extends Controller
 
         return back()->withInput();
     }
-
-    public function reply($notification_id)
-    {
-        $notification = Notification::find($notification_id);
-        $request = $notification->request;
-        if (Auth::user()->id == $notification->student->user->id && ($request->student->is_leader))
-        {
-            $student = $notification->student;
-
-            $student->team()->associate($request->student->team);
-            $student->save(); 
-        }
-
-        return $request;
-    }
 }
