@@ -247,22 +247,20 @@ class StudentsController extends Controller
                 ->withInput();
         }
         
-        $id = Auth::user()->id;
-
-
-        $student = Student::with('user')->where('user_id', '=', $id)->firstOrFail();
+        $student = Student::find(Auth::user()->id);
         $new_roles = Role::all()->only($request['add_role_id']);
 
         $team = Team::create($request->all());
         $team->roles()->sync($new_roles);
         $team->save();
 
+
         $student->team()->associate($team);
         $student->is_leader = true;
         $student->save();
 
 
-        return redirect()->action('StudentsController@index', [$id]);
+        return redirect()->action('StudentsController@index', [$student->id]);
     }
 
     public function disbandTeam()
@@ -309,13 +307,14 @@ class StudentsController extends Controller
     }
 
     public function storeTeam(Request $request) {
+        
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'project_name' => 'required|max:255',
             'description' => 'required|max:255',
             'image' => 'image',
         ]);
-        
+
         if($validator->fails()) {
             return redirect()->action('StudentsController@editTeam', [$request->input('id')])
                             ->withErrors($validator)
