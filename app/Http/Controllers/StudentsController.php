@@ -436,9 +436,11 @@ class StudentsController extends Controller
 
     public function showRole($id) {
         $role = Role::find($id);
+        $student = Student::find(Auth::user()->id);
 
         return view('students.showRole', [
             'role' => $role,
+            'student' => $student,
         ]);
     }
 
