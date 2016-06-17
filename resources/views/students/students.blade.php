@@ -55,9 +55,9 @@
 		                </div>
 		                <div class="panel-body">
 		                	@foreach ($show_student->roles as $role)
-		                		<div class="label label-default" style="margin-left:0.5em; margin-right:0.5em;">
+                                <a href="{{ url('students/role', [$role->id]) }}" class="label label-default" style="margin-left:0.5em; margin-right:0.5em;">
 									{{ $role->name }}
-		                		</div>
+		                		</a>
 		                	@endforeach
 		                </div>    
                 </div>
