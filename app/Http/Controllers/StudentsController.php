@@ -178,13 +178,16 @@ class StudentsController extends Controller
         }
 
         $filepath = $request->file('image');
+        $image_data = file_get_contents($filepath);
+        $image_base64 = base64_encode($image_data);
+
         if($filepath != null) {
             if(Auth::user()->image != null) {
-                Auth::user()->image->image = readfile($filepath);
+                Auth::user()->image->image = $image_base64;
                 Auth::user()->image->save();
             } else {
                 $image = new Image();
-                $image->image = readfile($filepath);
+                $image->image = $image_base64;
                 $image->imageable_id = Auth::user()->id;
                 $image->imageable_type = 'App\\User';
                 $image->save();
