@@ -96,7 +96,6 @@ class StudentTest extends TestCase
         $student->user->delete();
     }
 
-    // this one needs fixing, student->team is null
     public function testTeamCreation()
     {
         $user = factory(App\User::class)->create();
@@ -110,12 +109,16 @@ class StudentTest extends TestCase
              ->type($mock->name ,'name')
              ->type($mock->project_name, 'project_name')
              ->type($mock->description, 'description')
+             ->type(csrf_token(), '_token')
              ->press('Submit')
+             ->seePageIs('/students')
              ->seeInDatabase('teams', [ 
                     'name' => $mock->name,
                     'project_name' => $mock->project_name,
                     'description' => $mock->description,
                 ]);
+
+        $student = Student::find($user->id);
 
         $this->assertTrue($student->is_leader == true);
         $this->assertEquals($student->team->name, $mock->name);
