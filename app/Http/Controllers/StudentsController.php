@@ -178,8 +178,15 @@ class StudentsController extends Controller
         }
 
         $filepath = $request->file('image');
-        $image_data = file_get_contents($filepath);
-        $image_base64 = base64_encode($image_data);
+        if ($filepath)
+        {
+            $image_data = file_get_contents($filepath);
+            $image_base64 = base64_encode($image_data);
+        }else{
+            $image_data = null;
+            $image_base64 = null;
+        }
+        
 
         if($filepath != null) {
             if(Auth::user()->image != null) {
