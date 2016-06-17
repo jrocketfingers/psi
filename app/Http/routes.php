@@ -70,7 +70,7 @@ Route::get('/admins/notifications', 'AdminsController@showAllNotifications');
 Route::get('/admins/notifications/show/{id}', 'AdminsController@showNotificationDetails');
 Route::get('/admins/requests', 'AdminsController@showAllRequests');
 Route::get('/admins/requests/{id}', 'AdminsController@showRequestDetails');
-Route::get('/admins/{id?}', 'AdminsController@index');
+Route::get('/admins/{id}', 'AdminsController@index');
 Route::get('/admins/users/search/', 'AdminsController@searchUsers');
 
 //request routes
