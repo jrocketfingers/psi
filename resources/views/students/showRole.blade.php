@@ -1,4 +1,4 @@
-@extends('layouts.assistants')
+@extends('layouts.students')
 
 @section('content')
 <div class="container-fluid">
