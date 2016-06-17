@@ -34,6 +34,21 @@ class AdminsTest extends TestCase
 
     public function testUserDelete()
     {
+        $user = factory(App\User::class)->create([ 'password' => bcrypt('admin') ]);
+        $admin = factory(App\Admin::class)->create([ 'user_id' => $user->id ]);
+        $admin = Admin::find($user->id);
+
+        $user = factory(App\User::class)->create();
+        $student = factory(App\Student::class)->create([ 'user_id' => $user->id ]);
+        $student = Student::find($user->id);
+
+        $this->actingAs($admin->user)
+             ->call('POST', '/admins/users/'.$student->user->id);
+
+        $student = Student::find($user->id);
+
+        $this->assertTrue($student == null);
+
 
     }
 
