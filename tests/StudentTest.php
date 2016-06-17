@@ -129,4 +129,37 @@ class StudentTest extends TestCase
         $student->user->delete();
     }
 
+    public function testTeamEdit()
+    {
+        $user = factory(App\User::class)->create();
+        $student = factory(App\Student::class)->create(['user_id' => $user->id]);
+        $student = Student::find($user->id);
+        $student->is_leader = true;
+        $team = factory(App\Team::class)->create();
+        $team->students()->save($student);
+
+        $mock = factory(App\Team::class)->make();
+
+        $this->actingAs($student->user)
+             ->visit('/students/team/show/'.$student->team->id)
+             ->click('Edit')
+             ->type($mock->name ,'name')
+             ->type($mock->project_name, 'project_name')
+             ->type($mock->description, 'description')
+             ->type(csrf_token(), '_token')
+             ->press('Submit changes')
+             ->seePageIs('/students/team/show/'.$student->team->id)
+             ->seeInDatabase('teams', [
+                    'id' => $team->id, 
+                    'name' => $mock->name,
+                    'project_name' => $mock->project_name,
+                    'description' => $mock->description,
+                ]);
+
+        $this->assertEquals($team->id, $student->team->id);
+
+        $team->delete();
+        $student->user->delete();
+    }
+
 }
