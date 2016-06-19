@@ -1,0 +1,345 @@
+{
+    "event": "suiteStart",
+    "suite": "Application Test Suite",
+    "tests": 24
+}{
+    "event": "suiteStart",
+    "suite": "AdminsTest",
+    "tests": 7
+}{
+    "event": "testStart",
+    "suite": "AdminsTest",
+    "test": "AdminsTest::testLogin"
+}{
+    "event": "test",
+    "suite": "AdminsTest",
+    "test": "AdminsTest::testLogin",
+    "status": "pass",
+    "time": 0.50359892845154,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "AdminsTest",
+    "test": "AdminsTest::testUserDelete"
+}{
+    "event": "test",
+    "suite": "AdminsTest",
+    "test": "AdminsTest::testUserDelete",
+    "status": "pass",
+    "time": 0.34671115875244,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "AdminsTest",
+    "test": "AdminsTest::testRoleDelete"
+}{
+    "event": "test",
+    "suite": "AdminsTest",
+    "test": "AdminsTest::testRoleDelete",
+    "status": "pass",
+    "time": 0.2216420173645,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "AdminsTest",
+    "test": "AdminsTest::testRoleDetailsShow"
+}{
+    "event": "test",
+    "suite": "AdminsTest",
+    "test": "AdminsTest::testRoleDetailsShow",
+    "status": "pass",
+    "time": 0.13436102867126,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "AdminsTest",
+    "test": "AdminsTest::testRoleDetailsEdit"
+}{
+    "event": "test",
+    "suite": "AdminsTest",
+    "test": "AdminsTest::testRoleDetailsEdit",
+    "status": "pass",
+    "time": 0.20732712745667,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "AdminsTest",
+    "test": "AdminsTest::testNotificationDetailsShow"
+}{
+    "event": "test",
+    "suite": "AdminsTest",
+    "test": "AdminsTest::testNotificationDetailsShow",
+    "status": "pass",
+    "time": 0.2566249370575,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "AdminsTest",
+    "test": "AdminsTest::testRequestDetailsShow"
+}{
+    "event": "test",
+    "suite": "AdminsTest",
+    "test": "AdminsTest::testRequestDetailsShow",
+    "status": "pass",
+    "time": 0.24776792526245,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "suiteStart",
+    "suite": "AssistantsTest",
+    "tests": 3
+}{
+    "event": "testStart",
+    "suite": "AssistantsTest",
+    "test": "AssistantsTest::testRegistration"
+}{
+    "event": "test",
+    "suite": "AssistantsTest",
+    "test": "AssistantsTest::testRegistration",
+    "status": "pass",
+    "time": 0.22979688644409,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "AssistantsTest",
+    "test": "AssistantsTest::testStudentDetailsShow"
+}{
+    "event": "test",
+    "suite": "AssistantsTest",
+    "test": "AssistantsTest::testStudentDetailsShow",
+    "status": "pass",
+    "time": 0.21143913269043,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "AssistantsTest",
+    "test": "AssistantsTest::testTeamDetailsShow"
+}{
+    "event": "test",
+    "suite": "AssistantsTest",
+    "test": "AssistantsTest::testTeamDetailsShow",
+    "status": "pass",
+    "time": 0.14866995811462,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "suiteStart",
+    "suite": "InviteRequestTest",
+    "tests": 2
+}{
+    "event": "testStart",
+    "suite": "InviteRequestTest",
+    "test": "InviteRequestTest::testAcceptRequest"
+}{
+    "event": "test",
+    "suite": "InviteRequestTest",
+    "test": "InviteRequestTest::testAcceptRequest",
+    "status": "pass",
+    "time": 0.2381739616394,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "InviteRequestTest",
+    "test": "InviteRequestTest::testDenyRequest"
+}{
+    "event": "test",
+    "suite": "InviteRequestTest",
+    "test": "InviteRequestTest::testDenyRequest",
+    "status": "pass",
+    "time": 0.22848415374756,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "suiteStart",
+    "suite": "JoinRequestTest",
+    "tests": 2
+}{
+    "event": "testStart",
+    "suite": "JoinRequestTest",
+    "test": "JoinRequestTest::testAcceptRequest"
+}{
+    "event": "test",
+    "suite": "JoinRequestTest",
+    "test": "JoinRequestTest::testAcceptRequest",
+    "status": "pass",
+    "time": 0.22718405723572,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "JoinRequestTest",
+    "test": "JoinRequestTest::testDenyRequest"
+}{
+    "event": "test",
+    "suite": "JoinRequestTest",
+    "test": "JoinRequestTest::testDenyRequest",
+    "status": "pass",
+    "time": 0.23620200157166,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "suiteStart",
+    "suite": "KickRequestTest",
+    "tests": 2
+}{
+    "event": "testStart",
+    "suite": "KickRequestTest",
+    "test": "KickRequestTest::testAcceptRequest"
+}{
+    "event": "test",
+    "suite": "KickRequestTest",
+    "test": "KickRequestTest::testAcceptRequest",
+    "status": "pass",
+    "time": 0.020617961883545,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "KickRequestTest",
+    "test": "KickRequestTest::testDenyRequest"
+}{
+    "event": "test",
+    "suite": "KickRequestTest",
+    "test": "KickRequestTest::testDenyRequest",
+    "status": "pass",
+    "time": 0.023789882659912,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "suiteStart",
+    "suite": "LeaderChangeRequestTest",
+    "tests": 2
+}{
+    "event": "testStart",
+    "suite": "LeaderChangeRequestTest",
+    "test": "LeaderChangeRequestTest::testAcceptRequest"
+}{
+    "event": "test",
+    "suite": "LeaderChangeRequestTest",
+    "test": "LeaderChangeRequestTest::testAcceptRequest",
+    "status": "pass",
+    "time": 0.35503792762756,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "LeaderChangeRequestTest",
+    "test": "LeaderChangeRequestTest::testDenyRequest"
+}{
+    "event": "test",
+    "suite": "LeaderChangeRequestTest",
+    "test": "LeaderChangeRequestTest::testDenyRequest",
+    "status": "pass",
+    "time": 0.019989013671875,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "suiteStart",
+    "suite": "StudentTest",
+    "tests": 6
+}{
+    "event": "testStart",
+    "suite": "StudentTest",
+    "test": "StudentTest::testRegistration"
+}{
+    "event": "test",
+    "suite": "StudentTest",
+    "test": "StudentTest::testRegistration",
+    "status": "pass",
+    "time": 0.51103115081787,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "StudentTest",
+    "test": "StudentTest::testLogin"
+}{
+    "event": "test",
+    "suite": "StudentTest",
+    "test": "StudentTest::testLogin",
+    "status": "pass",
+    "time": 0.57763290405273,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "StudentTest",
+    "test": "StudentTest::testDetailsShow"
+}{
+    "event": "test",
+    "suite": "StudentTest",
+    "test": "StudentTest::testDetailsShow",
+    "status": "pass",
+    "time": 0.70769119262695,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "StudentTest",
+    "test": "StudentTest::testDetailsEdit"
+}{
+    "event": "test",
+    "suite": "StudentTest",
+    "test": "StudentTest::testDetailsEdit",
+    "status": "pass",
+    "time": 0.29399991035461,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "StudentTest",
+    "test": "StudentTest::testTeamCreation"
+}{
+    "event": "test",
+    "suite": "StudentTest",
+    "test": "StudentTest::testTeamCreation",
+    "status": "pass",
+    "time": 0.18232893943787,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "StudentTest",
+    "test": "StudentTest::testTeamEdit"
+}{
+    "event": "test",
+    "suite": "StudentTest",
+    "test": "StudentTest::testTeamEdit",
+    "status": "pass",
+    "time": 0.21586298942566,
+    "trace": [],
+    "message": "",
+    "output": ""
+}

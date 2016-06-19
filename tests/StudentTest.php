@@ -49,7 +49,7 @@ class StudentTest extends TestCase
         	 ->type(123123123, 'password')
         	 ->type(csrf_token(), '_token')
         	 ->press('Submit')
-        	 ->seePageIs('/students?'.$student->user->id);
+        	 ->seePageIs('/students/index/'.$student->user->id);
 
         $student->user->delete();
     }
@@ -61,7 +61,7 @@ class StudentTest extends TestCase
         $student = Student::find($user->id);
 
         $this->actingAs($user)
-        	 ->visit('/students?'.$student->user->id)
+        	 ->visit('/students/index/'.$student->user->id)
         	 ->click($student->user->name)
         	 ->click('Details')
         	 ->assertViewHas(['student', 'show_student']);
@@ -111,7 +111,7 @@ class StudentTest extends TestCase
              ->type($mock->description, 'description')
              ->type(csrf_token(), '_token')
              ->press('Submit')
-             ->seePageIs('/students?'.$student->user->id)
+             ->seePageIs('/students/index/'.$student->user->id)
              ->seeInDatabase('teams', [ 
                     'name' => $mock->name,
                     'project_name' => $mock->project_name,
