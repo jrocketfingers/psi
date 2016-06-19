@@ -291,7 +291,11 @@ class StudentsController extends Controller
         }
 
         foreach($student->team->students as $student) {
-            AppRequest::where('student_id', $student->id)->delete();
+            foreach($student->requests as $request) {
+                if($request->status == "PENDING"){
+                    $request->delete();
+                }
+            }
         }
 
         $student->team->delete();
