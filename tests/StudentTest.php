@@ -17,28 +17,28 @@ class StudentTest extends TestCase
     {
         $mock = factory(App\User::class)->make();
 
-    	$this->visit('/')
-    		 ->click('Register')
-    		 ->seePageIs('/register')
-    		 ->type($mock->name, 'name')
-    		 ->type($mock->email, 'email')
-    		 ->type($mock->password, 'password')
-    		 ->type($mock->password, 'password_confirmation')
-    		 ->type(csrf_token(), '_token')
-    		 ->select('student', 'user_type')
-    		 ->press('Submit')
-    		 ->seeInDatabase('users', [ 'email' => $mock->email ]);
+      	$this->visit('/')
+      		 ->click('Register')
+      		 ->seePageIs('/register')
+      		 ->type($mock->name, 'name')
+      		 ->type($mock->email, 'email')
+      		 ->type($mock->password, 'password')
+      		 ->type($mock->password, 'password_confirmation')
+      		 ->type(csrf_token(), '_token')
+      		 ->select('student', 'user_type')
+      		 ->press('Submit')
+      		 ->seeInDatabase('users', [ 'email' => $mock->email ]);
 
-    	$student = Student::whereHas('user', function($query) use ($mock) { 
-                        $query->where('email', 'like', $mock->email);
-                    })->firstOrFail();
+      	$student = Student::whereHas('user', function($query) use ($mock) { 
+                          $query->where('email', 'like', $mock->email);
+                      })->firstOrFail();
 
         $student->user->delete();
     }
 
     public function testLogin()
     {
-    	$user = factory(App\User::class)->create([ 'password' => bcrypt('123123123') ]);
+      	$user = factory(App\User::class)->create([ 'password' => bcrypt('123123123') ]);
         $student = factory(App\Student::class)->create(['user_id' => $user->id]);
         $student = Student::find($user->id);
 
@@ -56,7 +56,7 @@ class StudentTest extends TestCase
 
     public function testDetailsShow()
     {
-    	$user = factory(App\User::class)->create();
+      	$user = factory(App\User::class)->create();
         $student = factory(App\Student::class)->create(['user_id' => $user->id]);
         $student = Student::find($user->id);
 
@@ -111,7 +111,7 @@ class StudentTest extends TestCase
              ->type($mock->description, 'description')
              ->type(csrf_token(), '_token')
              ->press('Submit')
-             ->seePageIs('/students')
+             ->seePageIs('/students?'.$student->user->id)
              ->seeInDatabase('teams', [ 
                     'name' => $mock->name,
                     'project_name' => $mock->project_name,
