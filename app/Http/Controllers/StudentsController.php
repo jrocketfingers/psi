@@ -178,13 +178,23 @@ class StudentsController extends Controller
         }
 
         $filepath = $request->file('image');
+        if ($filepath)
+        {
+            $image_data = file_get_contents($filepath);
+            $image_base64 = base64_encode($image_data);
+        }else{
+            $image_data = null;
+            $image_base64 = null;
+        }
+        
+
         if($filepath != null) {
             if(Auth::user()->image != null) {
-                Auth::user()->image->image = readfile($filepath);
+                Auth::user()->image->image = $image_base64;
                 Auth::user()->image->save();
             } else {
                 $image = new Image();
-                $image->image = readfile($filepath);
+                $image->image = $image_base64;
                 $image->imageable_id = Auth::user()->id;
                 $image->imageable_type = 'App\\User';
                 $image->save();
@@ -247,22 +257,20 @@ class StudentsController extends Controller
                 ->withInput();
         }
         
-        $id = Auth::user()->id;
-
-
-        $student = Student::with('user')->where('user_id', '=', $id)->firstOrFail();
+        $student = Student::find(Auth::user()->id);
         $new_roles = Role::all()->only($request['add_role_id']);
 
         $team = Team::create($request->all());
         $team->roles()->sync($new_roles);
         $team->save();
 
+
         $student->team()->associate($team);
         $student->is_leader = true;
         $student->save();
 
 
-        return redirect()->action('StudentsController@index', [$id]);
+        return redirect()->action('StudentsController@index', [$student->id]);
     }
 
     public function disbandTeam()
@@ -309,13 +317,14 @@ class StudentsController extends Controller
     }
 
     public function storeTeam(Request $request) {
+        
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'project_name' => 'required|max:255',
             'description' => 'required|max:255',
             'image' => 'image',
         ]);
-        
+
         if($validator->fails()) {
             return redirect()->action('StudentsController@editTeam', [$request->input('id')])
                             ->withErrors($validator)
@@ -418,18 +427,20 @@ class StudentsController extends Controller
         $show_student = Student::find($id);
         $student = Student::find(Auth::user()->id);
 
-        return view('students.show', [
+        return response()->view('students.show', [
             'show_student' => $show_student,
             'roles' => $student->roles,
             'student' => $student,
-        ]);
+        ])->header('Content-Type', 'text/html; charset=utf-8');
     }
 
     public function showRole($id) {
         $role = Role::find($id);
+        $student = Student::find(Auth::user()->id);
 
         return view('students.showRole', [
             'role' => $role,
+            'student' => $student,
         ]);
     }
 

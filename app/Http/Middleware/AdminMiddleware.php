@@ -18,6 +18,7 @@ class AdminMiddleware
     public function handle($request, Closure $next)
     {
         $admin = Admin::find(Auth::user()->id);
+        
         if(!$admin) {
             return redirect()->action('HomeController@index');
         }
