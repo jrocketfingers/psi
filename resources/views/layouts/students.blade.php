@@ -10,7 +10,7 @@
     <li><a href="{{ url('students/applications') }}"><i class="fa fa-btn fa-info"></i>My Applications</a></li>
 @endif
 
-@if ($student->is_leader)
+@if ($student->is_leader && $student->team)
 	<li><a href="{{ url('students/team/delete') }}" ><i class="fa fa-btn fa-info"></i>Disband Team</a></li>
 @else
 	@if ($student->team)

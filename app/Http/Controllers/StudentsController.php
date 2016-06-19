@@ -290,6 +290,10 @@ class StudentsController extends Controller
             $image->delete();
         }
 
+        foreach($student->team->students as $student) {
+            AppRequest::where('student_id', $student->id)->delete();
+        }
+
         $student->team->delete();
         $student->is_leader = false;
         $student->save();

@@ -37,7 +37,7 @@
 					@if($show_student->user->image)
 						<div class="row">
 							<div class="col-md-6 col-md-offset-3 text-center" style="padding-bottom: 2em;">
-								<img src="data:image;base64,{{ $show_student->user->image->image }}">
+								<img class="img img-responsive" src="data:image;base64,{{ $show_student->user->image->image }}">
 							</div>
 						</div>
 					@endif
