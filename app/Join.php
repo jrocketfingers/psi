@@ -28,6 +28,7 @@ class Join extends Model
 
         $this->request->status = "ACCEPTED";
         $this->request->save();
+
         Notification::createNotification($this->request, $student , "You have joined team " . $team->name , true, true);
     }
 

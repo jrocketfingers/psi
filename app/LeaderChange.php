@@ -25,6 +25,7 @@ class LeaderChange extends Model
         Vote::destroyVote($this->request_id, $student_id);
         $this->num_voted++;
         $this->save();
+
         //AKO JE POSLEDNJI GLASAO ZA MINUS JEDAN KOJI SE ZA KOGA SE GLASA MINUS JEDAN ZA TEKUCEG VODJU
         if($this->num_voted == count($this->student->team->students) - 2) {
             //NAPRAVIMO PRVO NOTIFIKACIJE ZA SVE
@@ -40,6 +41,7 @@ class LeaderChange extends Model
             }
             $this->student->is_leader = true;
             $this->student->save();
+
         }
 
         //redirect to somewhere
