@@ -25,7 +25,7 @@ Route::get('/tasks', 'HomeController@index');
 Route::post('/users/destroy/{id}', 'UsersController@destroy');
 
 // Route::resource('students', 'StudentsController');
-Route::get('/students', 'StudentsController@index');
+Route::get('/students/index/{id}', 'StudentsController@index');
 Route::get('/students/edit/{id}', 'StudentsController@edit');
 Route::post('/students/edit', 'StudentsController@update');
 Route::get('/students/team/show/{id}', 'StudentsController@showTeam');
