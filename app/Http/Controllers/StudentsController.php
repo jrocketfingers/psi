@@ -270,7 +270,7 @@ class StudentsController extends Controller
         $student->save();
 
 
-        return redirect()->action('StudentsController@index', [$student->id]);
+        return redirect()->action('StudentsController@index', [$student->user->id]);
     }
 
     public function disbandTeam()

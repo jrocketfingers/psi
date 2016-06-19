@@ -35,7 +35,7 @@ class HomeController extends Controller
         }
 
         if (Student::isStudent($id)){
-            return redirect()->to('students/show/' . $id);
+            return redirect()->action('StudentsController@index' , [$id]);
         }
 
         if (Assistant::isAssistant($id)){
