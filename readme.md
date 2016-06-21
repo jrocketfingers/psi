@@ -3,6 +3,9 @@
 ## Preparation
 Make sure you create a .env based on .env.example.
 
+## Prototype
+Prototype phase is found on the [psi-team-hub](https://github.com/jrocketfingers/psi-team-hub) repo.
+
 ## Development
 We're using docker, vagrant, and WAMP/LAMP stacks.
 
